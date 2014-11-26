@@ -1,11 +1,3 @@
-not_root:
-  icon: Critical
-  en:
-    title: Root privileges required
-    message:
-      <p><B>ERROR. This must be run as root!</B></p>
-      <p>Use a root file manager or "kdesudo" in a terminal.</p>
-
 whonixsetup:
   en:
     disclaimer1:
@@ -83,3 +75,25 @@ whonixsetup:
 
     reject:
       Not understood / Nicht verstanden
+
+not_root:
+  icon: Critical
+  button: Ok
+  position: center
+  en:
+    title: Root privileges required
+    message:
+      <p><B>ERROR. This must be run as root!</B></p>
+      <p>Use a root file manager or "kdesudo" in a terminal.</p>
+
+help1:
+  icon: Information
+  button: Ok
+  position: topleft
+  en:
+    title: Help Test
+    message:
+      <p><b>This is an information message box.</b></p>
+      <p>It is a modal dialog, therefore the user cannot perform a new wizard step before closing it.</p>
+      <p>TODO. Investigate if it is possible to create a modeless help dialog instead, which would have the added
+      advantage of clickable links, and more (user set width...).</p>
