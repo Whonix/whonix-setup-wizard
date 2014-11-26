@@ -6,15 +6,16 @@ Source: whonix-setup-wizard
 Section: misc
 Priority: optional
 Maintainer: troubadour <trobador@riseup.net>
+Uploaders: Patrick Schleizer <adrelanos@riseup.net>
 Build-Depends: debhelper (>= 8), config-package-dev (>=5), python (>= 2.6)
 Homepage: https://www.whonix.org/
-Vcs-Browser: https://github.com/troubadoour/whonix-repository-wizard
-Vcs-Git: https://github.com/troubadoour/whonix-repository-wizard.git
+Vcs-Browser: https://github.com/troubadoour/whonix-setup-wizard
+Vcs-Git: https://github.com/troubadoour/whonix-setup-wizard.git
 Standards-Version: 3.9.4
 
 Package: whonix-setup-wizard
 Architecture: all
-Depends: whonixsetup, menu, ${misc:Depends}, ${python:Depends}, python-yaml, guimessages
+Depends: whonixsetup, menu, ${misc:Depends}, ${python:Depends}, python-yaml, python-guimessages
 Recommends: anon-icon-pack
 Description: First Time Connection Setup
  When Whonix starts for the first time, it won't automatically connect to the

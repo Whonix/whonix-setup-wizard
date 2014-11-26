@@ -1,4 +1,3 @@
-#!/usr/bin/env xdg-open
 ## This file is part of Whonix.
 ## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
@@ -6,7 +5,7 @@
 [Desktop Entry]
 Type=Application
 Terminal=false
-Exec=kdesudo whonix-setup-wizard
+Exec=su-to-root -X -c whonix-setup-wizard
 Name=Whonix Setup - Whonix connection wizard
 GenericName=Whonix Setup
 Comment=Whonix Setup
