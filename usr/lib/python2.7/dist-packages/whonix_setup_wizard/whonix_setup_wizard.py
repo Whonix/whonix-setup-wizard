@@ -9,7 +9,7 @@ import yaml
 from guimessages.translations import _translations
 from guimessages.guimessage import gui_message
 
-tr_path ='/usr/lib/python2.7/dist-packages/whonixsetup/whonix_setup.yaml'
+tr_path ='/usr/lib/python2.7/dist-packages/whonix_setup_wizard/whonix_setup.yaml'
 
 wizard_steps = ['disclaimer_1',
                 'disclaimer_2',
@@ -259,9 +259,9 @@ class whonix_setup_wizard(QtGui.QWizard):
             self.button(QtGui.QWizard.HelpButton).setVisible(False)
 
     def HelpButton_clicked(self):
-        self.setEnabled(False)
-        help1 = gui_message(tr_path, 'help1')
-        self.setEnabled(True)
+        #self.setEnabled(False)
+        self.help1 = gui_message(tr_path, 'help1')
+        #self.setEnabled(True)
 
 
 def main():
