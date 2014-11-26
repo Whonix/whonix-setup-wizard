@@ -9,8 +9,8 @@ Maintainer: troubadour <trobador@riseup.net>
 Uploaders: Patrick Schleizer <adrelanos@riseup.net>
 Build-Depends: debhelper (>= 8), config-package-dev (>=5), python (>= 2.6)
 Homepage: https://www.whonix.org/
-Vcs-Browser: https://github.com/troubadoour/whonix-repository-wizard
-Vcs-Git: https://github.com/troubadoour/whonix-repository-wizard.git
+Vcs-Browser: https://github.com/troubadoour/whonix-setup-wizard
+Vcs-Git: https://github.com/troubadoour/whonix-setup-wizard.git
 Standards-Version: 3.9.4
 
 Package: whonix-setup-wizard
