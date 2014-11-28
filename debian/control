@@ -7,7 +7,8 @@ Section: misc
 Priority: optional
 Maintainer: troubadour <trobador@riseup.net>
 Uploaders: Patrick Schleizer <adrelanos@riseup.net>
-Build-Depends: debhelper (>= 8), config-package-dev (>=5), python (>= 2.6)
+Build-Depends: debhelper (>= 8), faketime, config-package-dev (>=5),
+ ruby-ronn (>= 0.7.3), python (>= 2.6)
 Homepage: https://www.whonix.org/
 Vcs-Browser: https://github.com/troubadoour/whonix-setup-wizard
 Vcs-Git: https://github.com/troubadoour/whonix-setup-wizard.git
