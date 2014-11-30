@@ -62,6 +62,9 @@ whonixsetup:
       <p>ENG. Whonix is produced independently of, with no guarantee from, The Tor Project.<br></br>
       GER. Whonix wurde unabhaengig von und ohne jegliche Garantien von The Tor Project hergestellt.</p>
 
+    accept: Understood / Verstanden
+    reject: Not understood / Nicht verstanden
+
     whonix_repository_page:
       <p>First boot!  Whonix Setup will run Whonix Repository Wizard.</p>
       <p>Click "Next" to start the wizard and finish Whonix Setup.</p>
@@ -70,11 +73,30 @@ whonixsetup:
       <p>Whonix Setup is completed.</p>
       <p>Click "Finish" to run whonixcheck.</p>
 
-    accept:
-      Understood / Verstanden
+    connection_text:
+      <p>Before we let Tor connect, we need to know about your Internet connection.</p>
+      <p>Which of the following applies to you?</p>
+      <p><i>Select an option and press "Help" for a brief description.</i></p>
+    enable_tor:
+      I am ready to enable Tor.
+    disable_tor:
+      I want to disable Tor.
+    censored_tor:
+      Tor is censored or dangerous in my area.
+    use_proxy:
+      I use proxy or firewall settings to connect to the internet.
 
-    reject:
-      Not understood / Nicht verstanden
+    tor_connected_1: 
+      <p>Tor is already enabled.</p>
+      <p>(line <i>"DisableNetwork 0"</i> in /etc/tor/torrc uncommented.)</p>
+      <hr></hr>
+      <p>File /etc/tor/torrc:</p>
+
+    tor_connected_2:
+      <p>Tor is now enabled.</p>
+      <p>(line <i>"DisableNetwork 0"</i> in /etc/tor/torrc uncommented.)</p>
+      <hr></hr>
+      <p>File /etc/tor/torrc:</p>
 
 not_root:
   icon: Critical
@@ -89,11 +111,16 @@ not_root:
 help1:
   icon: Information
   button: Ok
-  position: topleft
+  position: center
   en:
-    title: Help Test
+    title: Enable Tor
     message:
-      <p><b>This is an information message box.</b></p>
-      <p>It is a modal dialog, therefore the user cannot perform a new wizard step before closing it.</p>
-      <p>TODO. Investigate if it is possible to create a modeless help dialog instead, which would have the added
-      advantage of clickable links, and more (user set width...).</p>
+      <p>This option lets you connect to the public Tor network now.</p>
+      <p></p>
+      <p>By default, Tor does not try to hide the fact that you are using it. If this concerns you, select
+      "I want to disable Tor.".
+      Then, select the option "Tor is censored or dangerous in my area" and follow the instructions.</p>
+      <p>Ultimately, the best protection is a social approach. The more Tor users there are near you and the more
+      diverse their interests, the safer it will be to use it. Convince other people to use Tor!</p>
+      <p></p>
+      <p>Note. whonixsetup enables Tor networking by uncommenting "DisableNetwork 0" in /etc/tor/torrc.</p>
