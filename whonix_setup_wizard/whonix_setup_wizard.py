@@ -1,4 +1,3 @@
-
 #!/usr/bin/python
 
 """ WHONIX SETUP WIZARD """
@@ -243,7 +242,7 @@ class whonix_setup_wizard(QtGui.QWizard):
 
         self.setWindowIcon(QtGui.QIcon("/usr/share/icons/anon-icon-pack/whonix.ico"))
         self.setWindowTitle('Whonix Setup Wizard')
-        self.resize(760, 750)
+        self.resize(760, 770)
 
         # When run as root, Qt is not granted access to all its Qt4
         # functionalities (seemingly): the wizard background is white,
@@ -353,12 +352,12 @@ class whonix_setup_wizard(QtGui.QWizard):
         # A more "mormal" wizard size after the disclaimer pages.
         if (self.currentId() == self.steps.index('whonix_repo_page') or
             self.currentId() == self.steps.index('finish_page')):
-                self.resize(450, 350)
+                self.resize(450, 370)
                 self.center()
 
         if (self.env == 'gateway' and
             self.currentId() == self.steps.index('connection_page')):
-                self.resize(450, 355)
+                self.resize(450, 370)
                 self.center()
 
         if self.currentId() == self.steps.index('finish_page'):
@@ -399,7 +398,7 @@ class whonix_setup_wizard(QtGui.QWizard):
 
         if self.currentId() == self.steps.index('disclaimer_2'):
             # Back to disclaimer size.
-            self.resize(760, 750)
+            self.resize(760, 770)
             self.center()
             self.button(QtGui.QWizard.HelpButton).setVisible(False)
 
