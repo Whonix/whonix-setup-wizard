@@ -1,0 +1,126 @@
+whonixsetup:
+  en:
+    disclaimer1:
+      <p><b>ENG. Important Information About Whonix Part 1/2<br></br>
+      GER. Wichtige Informationen zu Whonix Teil 1/2</b></p>
+      <p>ENG. Please do NOT continue unless you understand everything!<br></br>
+      GER. Bitte NICHT weitermachen, falls Sie nicht alles verstehen!</p>
+      <p>ENG. Welcome to Whonix!<br></br>
+      GER. Willkommen zu Whonix!</p>
+      <p>ENG. This is not the usual blah blah blah but fact.<br></br>
+      GER. Dies ist kein blabla, sondern Fakt.</p>
+      <p>ENG. Whonix is experimental software. Do not rely on it for strong anonymity.<br></br>
+      GER. Whonix is experimentelle Software. Nicht darauf verlassen, wenn starke Anonymitaet benoetigt wird!</p>
+      <p>ENG. Whonix is created by volunteers in their spare time.<br></br>
+      GER. Whonix wurde von Freiwilligen in ihrer Freizeit erstellt.</p>
+      <p>ENG. Whonix was created by self-taught hobbyists in their spare time, without the backing of any particular formal certification or training.<br></br>
+      GER. Whonix wurde von Menschen erstellt, die sich die notwendigen Faehigkeiten um Whonix herzustellen als Hobby selbst beigebracht haben.
+      Eine formelle Ausbildung ist nicht vorhanden.</p>
+      <p>ENG. Although Whonix attempts to be as usable as possible, there are many ways in which it fails.<br></br>
+      GER. Obwohl Whonix das Ziel hat, so einfach wie moeglich benutzbar zu sein, ist es schwierig es zu benutzen ohne Fehler zu machen.</p>
+      <p>ENG. Whonix is in English. Do not use Whonix without excellent knowledge of the English language. Misunderstandings have consequences.<br></br>
+      GER. Ohne exzellentes Verstaendnis der Englischen Sprache wird davon abgeraten Whonix zu benutzen, weil Uebersetzngen nur zum Teil
+      verfuegbar sind und Missverstaendnisse Konsequenzen haben koennen.</p>
+      <p>ENG. Whonix is based on other software, including GNU/Linux, Debian, and VirtualBox.
+      Do not rely on Whonix without working knowledge of these technologies.<br></br>
+      GER. Ohne gute Kenntnisse ueber die involvierten Software Pakete (Debian, Linux, VirtualBox etc.) wird davon abgeraten Whonix zu benutzen,
+      weil Whonix auf diesen basiert.</p>
+      <p>ENG. Please do NOT continue unless you understand everything!<br></br>
+      GER. Bitte NICHT weitermachen, falls Sie nicht alles verstehen!</p>
+
+    disclaimer2:
+      <p><b>ENG. Important Information About Whonix Part 2/2<br></br>
+      GER. Wichtige Informationen zu Whonix Teil 2/2</b></p>
+      <p>ENG. The documentation available on Whonix.org is a crash course in anonymity, privacy, and security on the Internet.<br></br>
+      Whonix is a technological means to anonymity, but staying anonymous is not just a technological problem.
+      No tool is enough to keep you safe. Anonymity is a complex problem without an easy solution, and security is only as strong as
+      its weakest link, often the user. The more you know, the safer you can be.<br></br>
+      GER. Whonix documentation, verfuegbar auf Whonix.org ist ein Krashcours in Anonymitaet und Sicherheit im Internet.
+      Whonix ist ein technologisches Hilfsmittel fue Anonymitaet, jedoch anonym zu bleiben ist nicht nur ein technologisches Problem.
+      Keine software kann alleine leisten sicher zu sein. Anonymitaet ist ein komplexes Problem ohne einfache Loesung und die
+      Sicherheit der Kette ist nur so Stark wie das schwaechste Glied, welches oft der Benutzer ist. Je mehr Sie wissen,
+      desto sicherer koennen sie sein.</p>
+      <p>ENG. Whonix is a complication of software packages, each under its own license.<br></br>
+      GER. Whonix ist eine Zusammenstellung von Softwarepaketen. Jedes unter einer eigenen Lizenz.</p>
+      <p>ENG. The complication is made available under the terms of the GNU General Public License as published by the Free Software Foundation,
+      either version 3 of the License, or (at your option) any later version.<br></br>
+      GER. Die Zusammenstellung ist unter den Bedingungen der GNU General Public License, wie von der Free Software Foundation, Version 3
+      der Lizenz oder (nach Ihrer Wahl) jeder spaeteren veroeffentlichten Version.</p>
+      <p>ENG. The distribution terms for each program are described in/usr/share/doc/*/copyright.<br></br>
+      GER. Die Lizenzbedienungen fuer jedes einzelne Programm kann unter /usr/share/doc/*/copyright gefunden werden</p>
+      <p>ENG. The programs included with Whonix are Free Software.<br></br>
+      GER. Die Programme die mit Whonix kommen sind Freie Software.</p>
+      <p>ENG. Whonix is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY, without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE, to the extent permitted by applicable law. See the GNU General Public License
+      for more details.<br></br>
+      GER. Whonix wurde in der Hoffung hergestellt, dass Sie es nuetzlich finden. Haftung ist bis zum maximal Moeglichen der geltenden
+      Gesetze ausgeschlossen. Oder in anderen Worten, Haftung ist nur in soweit moeglich, wie diese per Gesetz nicht ausgeschlossen werden darf.</p>
+      <p>ENG. Whonix is free of charge.<br></br>
+      GER. Whonix ist kostenlos.</p>
+      <p>ENG. Whonix is a derivative of Debian GNU/Linux.<br></br>
+      GER. Whonix ist ein Derivativ von Debian GNU/Linux.</p>
+      <p>ENG. Whonix is produced independently of, with no guarantee from, The Tor Project.<br></br>
+      GER. Whonix wurde unabhaengig von und ohne jegliche Garantien von The Tor Project hergestellt.</p>
+
+    accept: Understood / Verstanden
+    reject: Not understood / Nicht verstanden
+
+    whonix_repository_page:
+      <p>First boot!  Whonix Setup will run Whonix Repository Wizard.</p>
+      <p>Click "Next" to start the wizard and finish Whonix Setup.</p>
+
+    finish_page:
+      <p>Whonix Setup is completed.</p>
+      <p>Click "Finish" to run whonixcheck.</p>
+
+    connection_text:
+      <p>Before we let Tor connect, we need to know about your Internet connection.</p>
+      <p>Which of the following applies to you?</p>
+      <p><i>Select an option and press "Help" for a brief description.</i></p>
+    enable_tor:
+      I am ready to enable Tor.
+    disable_tor:
+      I want to disable Tor.
+    censored_tor:
+      Tor is censored or dangerous in my area.
+    use_proxy:
+      I use proxy or firewall settings to connect to the internet.
+
+    tor_connected_1: 
+      <p>Tor is already enabled.</p>
+      <p>(line <i>"DisableNetwork 0"</i> in /etc/tor/torrc uncommented.)</p>
+      <hr></hr>
+      <p>File /etc/tor/torrc:</p>
+
+    tor_connected_2:
+      <p>Tor is now enabled.</p>
+      <p>(line <i>"DisableNetwork 0"</i> in /etc/tor/torrc uncommented.)</p>
+      <hr></hr>
+      <p>File /etc/tor/torrc:</p>
+
+not_root:
+  icon: Critical
+  button: Ok
+  position: center
+  en:
+    title: Root privileges required
+    message:
+      <p><B>ERROR. This must be run as root!</B></p>
+      <p>Use a root file manager or "kdesudo" in a terminal.</p>
+
+help1:
+  icon: Information
+  button: Ok
+  position: center
+  en:
+    title: Enable Tor
+    message:
+      <p>This option lets you connect to the public Tor network now.</p>
+      <p></p>
+      <p>By default, Tor does not try to hide the fact that you are using it. If this concerns you, select
+      "I want to disable Tor.".
+      Then, select the option "Tor is censored or dangerous in my area" and follow the instructions.</p>
+      <p>Ultimately, the best protection is a social approach. The more Tor users there are near you and the more
+      diverse their interests, the safer it will be to use it. Convince other people to use Tor!</p>
+      <p></p>
+      <p>Note. whonixsetup enables Tor networking by uncommenting "DisableNetwork 0" in /etc/tor/torrc.</p>

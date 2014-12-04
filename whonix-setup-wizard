@@ -1,0 +1,4 @@
+#!/usr/bin/python
+
+from whonix_setup_wizard import whonix_setup_wizard
+whonix_setup_wizard.main()
