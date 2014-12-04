@@ -113,7 +113,7 @@ class disclaimer_page_2(QtGui.QWizardPage):
                     return self.steps.index('connection_page')
                 elif self.env == 'workstation':
                     return self.steps.index('finish_page')
-        # Not understood 
+        # Not understood
         else:
             return self.steps.index('finish_page')
 
@@ -176,7 +176,7 @@ class tor_connected_page(QtGui.QWizardPage):
         self.text.setFrameShape(QtGui.QFrame.NoFrame)
         self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.torrc.setMinimumSize(0, 175)
-        
+
         self.torrc.setReadOnly(True)
 
         self.layout.addWidget(self.text)

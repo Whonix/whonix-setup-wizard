@@ -86,7 +86,7 @@ whonixsetup:
     use_proxy:
       I use proxy or firewall settings to connect to the internet.
 
-    tor_connected_1: 
+    tor_connected_1:
       <p>Tor is already enabled.</p>
       <p>(line <i>"DisableNetwork 0"</i> in /etc/tor/torrc uncommented.)</p>
       <hr></hr>
