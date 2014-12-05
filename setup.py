@@ -11,7 +11,7 @@ for root, dirs, files in os.walk(SHARE):
 
 setup(
     name='whonix-setup-wizard',
-    version='1.0',
+    version='1.1',
     description='Whonix setup wizard',
     author='troubadoour',
     author_email='trobador@riseup.net',
