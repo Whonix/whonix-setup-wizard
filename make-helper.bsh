@@ -4,7 +4,11 @@
 ## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
-## generic deb build script version 0.9x
+## generic deb build script version 1.0
+
+## This is a copy.
+## master location:
+## https://github.com/Whonix/Whonix/blob/master/make-helper.bsh
 
 make_parse_cmd() {
    ## Thanks to:
@@ -253,6 +257,11 @@ make_get_variables() {
    local temp dpkg_line
    command -v dpkg-parsechangelog >/dev/null
 
+   ## When using python setup.py packaging method, there is no debian folder,
+   ## because that folder gets only temporarily created. To be able to use
+   ## common code to parse debian/changelog and debian/control, we temporarily
+   ## create that debian folder. We must delete it later, otherwise setup.py
+   ## would complain about an existing debian folder.
    if [ -f "setup.py" ]; then
       if [ -d "debian" ]; then
          rm -r "debian"
@@ -344,6 +353,8 @@ make_get_variables() {
       make_upstream_tarball="${make_upstream_tarball,,}"
    fi
 
+   ## When using python setup.py packaging method, remove temporary debian
+   ## folder, that we created above.
    if [ -f "setup.py" ]; then
       if [ -d "debian" ]; then
          rm -r "debian"
@@ -553,7 +564,11 @@ make_deb-pkg_shared() {
       if [ "$DEBUILD_LINTIAN_OPTS" = "" ]; then
          export DEBUILD_LINTIAN_OPTS="--info --display-info --fail-on-warnings"
       fi
-      lintian $DEBUILD_LINTIAN_OPTS
+      if [ -f "setup.py" ]; then
+         lintian $DEBUILD_LINTIAN_OPTS "../$make_main_dsc_file_name"
+      else
+         lintian $DEBUILD_LINTIAN_OPTS
+      fi
    fi
 
    test -f "$make_main_deb_file"
