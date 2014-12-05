@@ -69,14 +69,10 @@ whonixsetup:
       <p>First boot!  Whonix Setup will run Whonix Repository Wizard.</p>
       <p>Click "Next" to start the wizard and finish Whonix Setup.</p>
 
-    finish_page:
-      <p>Whonix Setup is completed.</p>
-      <p>Click "Finish" to run whonixcheck.</p>
-
     connection_text:
       <p>Before we let Tor connect, we need to know about your Internet connection.</p>
       <p>Which of the following applies to you?</p>
-      <p><i>Select an option and press "Help" for a brief description.</i></p>
+      <p><i>Select an option and press "Help" for a short description.</i></p>
     enable_tor:
       I am ready to enable Tor.
     disable_tor:
@@ -86,17 +82,55 @@ whonixsetup:
     use_proxy:
       I use proxy or firewall settings to connect to the internet.
 
-    tor_connected_1:
-      <p>Tor is already enabled.</p>
-      <p>(line <i>"DisableNetwork 0"</i> in /etc/tor/torrc uncommented.)</p>
+    tor_enabled:
+      <p>Tor networking is enabled.</p>
+      <p>(<i>line</i> "DisableNetwork 0" <i> in /etc/tor/torrc was uncommented.)<i/></p>
       <hr></hr>
       <p>File /etc/tor/torrc:</p>
 
-    tor_connected_2:
-      <p>Tor is now enabled.</p>
-      <p>(line <i>"DisableNetwork 0"</i> in /etc/tor/torrc uncommented.)</p>
+    tor_already_enabled:
+      <p>Tor networking is already enabled.</p>
+      <p>(<i>line</i> "DisableNetwork 0" <i> in /etc/tor/torrc uncommented.)<i/></p>
       <hr></hr>
       <p>File /etc/tor/torrc:</p>
+
+    tor_disabled:
+      <p>Tor networking is disabled.</p>
+      <p>(<i>line</i> "DisableNetwork 0" <i> in /etc/tor/torrc was commented out.)<i/></p>
+      <hr></hr>
+      <p>File /etc/tor/torrc:</p>
+
+    tor_already_disabled:
+      <p>Tor networking is already disabled.</p>
+      <p>(<i>line</i> "DisableNetwork 0" <i> in /etc/tor/torrc commented out.)<i/></p>
+      <hr></hr>
+      <p>File /etc/tor/torrc:</p>
+
+    finish_page_ok:
+      <p>Whonix Setup is completed.</p>
+      <p>Click "Finish" to run whonixcheck.</p>
+
+    finish_disabled:
+      <p>Whonix Setup is completed, but Tor networking is disabled.</p>
+      <p>whonixcheck will <b>not</b> be run.</p>
+
+    something_wrong:
+      <p>Something is wrong with torrc!</p>
+      <p>Press "Next" and try and fix the problem as per the instructions, or as a last resort,
+      report a bug.</p>
+
+    no_torrc:
+      <p>The file "/etc/tor/torrc" does not exist. You can try to manually create it.</p>
+      <blockquote>sudo nano /etc/tor/torrc</blockquote>
+      <p>Add line containing only "DisableNetwork 0" (without the quotes),
+      ans re-run Whonix Setup.</p>
+
+    bad_torrc:
+      <p>The line "DisableNetwork 0" does not existin "/etc/tor/torrc".
+      You can try to manually edit the file.</p>
+      <blockquote>sudo nano /etc/tor/torrc</blockquote>
+      <p>Add line containing only "DisableNetwork 0" (without the quotes),
+      ans re-run Whonix Setup.</p>
 
 not_root:
   icon: Critical
@@ -123,4 +157,6 @@ help1:
       <p>Ultimately, the best protection is a social approach. The more Tor users there are near you and the more
       diverse their interests, the safer it will be to use it. Convince other people to use Tor!</p>
       <p></p>
-      <p>Note. whonixsetup enables Tor networking by uncommenting "DisableNetwork 0" in /etc/tor/torrc.</p>
+      <p>Note. whonixsetup enables Tor networking by uncommenting "DisableNetwork 0" in /etc/tor/torrc.
+      There is no need to this multiple times, and it is probably not the cause of network problems.
+      You can manually check if "DisableNetwork 0" is uncommented in /etc/tor/torrc.</p>
