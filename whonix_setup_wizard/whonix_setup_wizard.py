@@ -500,11 +500,15 @@ class whonix_setup_wizard(QtGui.QWizard):
             self.button(QtGui.QWizard.HelpButton).setVisible(False)
 
     def HelpButton_clicked(self):
-        # no help button in Workstation.
-        if self.env == 'gateway':
-            self.setEnabled(False)
+        self.setEnabled(False)
+
+        if self.connection_page.enable.isChecked():
             help_text = gui_message(common.translations_path, 'help1')
-            self.setEnabled(True)
+
+        elif self.connection_page.disable.isChecked():
+            help_text = gui_message(common.translations_path, 'help2')
+
+        self.setEnabled(True)
 
 
 def main():

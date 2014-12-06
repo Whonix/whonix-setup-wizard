@@ -147,7 +147,7 @@ help1:
   button: Ok
   position: center
   en:
-    title: Enable Tor
+    title: Enable Tor networking
     message:
       <p>This option lets you connect to the public Tor network now.</p>
       <p></p>
@@ -158,5 +158,13 @@ help1:
       diverse their interests, the safer it will be to use it. Convince other people to use Tor!</p>
       <p></p>
       <p>Note. whonixsetup enables Tor networking by uncommenting "DisableNetwork 0" in /etc/tor/torrc.
-      There is no need to this multiple times, and it is probably not the cause of network problems.
-      You can manually check if "DisableNetwork 0" is uncommented in /etc/tor/torrc.</p>
+
+help2:
+  icon: Information
+  button: Ok
+  position: center
+  en:
+    title: Disable Tor networking
+    message:
+      <p>This option will disable Tor networking.</p>
+      <p>It should be used in case you want blah blah...</p>
