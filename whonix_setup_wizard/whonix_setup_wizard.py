@@ -131,6 +131,9 @@ class connection_page(QtGui.QWizardPage):
     def __init__(self):
         super(connection_page, self).__init__()
 
+        translation = _translations(common.translations_path, 'whonixsetup')
+        self._ = translation.gettext
+
         self.common = common()
         self.steps = self.common.wizard_steps
         self.env = self.common.environment
@@ -153,9 +156,15 @@ class connection_page(QtGui.QWizardPage):
         self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
 
         self.connection_group.setMinimumSize(0, 100)
+
         self.enable.setGeometry(QtCore.QRect(30, 10, 400, 21))
+        self.enable.setToolTip(self._('tooltip_1'))
+
         self.disable.setGeometry(QtCore.QRect(30, 30, 400, 21))
+        self.disable.setToolTip(self._('tooltip_2'))
+
         self.censored.setGeometry(QtCore.QRect(30, 50, 400, 21))
+
         self.use_proxy.setGeometry(QtCore.QRect(30, 70, 400, 21))
 
         self.enable.setChecked(True)
@@ -166,27 +175,6 @@ class connection_page(QtGui.QWizardPage):
         self.layout.addWidget(self.connection_group)
         self.setLayout(self.layout)
 
-    #def nextId(self):
-    #    return self.steps.index('tor_status_page')
-        # The pages text is set in the wizard nextId,
-        # according to common.tor_status.
-        """
-        if self.enable.isChecked():
-            common.tor_status = tor_status.set_enabled()
-            if (common.tor_status == 'tor_enabled' or
-                common.tor_status == 'tor_already_enabled'):
-                    return self.steps.index('tor_status_page')
-            else:
-                return self.steps.index('finish_page')
-
-        elif self.disable.isChecked():
-            common.tor_status = tor_status.set_disabled()
-            if (common.tor_status == 'tor_disabled' or
-                common.tor_status == 'tor_already_disabled'):
-                    return self.steps.index('tor_status_page')
-            else:
-                return self.steps.index('finish_page')
-        """
 
 class tor_status_page(QtGui.QWizardPage):
     def __init__(self):
@@ -314,11 +302,11 @@ class whonix_setup_wizard(QtGui.QWizard):
 
     def setupUi(self):
         try:
-            self.disclaimer_1.text.setText(self._('disclaimer1'))
+            self.disclaimer_1.text.setText(self._('disclaimer_1'))
             self.disclaimer_1.yes_button.setText(self._('accept'))
             self.disclaimer_1.no_button.setText(self._('reject'))
 
-            self.disclaimer_2.text.setText(self._('disclaimer2'))
+            self.disclaimer_2.text.setText(self._('disclaimer_2'))
             self.disclaimer_2.yes_button.setText(self._('accept'))
             self.disclaimer_2.no_button.setText(self._('reject'))
 
@@ -335,13 +323,11 @@ class whonix_setup_wizard(QtGui.QWizard):
         except (yaml.scanner.ScannerError, yaml.parser.ParserError):
             pass
 
-        self.setOption(QtGui.QWizard.HaveHelpButton, True)
-        self.button(QtGui.QWizard.HelpButton).setVisible(False)
+        #self.setOption(QtGui.QWizard.HaveHelpButton, True)
         self.button(QtGui.QWizard.CancelButton).setVisible(False)
 
         self.button(QtGui.QWizard.BackButton).clicked.connect(self.BackButton_clicked)
         self.button(QtGui.QWizard.NextButton).clicked.connect(self.NextButton_clicked)
-        self.button(QtGui.QWizard.HelpButton).clicked.connect(self.HelpButton_clicked)
 
         self.exec_()
 
@@ -365,16 +351,6 @@ class whonix_setup_wizard(QtGui.QWizard):
         the corresponding button.
         Options (like button states, window size changes...) are set here.
         """
-        if self.env == 'gateway':
-            # help only on gateway wizard.
-            if self.currentId() == self.steps.index('connection_page'):
-                self.button(QtGui.QWizard.HelpButton).setVisible(True)
-            #if self.currentId() == self.steps.index('tor_status_page'):
-            #    self.button(QtGui.QWizard.HelpButton).setVisible(False)
-
-        if self.currentId() == self.steps.index('whonix_repo_page'):
-            self.button(QtGui.QWizard.HelpButton).setVisible(False)
-
         # A more "mormal" wizard size after the disclaimer pages.
         if (self.currentId() == self.steps.index('whonix_repo_page') or
             self.currentId() == self.steps.index('finish_page')):
@@ -387,7 +363,6 @@ class whonix_setup_wizard(QtGui.QWizard):
                 self.center()
 
             if self.currentId() == self.steps.index('tor_status_page'):
-                self.button(QtGui.QWizard.HelpButton).setVisible(False)
                 if self.connection_page.enable.isChecked():
 
                     QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
@@ -432,7 +407,6 @@ class whonix_setup_wizard(QtGui.QWizard):
             # for whonixcheck.
             common.is_complete = True
 
-            self.button(QtGui.QWizard.HelpButton).setVisible(False)
             print common.tor_status
 
             if common.run_repo:
@@ -489,26 +463,10 @@ class whonix_setup_wizard(QtGui.QWizard):
     def BackButton_clicked(self):
         common.is_complete = False
 
-        if (self.env == 'gateway' and
-            self.currentId() == self.steps.index('connection_page')):
-                self.button(QtGui.QWizard.HelpButton).setVisible(True)
-
         if self.currentId() == self.steps.index('disclaimer_2'):
             # Back to disclaimer size.
             self.resize(760, 770)
             self.center()
-            self.button(QtGui.QWizard.HelpButton).setVisible(False)
-
-    def HelpButton_clicked(self):
-        self.setEnabled(False)
-
-        if self.connection_page.enable.isChecked():
-            help_text = gui_message(common.translations_path, 'help1')
-
-        elif self.connection_page.disable.isChecked():
-            help_text = gui_message(common.translations_path, 'help2')
-
-        self.setEnabled(True)
 
 
 def main():
