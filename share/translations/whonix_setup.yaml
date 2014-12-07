@@ -139,9 +139,8 @@ whonixsetup:
         tooltip_1:
             <p>This option lets you connect to the public Tor network now.</p>
             <p></p>
-            <p>By default, Tor does not try to hide the fact that you are using it. If this concerns you, select
-            "I want to disable Tor.".
-            Then, select the option "Tor is censored or dangerous in my area" and follow the instructions.</p>
+            <p>By default, Tor does not try to hide the fact that you are using it. If this concerns you, read
+            the instructions from the  option "Tor is censored or dangerous in my area" and select it.</p>
             <p>Ultimately, the best protection is a social approach. The more Tor users there are near you and the more
             diverse their interests, the safer it will be to use it. Convince other people to use Tor!</p>
             <p></p>
