@@ -354,12 +354,12 @@ class whonix_setup_wizard(QtGui.QWizard):
         # A more "mormal" wizard size after the disclaimer pages.
         if (self.currentId() == self.steps.index('whonix_repo_page') or
             self.currentId() == self.steps.index('finish_page')):
-                self.resize(450, 370)
+                self.resize(580, 370)
                 self.center()
 
         if self.env == 'gateway':
             if self.currentId() == self.steps.index('connection_page'):
-                self.resize(450, 370)
+                self.resize(580, 370)
                 self.center()
 
             if self.currentId() == self.steps.index('tor_status_page'):
