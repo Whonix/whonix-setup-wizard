@@ -69,6 +69,11 @@ whonixsetup:
             <p>First boot!  Whonix Setup will run Whonix Repository Wizard.</p>
             <p>Click "Next" to start the wizard and finish Whonix Setup.</p>
 
+        repository_wizard_not_found:
+            <p>First boot! Whonix Repository Wizard should be run, but is not installed. It looks like
+            Whonix Gateway is not fully installed!</p>
+            <p>Click "Next" to finish Whonix Setup.</p>
+
         connection_text:
             <p>Before we let Tor connect, we need to know about your Internet connection.</p>
             <p>Which of the following applies to you?</p>
@@ -126,15 +131,15 @@ whonixsetup:
         no_torrc:
             <p>The file "/etc/tor/torrc" does not exist. You can try to manually create it.</p>
             <blockquote>sudo nano /etc/tor/torrc</blockquote>
-            <p>Add line containing only "DisableNetwork 0" (without the quotes),
-            ans re-run Whonix Setup.</p>
+            <p>Add a line containing only "DisableNetwork 0" (without the quotes),
+            and re-run Whonix Setup.</p>
 
         bad_torrc:
-            <p>The line "DisableNetwork 0" does not existin "/etc/tor/torrc".
+            <p>The line "DisableNetwork 0" does not exist in "/etc/tor/torrc".
             You can try to manually edit the file.</p>
             <blockquote>sudo nano /etc/tor/torrc</blockquote>
             <p>Add line containing only "DisableNetwork 0" (without the quotes),
-            ans re-run Whonix Setup.</p>
+            and re-run Whonix Setup.</p>
 
         tooltip_1:
             <p>This option lets you connect to the public Tor network now.</p>

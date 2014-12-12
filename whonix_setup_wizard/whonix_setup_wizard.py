@@ -122,7 +122,7 @@ class disclaimer_page_2(QtGui.QWizardPage):
                     return self.steps.index('connection_page')
                 elif self.env == 'workstation':
                     return self.steps.index('finish_page')
-        # Not understood 
+        # Not understood
         else:
             return self.steps.index('finish_page')
 
@@ -317,7 +317,6 @@ class whonix_setup_wizard(QtGui.QWizard):
                 self.connection_page.censored.setText(self._('censored_tor'))
                 self.connection_page.use_proxy.setText(self._('use_proxy'))
 
-            self.whonix_repo_page.text.setText(self._('whonix_repository_page'))
             self.finish_page.text.setText(self._('finish_page_ok'))
 
         except (yaml.scanner.ScannerError, yaml.parser.ParserError):
@@ -402,6 +401,14 @@ class whonix_setup_wizard(QtGui.QWizard):
                     else:
                         self.tor_status_page.torrc.setFrameShape(QtGui.QFrame.NoFrame)
                         self.tor_status_page.text.setText(self._('something_wrong'))
+
+        if self.currentId() == self.steps.index('whonix_repo_page'):
+            if os.path.exists('/usr/bin/whonix-repository-wizard'):
+                self.whonix_repo_page.text.setText(self._('whonix_repository_page'))
+
+            else:
+                run_repo = False
+                self.whonix_repo_page.text.setText(self._('repository_wizard_not_found'))
 
         if self.currentId() == self.steps.index('finish_page'):
             # for whonixcheck.
