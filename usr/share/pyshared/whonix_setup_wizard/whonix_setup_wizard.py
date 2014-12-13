@@ -259,26 +259,6 @@ class whonix_setup_wizard(QtGui.QWizard):
         translation = _translations(common.translations_path, 'whonixsetup')
         self._ = translation.gettext
 
-        self.setWindowIcon(QtGui.QIcon("/usr/share/icons/anon-icon-pack/whonix.ico"))
-        self.setWindowTitle('Whonix Setup Wizard')
-        self.resize(760, 770)
-
-        # When run as root, Qt is not granted access to all its Qt4
-        # functionalities (seemingly): the wizard background is white,
-        # "old style" buttons...
-        # Set a transparent (default dialog) background for the widget.
-        palette = QtGui.QPalette()
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 0))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 0))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
-        brush = QtGui.QBrush(QtGui.QColor(244, 244, 244))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
-        self.setPalette(palette)
-
         self.disclaimer_1 = disclaimer_page_1()
         self.addPage(self.disclaimer_1)
 
@@ -301,6 +281,24 @@ class whonix_setup_wizard(QtGui.QWizard):
         self.setupUi()
 
     def setupUi(self):
+        self.setWindowIcon(QtGui.QIcon("/usr/share/icons/anon-icon-pack/whonix.ico"))
+        self.setWindowTitle('Whonix Setup Wizard')
+        self.resize(760, 770)
+
+        # We use QTextBrowser with a white background.
+        # Set a default (transparent) background.
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(244, 244, 244))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        self.setPalette(palette)
+
         try:
             self.disclaimer_1.text.setText(self._('disclaimer_1'))
             self.disclaimer_1.yes_button.setText(self._('accept'))
@@ -316,8 +314,6 @@ class whonix_setup_wizard(QtGui.QWizard):
                 self.connection_page.disable.setText(self._('disable_tor'))
                 self.connection_page.censored.setText(self._('censored_tor'))
                 self.connection_page.use_proxy.setText(self._('use_proxy'))
-
-            self.finish_page.text.setText(self._('finish_page_ok'))
 
         except (yaml.scanner.ScannerError, yaml.parser.ParserError):
             pass
