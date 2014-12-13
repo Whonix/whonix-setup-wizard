@@ -155,6 +155,44 @@ whonixsetup:
             <p>This option will disable Tor networking.</p>
             <p>It should be used in case you want blah blah...</p>
 
+        tooltip_3:
+            <p><b>The bridges option is not available yet. You must configure Tor manually.</b></p>
+            <p>Less sophisticated censors prevent users from accessing the Tor network by blocking connections to known relays.
+            "Bridge relays" help these users access Tor by not being in the same public lists as normal relays.
+            Sophisticated censors can only be circumvented with private obfuscated bridges.
+            Because there is NOT a 100%  way to hide Tor, Whonix does NOT recommend using Tor if you fear detection.</p>
+
+            <p><i><b>Configure Whonix to Use a Bridge.</b></i><br></br>
+            You must manually find and add the bridges to /etc/tor/torrc.<br></br>
+            You can open /etc/tor/torrc in the terminal&#58; </p>
+            <blockquote>sudo nano /etc/tor/torrc</blockquote>
+            <p>Or, if you are using a graphical Whonix-Gateway&#58; </p>
+            <blockquote>Start Menu -> Applications -> /etc/tor/torrc</blockquote>
+            <p>After you have finished, run whonixsetup again.</p>
+
+            <p><i><b>Configure Whonix to a Use a VPN.</b></i><br></br>
+            Where Tor is censored but VPNs are allowed, you can hide your Tor connection inside a VPN connection.
+            To the censors, your internet traffic will look like an encrypted VPN connection. The VPN will then send your
+            Tor traffic onward to the first Tor relay.</p>
+            <p>If you are using Whonix-Gateway inside VirtualBox, configure your VPN software inside the host operating system.
+            Your VPN provider will have instructions for you to follow and possibly custom software to help you connect.</p>
+            <p>However, you MUST configure your VPN software (whether custom or built into your operating system) to send
+            all internet traffic through the VPN connection, and you MUST configure your VPN software to block all internet
+            traffic if the VPN is suddenly disconnected. Additionally, you MUST NOT chose PPTP as your encryption even if
+            your VPN allows it. Improperly configured VPN software will reveal your Tor connection to the censors.</p>
+            <p>Whonix recommends a VPN provider who is serious about privacy and is outside the reach of your censors.</p>
+
+
+        tooltip_4:
+            <p>You must manually edit /etc/tor/torrc for Tor to navigate through your firewall or proxy.</p>
+            You can open /etc/tor/torrc in the terminal</p>
+            <blockquote>sudo nano /etc/tor/torrc</blockquote>
+            <p>Or on the desktop&#58; </p>
+            <blockquote>Start Menu -> Applications -> /etc/tor/torrc</blockquote>
+            Or, if you are using a graphical Whonix-Gateway&#58; </p>
+            <blockquote>Start Menu -> Applications -> /etc/tor/torrc</blockquote>
+            <p>After you have finished editing, run whonixsetup again.</p>
+
 not_root:
     icon: Critical
     button: Ok

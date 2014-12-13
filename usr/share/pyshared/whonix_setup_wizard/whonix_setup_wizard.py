@@ -164,12 +164,12 @@ class connection_page(QtGui.QWizardPage):
         self.disable.setToolTip(self._('tooltip_2'))
 
         self.censored.setGeometry(QtCore.QRect(30, 50, 400, 21))
+        self.censored.setToolTip(self._('tooltip_3'))
 
         self.use_proxy.setGeometry(QtCore.QRect(30, 70, 400, 21))
+        self.use_proxy.setToolTip(self._('tooltip_4'))
 
         self.enable.setChecked(True)
-        self.censored.setEnabled(False)
-        self.use_proxy.setEnabled(False)
 
         self.layout.addWidget(self.text)
         self.layout.addWidget(self.connection_group)
@@ -324,7 +324,22 @@ class whonix_setup_wizard(QtGui.QWizard):
         self.button(QtGui.QWizard.BackButton).clicked.connect(self.BackButton_clicked)
         self.button(QtGui.QWizard.NextButton).clicked.connect(self.NextButton_clicked)
 
+        # Temporary workaround.
+        # The pluggable transports are not implemented yet, but we want to
+        # be able to display the tooltips for censored and proxy. For this,
+        # the options must be enabled, but the slot will disable the Next
+        # button if either is checked.
+        self.connection_page.censored.toggled.connect(self.next_button_state)
+        self.connection_page.use_proxy.toggled.connect(self.next_button_state)
+
         self.exec_()
+
+    # called by button toggled signal.
+    def next_button_state(self, state):
+        if state:
+            self.button(QtGui.QWizard.NextButton).setEnabled(False)
+        else:
+            self.button(QtGui.QWizard.NextButton).setEnabled(True)
 
     def center(self):
         """ After the window is resized, its origin point becomes the
