@@ -164,12 +164,12 @@ class connection_page(QtGui.QWizardPage):
         self.disable.setToolTip(self._('tooltip_2'))
 
         self.censored.setGeometry(QtCore.QRect(30, 50, 400, 21))
+        self.censored.setToolTip(self._('tooltip_3'))
 
         self.use_proxy.setGeometry(QtCore.QRect(30, 70, 400, 21))
+        self.use_proxy.setToolTip(self._('tooltip_4'))
 
         self.enable.setChecked(True)
-        self.censored.setEnabled(False)
-        self.use_proxy.setEnabled(False)
 
         self.layout.addWidget(self.text)
         self.layout.addWidget(self.connection_group)
@@ -259,26 +259,6 @@ class whonix_setup_wizard(QtGui.QWizard):
         translation = _translations(common.translations_path, 'whonixsetup')
         self._ = translation.gettext
 
-        self.setWindowIcon(QtGui.QIcon("/usr/share/icons/anon-icon-pack/whonix.ico"))
-        self.setWindowTitle('Whonix Setup Wizard')
-        self.resize(760, 770)
-
-        # When run as root, Qt is not granted access to all its Qt4
-        # functionalities (seemingly): the wizard background is white,
-        # "old style" buttons...
-        # Set a transparent (default dialog) background for the widget.
-        palette = QtGui.QPalette()
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 0))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 0))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
-        brush = QtGui.QBrush(QtGui.QColor(244, 244, 244))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
-        self.setPalette(palette)
-
         self.disclaimer_1 = disclaimer_page_1()
         self.addPage(self.disclaimer_1)
 
@@ -301,6 +281,24 @@ class whonix_setup_wizard(QtGui.QWizard):
         self.setupUi()
 
     def setupUi(self):
+        self.setWindowIcon(QtGui.QIcon("/usr/share/icons/anon-icon-pack/whonix.ico"))
+        self.setWindowTitle('Whonix Setup Wizard')
+        self.resize(760, 770)
+
+        # We use QTextBrowser with a white background.
+        # Set a default (transparent) background.
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(244, 244, 244))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        self.setPalette(palette)
+
         try:
             self.disclaimer_1.text.setText(self._('disclaimer_1'))
             self.disclaimer_1.yes_button.setText(self._('accept'))
@@ -317,8 +315,6 @@ class whonix_setup_wizard(QtGui.QWizard):
                 self.connection_page.censored.setText(self._('censored_tor'))
                 self.connection_page.use_proxy.setText(self._('use_proxy'))
 
-            self.finish_page.text.setText(self._('finish_page_ok'))
-
         except (yaml.scanner.ScannerError, yaml.parser.ParserError):
             pass
 
@@ -328,7 +324,22 @@ class whonix_setup_wizard(QtGui.QWizard):
         self.button(QtGui.QWizard.BackButton).clicked.connect(self.BackButton_clicked)
         self.button(QtGui.QWizard.NextButton).clicked.connect(self.NextButton_clicked)
 
+        # Temporary workaround.
+        # The pluggable transports are not implemented yet, but we want to
+        # be able to display the tooltips for censored and proxy. For this,
+        # the options must be enabled, but the slot will disable the Next
+        # button if either is checked.
+        self.connection_page.censored.toggled.connect(self.next_button_state)
+        self.connection_page.use_proxy.toggled.connect(self.next_button_state)
+
         self.exec_()
+
+    # called by button toggled signal.
+    def next_button_state(self, state):
+        if state:
+            self.button(QtGui.QWizard.NextButton).setEnabled(False)
+        else:
+            self.button(QtGui.QWizard.NextButton).setEnabled(True)
 
     def center(self):
         """ After the window is resized, its origin point becomes the
