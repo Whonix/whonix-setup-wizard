@@ -329,13 +329,13 @@ class whonix_setup_wizard(QtGui.QWizard):
         # be able to display the tooltips for censored and proxy. For this,
         # the options must be enabled, but the slot will disable the Next
         # button if either is checked.
-        self.connection_page.censored.toggled.connect(self.next_button_state)
-        self.connection_page.use_proxy.toggled.connect(self.next_button_state)
+        self.connection_page.censored.toggled.connect(self.set_next_button_state)
+        self.connection_page.use_proxy.toggled.connect(self.set_next_button_state)
 
         self.exec_()
 
     # called by button toggled signal.
-    def next_button_state(self, state):
+    def set_next_button_state(self, state):
         if state:
             self.button(QtGui.QWizard.NextButton).setEnabled(False)
         else:
@@ -371,6 +371,13 @@ class whonix_setup_wizard(QtGui.QWizard):
             if self.currentId() == self.steps.index('connection_page'):
                 self.resize(580, 370)
                 self.center()
+
+                # Set Next button state
+                if (self.connection_page.censored.isChecked() or
+                    self.connection_page.use_proxy.isChecked()):
+                        self.button(QtGui.QWizard.NextButton).setEnabled(False)
+                else:
+                    self.button(QtGui.QWizard.NextButton).setEnabled(True)
 
             if self.currentId() == self.steps.index('tor_status_page'):
                 if self.connection_page.enable.isChecked():
@@ -418,14 +425,12 @@ class whonix_setup_wizard(QtGui.QWizard):
                 self.whonix_repo_page.text.setText(self._('whonix_repository_page'))
 
             else:
-                run_repo = False
+                common.run_repo = False
                 self.whonix_repo_page.text.setText(self._('repository_wizard_not_found'))
 
         if self.currentId() == self.steps.index('finish_page'):
             # for whonixcheck.
             common.is_complete = True
-
-            print common.tor_status
 
             if common.run_repo:
                 common.run_repo = False
