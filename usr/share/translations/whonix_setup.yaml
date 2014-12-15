@@ -163,8 +163,11 @@ whonixsetup:
             Because there is NOT a 100%  way to hide Tor, Whonix does NOT recommend using Tor if you fear detection.</p>
 
             <p><i><b>Configure Whonix to Use a Bridge.</b></i><br></br>
-            You must manually find and add the bridges to /etc/tor/torrc.
-            <blockquote>Start Menu -> Applications -> Torrc</blockquote>
+            You must manually find and add the bridges to /etc/tor/torrc.<br></br>
+            You can open /etc/tor/torrc in the terminal&#58; </p>
+            <blockquote>sudo nano /etc/tor/torrc</blockquote>
+            <p>Or, if you are using a graphical Whonix-Gateway&#58; </p>
+            <blockquote>Start Menu -> Applications -> /etc/tor/torrc</blockquote>
             <p>After you have finished, run whonixsetup again.</p>
 
             <p><i><b>Configure Whonix to a Use a VPN.</b></i><br></br>
@@ -182,7 +185,12 @@ whonixsetup:
 
         tooltip_4:
             <p>You must manually edit /etc/tor/torrc for Tor to navigate through your firewall or proxy.</p>
-            <blockquote>Start Menu -> Applications -> Torrc</blockquote>
+            You can open /etc/tor/torrc in the terminal</p>
+            <blockquote>sudo nano /etc/tor/torrc</blockquote>
+            <p>Or on the desktop&#58; </p>
+            <blockquote>Start Menu -> Applications -> /etc/tor/torrc</blockquote>
+            Or, if you are using a graphical Whonix-Gateway&#58; </p>
+            <blockquote>Start Menu -> Applications -> /etc/tor/torrc</blockquote>
             <p>After you have finished editing, run whonixsetup again.</p>
 
 not_root:
