@@ -27,9 +27,9 @@ class common():
 
     tor_status = ''
 
-    repository_only = False
+    argument = sys.argv[1]
 
-    if sys.argv[1] == 'setup':
+    if argument == 'setup':
         if os.path.exists('/usr/share/anon-gw-base-files'):
             environment = 'gateway'
             wizard_steps = ['disclaimer_1',
@@ -52,8 +52,7 @@ class common():
                             'repository_wizard_finish',
                             'finish_page']
 
-    elif sys.argv[1] == 'repository':
-        repository_only = True
+    elif argument == 'repository':
         wizard_steps = ['repository_wizard_page_1',
                         'repository_wizard_page_2',
                         'repository_wizard_finish']
@@ -379,7 +378,7 @@ class whonix_setup_wizard(QtGui.QWizard):
         self.steps = self.common.wizard_steps
         #self.env = self.common.environment
 
-        if common.repository_only:
+        if common.argument == 'repository':
             self.repository_wizard_page_1 = repository_wizard_page_1()
             self.addPage(self.repository_wizard_page_1)
 
@@ -389,7 +388,7 @@ class whonix_setup_wizard(QtGui.QWizard):
             self.repository_wizard_finish = repository_wizard_finish()
             self.addPage(self.repository_wizard_finish)
 
-        else:
+        elif common.argument == 'setup':
             self.env = self.common.environment
 
             self.disclaimer_1 = disclaimer_page_1()
@@ -425,7 +424,7 @@ class whonix_setup_wizard(QtGui.QWizard):
     def setupUi(self):
         self.setWindowIcon(QtGui.QIcon("/usr/share/icons/anon-icon-pack/whonix.ico"))
         self.setWindowTitle('Whonix Setup Wizard')
-        if not common.repository_only:
+        if common.argument == 'setup':
             self.resize(760, 770)
         else:
             self.resize(580, 370)
@@ -445,7 +444,7 @@ class whonix_setup_wizard(QtGui.QWizard):
         self.setPalette(palette)
 
         try:
-            if not common.repository_only:
+            if common.argument == 'setup':
                 self.disclaimer_1.text.setText(self._('disclaimer_1'))
                 self.disclaimer_1.yes_button.setText(self._('accept'))
                 self.disclaimer_1.no_button.setText(self._('reject'))
@@ -481,7 +480,7 @@ class whonix_setup_wizard(QtGui.QWizard):
         # be able to display the tooltips for censored and proxy. For this,
         # the options must be enabled, but the slot will disable the Next
         # button if either is checked.
-        if not common.repository_only:
+        if common.argument == 'setup':
             self.connection_page.censored.toggled.connect(self.set_next_button_state)
             self.connection_page.use_proxy.toggled.connect(self.set_next_button_state)
 
@@ -515,7 +514,7 @@ class whonix_setup_wizard(QtGui.QWizard):
         Options (like button states, window size changes...) are set here.
         """
 
-        if not common.repository_only:
+        if common.argument == 'setup':
             # A more "mormal" wizard size after the disclaimer pages.
             if (self.currentId() == self.steps.index('whonix_repo_page') or
                 self.currentId() == self.steps.index('finish_page')):
@@ -629,7 +628,7 @@ class whonix_setup_wizard(QtGui.QWizard):
                 whonixsetup_done = open('/var/lib/whonix/do_once/whonixsetup.done', 'w')
                 whonixsetup_done.close()
 
-        if not common.repository_only:
+        if common.argument == 'setup':
             if self.currentId() == self.steps.index('finish_page'):
                 # for whonixcheck.
                 common.is_complete = True
@@ -682,7 +681,7 @@ class whonix_setup_wizard(QtGui.QWizard):
     def BackButton_clicked(self):
         common.is_complete = False
 
-        if not common.repository_only:
+        if common.argument == 'setup':
             if self.currentId() == self.steps.index('disclaimer_2'):
                 # Back to disclaimer size.
                 self.resize(760, 770)
@@ -692,10 +691,6 @@ class whonix_setup_wizard(QtGui.QWizard):
 def main():
     #import sys
     app = QtGui.QApplication(sys.argv)
-
-    if sys.argv[1] == 'repository':
-        print 'sddgsd'
-        common.repository_only = True
 
     # root check.
     if os.getuid() != 0:
