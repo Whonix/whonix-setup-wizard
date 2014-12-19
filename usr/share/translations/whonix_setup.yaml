@@ -163,8 +163,11 @@ whonixsetup:
             Because there is NOT a 100%  way to hide Tor, Whonix does NOT recommend using Tor if you fear detection.</p>
 
             <p><i><b>Configure Whonix to Use a Bridge.</b></i><br></br>
-            You must manually find and add the bridges to /etc/tor/torrc.
-            <blockquote>Start Menu -> Applications -> Torrc</blockquote>
+            You must manually find and add the bridges to /etc/tor/torrc.<br></br>
+            You can open /etc/tor/torrc in the terminal&#58; </p>
+            <blockquote>sudo nano /etc/tor/torrc</blockquote>
+            <p>Or, if you are using a graphical Whonix-Gateway&#58; </p>
+            <blockquote>Start Menu -> Applications -> /etc/tor/torrc</blockquote>
             <p>After you have finished, run whonixsetup again.</p>
 
             <p><i><b>Configure Whonix to a Use a VPN.</b></i><br></br>
@@ -182,8 +185,39 @@ whonixsetup:
 
         tooltip_4:
             <p>You must manually edit /etc/tor/torrc for Tor to navigate through your firewall or proxy.</p>
-            <blockquote>Start Menu -> Applications -> Torrc</blockquote>
+            You can open /etc/tor/torrc in the terminal</p>
+            <blockquote>sudo nano /etc/tor/torrc</blockquote>
+            <p>Or on the desktop&#58; </p>
+            <blockquote>Start Menu -> Applications -> /etc/tor/torrc</blockquote>
+            Or, if you are using a graphical Whonix-Gateway&#58; </p>
+            <blockquote>Start Menu -> Applications -> /etc/tor/torrc</blockquote>
             <p>After you have finished editing, run whonixsetup again.</p>
+
+        repo_page_1:
+            <p><B>Automatically install updates from the Whonix team?</B></p>
+            <p>Whonix News (via whonixcheck) will notify you of available updates.</p>
+            <p>When you run</p><blockquote>sudo apt-get dist-upgrade</blockquote>
+            <p>updates from the Whonix team will be AUTOMATICALLY downloaded and installed, along with updates from the Debian team.
+            Please read <a href=https://www.whonix.org/wiki/Trust>https://www.whonix.org/wiki/Trust</a> to understand the risks.</p>
+        repo_page_2:
+            <p>Which Whonix Repository would you like to receive updates from?<p>
+            <p>Most users should select the Stable repository.</p>
+        repo_enable:
+            Yes. Automatically install updates from the Whonix team.
+        repo_disable:
+            No. I will manually update from source code.
+        repo_finish_disabled:
+            <p>You will not receive updates from the Whonix team.</p>
+            <p>You can always start the Whonix Repository Tool again by running</p>
+            <blockquote>Start Menu -> Applications -> System -> Whonix Repository.</blockquote>
+        repo_finish_enabled:
+            <p>Updates from the Whonix team will be automatically installed when you upgrade.
+            <p>You can always start the Whonix Repository Tool again by running</p>
+            <blockquote>Start Menu -> Applications -> System -> Whonix Repository.</blockquote>
+        repo_finish_failed:
+            <p>Please report this Whonix bug!</p>
+            <p>You can always start the Whonix Repository Tool again by running</p>
+            <blockquote>Start Menu -> Applications -> System -> Whonix Repository.</blockquote>
 
 not_root:
     icon: Critical
