@@ -482,8 +482,9 @@ class whonix_setup_wizard(QtGui.QWizard):
         # the options must be enabled, but the slot will disable the Next
         # button if either is checked.
         if common.argument == 'setup':
-            self.connection_page.censored.toggled.connect(self.set_next_button_state)
-            self.connection_page.use_proxy.toggled.connect(self.set_next_button_state)
+            if self.env == 'gateway':
+                self.connection_page.censored.toggled.connect(self.set_next_button_state)
+                self.connection_page.use_proxy.toggled.connect(self.set_next_button_state)
 
         self.exec_()
 
