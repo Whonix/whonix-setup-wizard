@@ -5,7 +5,7 @@
 [Desktop Entry]
 Type=Application
 Terminal=false
-Exec=su-to-root -X -c whonix-setup-wizard
+Exec=kdesudo whonix-setup-wizard setup
 Name=Whonix Setup - Whonix connection wizard
 GenericName=Whonix Setup
 Comment=Whonix Setup

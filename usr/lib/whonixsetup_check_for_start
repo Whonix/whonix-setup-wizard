@@ -1,0 +1,62 @@
+#!/usr/bin/python
+
+from subprocess import call
+import sys, os
+import time
+
+
+def tor_status():
+    if not os.path.exists('/etc/tor/torrc'):
+        # TODO: add gui message.
+        return 'no_torrc'
+
+    fh = open('/etc/tor/torrc','r')
+    lines = fh.readlines()
+    fh.close()
+
+    for line in lines:
+        if line.strip() == '#DisableNetwork 0':
+            return 'tor_disabled'
+
+
+if os.path.exists('/usr/share/anon-gw-base-files'):
+
+    command = '/usr/lib/gateway_first_run_notice'
+    call(command, shell = True)
+    time.sleep(0.5)
+
+    if os.path.exists('/tmp/rads/start_x.status'):
+        tor_status = tor_status()
+
+        if os.path.exists('/usr/bin/whonix-setup-wizard'):
+            if tor_status == 'tor_disabled':
+                command = '/usr/lib/whonixsetup_x_start_maybe'
+                # Can be started directly:
+                #command = 'xhost +local:root'
+                #call(command, shell = True)
+                #command = 'sudo /usr/bin/whonix-setup-wizard setup'
+                call(command, shell = True)
+
+        else:
+            # revert to cli. TODO: add gui message.
+            command = '/usr/lib/whonixsetup_cli_start_maybe'
+            call(command, shell = True)
+
+    else:
+        command = '/usr/lib/whonixsetup_cli_start_maybe'
+        call(command, shell = True)
+
+
+elif os.path.exists('/usr/share/anon-ws-base-files'):
+
+    if not os.path.exists('/var/lib/whonix/whonixsetup.done'):
+        command = 'xhost +local:root'
+        call(command, shell = True)
+
+        command = '/usr/bin/whonix-setup-wizard setup'
+        call(command, shell = True)
+
+
+
+
+
