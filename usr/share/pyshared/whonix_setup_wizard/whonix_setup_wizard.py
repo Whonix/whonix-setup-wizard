@@ -696,6 +696,9 @@ class whonix_setup_wizard(QtGui.QWizard):
                             self.button(QtGui.QWizard.BackButton).setEnabled(False)
                             self.finish_page.text.setText('cannot_connect')
 
+                if self.env == 'workstation':
+                    self.finish_page.text.setText(self._('finish_page_ok'))
+
                 # Disclaimer page 1 not undesrstood -> leave
                 if self.disclaimer_1.no_button.isChecked():
                     self.hide()
