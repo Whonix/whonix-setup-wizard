@@ -5,6 +5,7 @@
 from PyQt4 import QtCore, QtGui
 from subprocess import call
 import os, yaml
+import inspect
 import sys
 from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QApplication, QCursor
@@ -602,7 +603,21 @@ class whonix_setup_wizard(QtGui.QWizard):
                 exit_code = call(command, shell=True)
                 QApplication.restoreOverrideCursor()
 
-                self.repository_wizard_finish.text.setText(self._('repo_finish_disabled'))
+                mypath = inspect.getfile(inspect.currentframe())
+
+                if exit_code == 0:
+                    self.repository_wizard_finish.text.setText(self._('repo_finish_disabled'))
+                    message = 'INFO %s: Ok, exit code of "%s" was %s.' % ( mypath, command, exit_code )
+
+                else:
+                    error = '<p>ERROR %s: exit code of \"%s\" was %s.</p>' % ( mypath, command, exit_code )
+                    finish_text_failed =  error + self.finish_text_failed
+                    self.repository_wizard_finish.text.setText(self._('repo_finish_failed'))
+                    message = error
+
+                command = 'echo ' + message
+                call(command, shell=True)
+                self.one_shot = False
 
             else:
                 if self.repository_wizard_page_2.stable_repo.isChecked():
@@ -620,7 +635,21 @@ class whonix_setup_wizard(QtGui.QWizard):
                 exit_code = call(command, shell=True)
                 QApplication.restoreOverrideCursor()
 
-                self.repository_wizard_finish.text.setText(self._('repo_finish_enabled'))
+                mypath = inspect.getfile(inspect.currentframe())
+
+                if exit_code == 0:
+                    self.repository_wizard_finish.text.setText(self._('repo_finish_enabled'))
+                    message = 'INFO %s: Ok, exit code of "%s" was %s.' % ( mypath, command, exit_code )
+
+                else:
+                    error = '<p>ERROR %s: exit code of \"%s\" was %s.</p>' % ( mypath, command, exit_code )
+                    finish_text_failed =  error + self.finish_text_failed
+                    self.repository_wizard_finish.text.setText(self._('repo_finish_failed'))
+                    message = error
+
+                command = 'echo ' + message
+                call(command, shell=True)
+                self.one_shot = False
 
                 # whonixsetup.done. Next time, do not run whonix repository.
                 command = 'mkdir -p /var/lib/whonix/do_once'
