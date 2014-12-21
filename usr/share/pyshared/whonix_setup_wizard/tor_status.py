@@ -2,7 +2,7 @@
 
 import sys, fileinput
 from subprocess import call
-import os
+import os, time
 
 
 def set_enabled():
@@ -28,15 +28,32 @@ def set_enabled():
 
             command = 'service tor start'
             call(command, shell=True)
+            time.sleep(1)
 
             command = 'service tor reload'
             call(command, shell=True)
+            time.sleep(1)
 
             command = 'service tor status'
             tor_status = call(command, shell=True)
+            time.sleep(1)
 
+            # Extra start required when whonixsetup_check is auto-started.
+            # tor start and tor reload returns 0, but tor status returns an error.
+            # /run/tor/control and /run/tor/tor.pid are not written.
+            # The same happen wether whonix-setup-wizard is run directly or
+            # through whonixsetup_x_start_maybe.
+            # The original setup (start-reload-status) works when run by the user.
+            # Probably the Tor bug refered to in /usr/lib/whonixsetup/ft_m_1.
             if tor_status != 0:
-                return 'cannot_connect'
+                command = 'service tor start'
+                call(command, shell=True)
+                time.sleep(1)
+
+                # Has to be commented out for the time being.
+                # tor status still reprot an error, but Tor is running.
+                #if tor_status != 0:
+                #    return 'cannot_connect'
 
             return 'tor_enabled'
 

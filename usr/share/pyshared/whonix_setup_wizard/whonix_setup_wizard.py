@@ -275,6 +275,7 @@ class repository_wizard_page_1(QtGui.QWizardPage):
     def setupUi(self):
         self.text.setFrameShape(QtGui.QFrame.NoFrame)
         self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.text.setOpenExternalLinks(True)
 
         self.enable_group.setMinimumSize(0, 60)
         self.enable_repo.setGeometry(QtCore.QRect(30, 10, 400, 21))
@@ -478,12 +479,13 @@ class whonix_setup_wizard(QtGui.QWizard):
 
         # Temporary workaround.
         # The pluggable transports are not implemented yet, but we want to
-        # be able to display the tooltips for censored and proxy. For this,
+        # be able to display the tooltips for censored and firewall. For this,
         # the options must be enabled, but the slot will disable the Next
         # button if either is checked.
         if common.argument == 'setup':
-            self.connection_page.censored.toggled.connect(self.set_next_button_state)
-            self.connection_page.use_proxy.toggled.connect(self.set_next_button_state)
+            if self.env == 'gateway':
+                self.connection_page.censored.toggled.connect(self.set_next_button_state)
+                self.connection_page.use_proxy.toggled.connect(self.set_next_button_state)
 
         self.exec_()
 
@@ -497,7 +499,7 @@ class whonix_setup_wizard(QtGui.QWizard):
     def center(self):
         """ After the window is resized, its origin point becomes the
         previous window top left corner.
-        Re-center the window on the scceen.
+        Re-center the window on the screen.
         """
         frame_gm = self.frameGeometry()
         center_point = QtGui.QDesktopWidget().availableGeometry().center()
@@ -694,6 +696,9 @@ class whonix_setup_wizard(QtGui.QWizard):
                         elif common.tor_status == 'cannot_connect':
                             self.button(QtGui.QWizard.BackButton).setEnabled(False)
                             self.finish_page.text.setText('cannot_connect')
+
+                if self.env == 'workstation':
+                    self.finish_page.text.setText(self._('finish_page_ok'))
 
                 # Disclaimer page 1 not undesrstood -> leave
                 if self.disclaimer_1.no_button.isChecked():
