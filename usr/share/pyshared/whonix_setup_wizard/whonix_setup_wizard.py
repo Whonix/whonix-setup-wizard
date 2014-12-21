@@ -275,6 +275,7 @@ class repository_wizard_page_1(QtGui.QWizardPage):
     def setupUi(self):
         self.text.setFrameShape(QtGui.QFrame.NoFrame)
         self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.text.setOpenExternalLinks(True)
 
         self.enable_group.setMinimumSize(0, 60)
         self.enable_repo.setGeometry(QtCore.QRect(30, 10, 400, 21))
@@ -478,7 +479,7 @@ class whonix_setup_wizard(QtGui.QWizard):
 
         # Temporary workaround.
         # The pluggable transports are not implemented yet, but we want to
-        # be able to display the tooltips for censored and proxy. For this,
+        # be able to display the tooltips for censored and firewall. For this,
         # the options must be enabled, but the slot will disable the Next
         # button if either is checked.
         if common.argument == 'setup':
@@ -498,7 +499,7 @@ class whonix_setup_wizard(QtGui.QWizard):
     def center(self):
         """ After the window is resized, its origin point becomes the
         previous window top left corner.
-        Re-center the window on the scceen.
+        Re-center the window on the screen.
         """
         frame_gm = self.frameGeometry()
         center_point = QtGui.QDesktopWidget().availableGeometry().center()
