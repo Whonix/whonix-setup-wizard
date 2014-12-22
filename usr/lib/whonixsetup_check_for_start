@@ -30,11 +30,7 @@ if os.path.exists('/usr/share/anon-gw-base-files'):
 
         if os.path.exists('/usr/bin/whonix-setup-wizard'):
             if tor_status == 'tor_disabled':
-                command = '/usr/lib/whonixsetup_x_start_maybe'
-                # Can be started directly:
-                #command = 'xhost +local:root'
-                #call(command, shell = True)
-                #command = 'sudo /usr/bin/whonix-setup-wizard setup'
+                command = '/usr/bin/whonix-setup-wizard setup'
                 call(command, shell = True)
 
         else:
