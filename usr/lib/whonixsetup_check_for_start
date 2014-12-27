@@ -48,7 +48,7 @@ if os.path.exists('/usr/share/anon-gw-base-files'):
 
 elif os.path.exists('/usr/share/anon-ws-base-files'):
 
-    if not os.path.exists('/var/lib/whonix/whonixsetup.done'):
+    if not os.path.exists('/var/lib/whonix/do_once/whonixsetup.done'):
         command = 'xhost +local:root'
         call(command, shell = True)
 
