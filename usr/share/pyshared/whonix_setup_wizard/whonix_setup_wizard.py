@@ -653,12 +653,6 @@ class whonix_setup_wizard(QtGui.QWizard):
                 call(command, shell=True)
                 self.one_shot = False
 
-                # whonixsetup.done. Next time, do not run whonix repository.
-                command = 'mkdir -p /var/lib/whonix/do_once'
-                call(command, shell=True)
-                whonixsetup_done = open('/var/lib/whonix/do_once/whonixsetup.done', 'w')
-                whonixsetup_done.close()
-
         if common.argument == 'setup':
             if self.currentId() == self.steps.index('finish_page'):
                 # for whonixcheck.
@@ -676,6 +670,12 @@ class whonix_setup_wizard(QtGui.QWizard):
                     if (common.tor_status == 'tor_enabled' or
                         common.tor_status == 'tor_already_enabled'):
                             self.finish_page.text.setText(self._('finish_page_ok'))
+
+                            # whonixsetup completed.
+                            command = 'mkdir -p /var/lib/whonix/do_once'
+                            call(command, shell=True)
+                            whonixsetup_done = open('/var/lib/whonix/do_once/whonixsetup.done', 'w')
+                            whonixsetup_done.close()
 
                     else:
                         common.is_complete = False
@@ -699,6 +699,12 @@ class whonix_setup_wizard(QtGui.QWizard):
 
                 if self.env == 'workstation':
                     self.finish_page.text.setText(self._('finish_page_ok'))
+
+                    # whonixsetup completed.
+                    command = 'mkdir -p /var/lib/whonix/do_once'
+                    call(command, shell=True)
+                    whonixsetup_done = open('/var/lib/whonix/do_once/whonixsetup.done', 'w')
+                    whonixsetup_done.close()
 
                 # Disclaimer page 1 not undesrstood -> leave
                 if self.disclaimer_1.no_button.isChecked():
