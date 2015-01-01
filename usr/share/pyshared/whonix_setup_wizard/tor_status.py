@@ -28,7 +28,6 @@ def set_enabled():
 
             command = 'service tor start'
             call(command, shell=True)
-            time.sleep(1)
 
             command = 'service tor reload'
             call(command, shell=True)
@@ -36,7 +35,6 @@ def set_enabled():
 
             command = 'service tor status'
             tor_status = call(command, shell=True)
-            time.sleep(1)
 
             # Extra start required when whonixsetup_check is auto-started.
             # tor start and tor reload returns 0, but tor status returns an error.
@@ -50,10 +48,10 @@ def set_enabled():
                 call(command, shell=True)
                 time.sleep(1)
 
-                # Has to be commented out for the time being.
-                # tor status still reprot an error, but Tor is running.
-                #if tor_status != 0:
-                #    return 'cannot_connect'
+                command = 'service tor status'
+                tor_status = call(command, shell=True)
+                if tor_status != 0:
+                    return 'cannot_connect'
 
             return 'tor_enabled'
 
