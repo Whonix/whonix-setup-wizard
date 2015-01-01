@@ -672,8 +672,9 @@ class whonix_setup_wizard(QtGui.QWizard):
                             self.finish_page.text.setText(self._('finish_page_ok'))
 
                             # whonixsetup completed.
-                            command = 'mkdir -p /var/lib/whonix/do_once'
-                            call(command, shell=True)
+                            if not os.path.exists('/var/lib/whonix/do_once'):
+                                os.mkdir('/var/lib/whonix/do_once')
+
                             whonixsetup_done = open('/var/lib/whonix/do_once/whonixsetup.done', 'w')
                             whonixsetup_done.close()
 
@@ -694,8 +695,13 @@ class whonix_setup_wizard(QtGui.QWizard):
                             self.finish_page.text.setText(self._('bad_torrc'))
 
                         elif common.tor_status == 'cannot_connect':
+                            # #DisableNetwork 0 was uncommented. re-comment.
+                            QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
+                            common.tor_status = tor_status.set_disabled()
+                            QApplication.restoreOverrideCursor()
+
                             self.button(QtGui.QWizard.BackButton).setEnabled(False)
-                            self.finish_page.text.setText('cannot_connect')
+                            self.finish_page.text.setText(self._('cannot_connect'))
 
                 # Disclaimer page 1 not undesrstood -> leave
                 if self.disclaimer_1.no_button.isChecked():
@@ -713,8 +719,9 @@ class whonix_setup_wizard(QtGui.QWizard):
                     self.finish_page.text.setText(self._('finish_page_ok'))
 
                     # whonixsetup completed.
-                    command = 'mkdir -p /var/lib/whonix/do_once'
-                    call(command, shell=True)
+                    if not os.path.exists('/var/lib/whonix/do_once'):
+                        os.mkdir('/var/lib/whonix/do_once')
+
                     whonixsetup_done = open('/var/lib/whonix/do_once/whonixsetup.done', 'w')
                     whonixsetup_done.close()
 
