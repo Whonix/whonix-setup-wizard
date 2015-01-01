@@ -672,8 +672,9 @@ class whonix_setup_wizard(QtGui.QWizard):
                             self.finish_page.text.setText(self._('finish_page_ok'))
 
                             # whonixsetup completed.
-                            command = 'mkdir -p /var/lib/whonix/do_once'
-                            call(command, shell=True)
+                            if not os.path.exists('/var/lib/whonix/do_once'):
+                                os.mkdir('/var/lib/whonix/do_once')
+
                             whonixsetup_done = open('/var/lib/whonix/do_once/whonixsetup.done', 'w')
                             whonixsetup_done.close()
 
@@ -713,8 +714,9 @@ class whonix_setup_wizard(QtGui.QWizard):
                     self.finish_page.text.setText(self._('finish_page_ok'))
 
                     # whonixsetup completed.
-                    command = 'mkdir -p /var/lib/whonix/do_once'
-                    call(command, shell=True)
+                    if not os.path.exists('/var/lib/whonix/do_once'):
+                        os.mkdir('/var/lib/whonix/do_once')
+
                     whonixsetup_done = open('/var/lib/whonix/do_once/whonixsetup.done', 'w')
                     whonixsetup_done.close()
 
