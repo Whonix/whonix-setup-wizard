@@ -179,7 +179,7 @@ whonixsetup:
             You can open /etc/tor/torrc in the terminal&#58; </p>
             <blockquote>sudo nano /etc/tor/torrc</blockquote>
             <p>Or, if you are using a graphical Whonix-Gateway&#58; </p>
-            <blockquote>Start Menu -> Applications -> /etc/tor/torrc</blockquote>
+            <blockquote>Start Menu -> Applications -> System -> Torrc</blockquote>
             <p>After you have finished, run whonixsetup again.</p>
 
             <p><i><b>Configure Whonix to a Use a VPN.</b></i><br></br>
@@ -202,7 +202,7 @@ whonixsetup:
             <p>Or on the desktop&#58; </p>
             <blockquote>Start Menu -> Applications -> /etc/tor/torrc</blockquote>
             Or, if you are using a graphical Whonix-Gateway&#58; </p>
-            <blockquote>Start Menu -> Applications -> /etc/tor/torrc</blockquote>
+            <blockquote>Start Menu -> Applications -> System -> Torrc</blockquote>
             <p>After you have finished editing, run whonixsetup again.</p>
 
         repo_page_1:
@@ -220,11 +220,17 @@ whonixsetup:
             No. I will manually update from source code.
         repo_finish_disabled:
             <p>You will not receive updates from the Whonix team.</p>
-            <p>You can always start the Whonix Repository Tool again by running</p>
+            <p>You can always start the Whonix Repository Tool again.</p>
+            <p>In a terminal&#58; </p>
+            <blockquote>sudo whonix_repository</blockquote>
+            <p>Or by running&#58; </p>
             <blockquote>Start Menu -> Applications -> System -> Whonix Repository.</blockquote>
         repo_finish_enabled:
             <p>Updates from the Whonix team will be automatically installed when you upgrade.
-            <p>You can always start the Whonix Repository Tool again by running</p>
+            <p>You can always start the Whonix Repository Tool again.</p>
+            <p>In a terminal&#58; </p>
+            <blockquote>sudo whonix_repository</blockquote>
+            <p>Or by running&#58; </p>
             <blockquote>Start Menu -> Applications -> System -> Whonix Repository.</blockquote>
         repo_finish_failed:
             <p>Please report this Whonix bug!</p>
