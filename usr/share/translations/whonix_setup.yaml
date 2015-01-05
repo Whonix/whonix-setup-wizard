@@ -130,9 +130,11 @@ whonixsetup:
 
         no_torrc:
             <p>The file "/etc/tor/torrc" does not exist.</p>
-            <p>You can try to manually create /etc/tor/torrc&#58;
-            <blockquote>sudo nano /etc/tor/torrc</blockquote>
-            and re-run Whonix Setup.</p>
+            <p>You can try to manually create /etc/tor/torrc. Open it&#58;
+            <blockquote>Start Menu -> Applications -> Torrc</blockquote>
+            And add.
+            <blockquote>#DisableNetwork 0</blockquote>
+            Save. Then re-run Whonix Setup.</p>
 
         bad_torrc:
             <p>The line "DisableNetwork 0" does not exist in "/etc/tor/torrc".</p>
