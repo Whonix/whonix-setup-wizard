@@ -129,15 +129,15 @@ whonixsetup:
             report a bug.</p>
 
         no_torrc:
-            <p>The file "/etc/tor/torrc" does not exist. You can try to manually create it.</p>
+            <p>The file "/etc/tor/torrc" does not exist.</p>
+            <p>You can try to manually create /etc/tor/torrc&#58;
             <blockquote>sudo nano /etc/tor/torrc</blockquote>
-            <p>Add a line containing only "DisableNetwork 0" (without the quotes),
             and re-run Whonix Setup.</p>
 
         bad_torrc:
-            <p>The line "DisableNetwork 0" does not exist in "/etc/tor/torrc".
-            You can try to manually edit the file.</p>
-            <blockquote>sudo nano /etc/tor/torrc</blockquote>
+            <p>The line "DisableNetwork 0" does not exist in "/etc/tor/torrc".</p>
+            <p>You can try to manually edit /etc/tor/torrc&#58;
+            <blockquote>Start Menu -> Applications -> Torrc</blockquote>
             <p>Add line containing only "DisableNetwork 0" (without the quotes),
             and re-run Whonix Setup.</p>
 
@@ -145,10 +145,8 @@ whonixsetup:
             <p>"sudo service tor status" returned non-zero exit code , which means Tor does NOT work.</p>
             <p>Maybe your Whonix-Gateway has only one network card attached? Most likely there
             is something wrong with your /etc/tor/torrc.</p>
-            <p>You can open /etc/tor/torrc in the terminal&#58; </p>
-            <blockquote>sudo nano /etc/tor/torrc</blockquote>
-            <p>Or, if you are using a graphical Whonix-Gateway&#58;</p>
-            <blockquote>Start Menu -> Applications -> /etc/tor/torrc</blockquote>
+            <p>You can try to manually edit /etc/tor/torrc&#58; </p>
+            <blockquote>Start Menu -> Applications -> Torrc</blockquote>
             <p>Running&#58; </p>
             <blockquote>sudo service tor restart</blockquote>
             <p>might help with troubleshooting.</p>
@@ -176,10 +174,7 @@ whonixsetup:
 
             <p><i><b>Configure Whonix to Use a Bridge.</b></i><br></br>
             You must manually find and add the bridges to /etc/tor/torrc.<br></br>
-            You can open /etc/tor/torrc in the terminal&#58; </p>
-            <blockquote>sudo nano /etc/tor/torrc</blockquote>
-            <p>Or, if you are using a graphical Whonix-Gateway&#58; </p>
-            <blockquote>Start Menu -> Applications -> System -> Torrc</blockquote>
+            <blockquote>Start Menu -> Applications -> Torrc</blockquote>
             <p>After you have finished, run whonixsetup again.</p>
 
             <p><i><b>Configure Whonix to a Use a VPN.</b></i><br></br>
@@ -197,10 +192,7 @@ whonixsetup:
 
         tooltip_4:
             <p>You must manually edit /etc/tor/torrc for Tor to navigate through your firewall or proxy.</p>
-            You can open /etc/tor/torrc in the terminal</p>
-            <blockquote>sudo nano /etc/tor/torrc</blockquote>
-            <p>Or on the desktop&#58; </p>
-            <blockquote>Start Menu -> Applications -> /etc/tor/torrc</blockquote>
+            <blockquote>Start Menu -> Applications -> Torrc</blockquote>
             Or, if you are using a graphical Whonix-Gateway&#58; </p>
             <blockquote>Start Menu -> Applications -> System -> Torrc</blockquote>
             <p>After you have finished editing, run whonixsetup again.</p>
