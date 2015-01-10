@@ -16,7 +16,7 @@ from guimessages.guimessage import gui_message
 import tor_status
 
 
-class common():
+class common:
     """ Variables and constants used through all the classes """
 
     translations_path ='/usr/share/translations/whonix_setup.yaml'
@@ -42,7 +42,7 @@ class common():
                             'repository_wizard_page_2',
                             'repository_wizard_finish',
                             'finish_page']
-
+            task_attention = '/usr/share/icons/oxygen/48x48/status/task-attention.png'
         elif os.path.exists('/usr/share/anon-ws-base-files'):
             environment = 'workstation'
             wizard_steps = ['disclaimer_1',
@@ -202,25 +202,29 @@ class tor_status_page(QtGui.QWizardPage):
     def __init__(self):
         super(tor_status_page, self).__init__()
 
-        self.common = common()
-        self.steps = self.common.wizard_steps
+        #self.common = common()
+        self.steps = common.wizard_steps
 
+        self.icon = QtGui.QLabel(self)
         self.text = QtGui.QTextBrowser(self)
         self.torrc = QtGui.QPlainTextEdit(self)
 
-        self.layout = QtGui.QVBoxLayout()
-
+        self.layout = QtGui.QGridLayout()
         self.setupUi()
 
     def setupUi(self):
+        self.icon.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.icon.setMinimumSize(50, 0)
+
         self.text.setFrameShape(QtGui.QFrame.NoFrame)
         self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-        self.torrc.setMinimumSize(0, 175)
 
+        self.torrc.setMinimumSize(0, 185)
         self.torrc.setReadOnly(True)
 
-        self.layout.addWidget(self.text)
-        self.layout.addWidget(self.torrc)
+        self.layout.addWidget(self.icon, 0, 0, 1, 1)
+        self.layout.addWidget(self.text, 0, 1, 1, 2)
+        self.layout.addWidget(self.torrc, 1, 1, 1, 1)
         self.setLayout(self.layout)
 
     def nextId(self):
@@ -356,16 +360,22 @@ class repository_wizard_finish(QtGui.QWizardPage):
 class finish_page(QtGui.QWizardPage):
     def __init__(self):
         super(finish_page, self).__init__()
+
+        self.icon = QtGui.QLabel(self)
         self.text = QtGui.QTextBrowser(self)
 
         self.layout = QtGui.QGridLayout()
         self.setupUi()
 
     def setupUi(self):
+        self.icon.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.icon.setMinimumSize(50, 0)
+
         self.text.setFrameShape(QtGui.QFrame.NoFrame)
         self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
 
-        self.layout.addWidget(self.text)
+        self.layout.addWidget(self.icon, 0, 0, 1, 1)
+        self.layout.addWidget(self.text, 0, 1, 1, 1)
         self.setLayout(self.layout)
 
 
@@ -379,6 +389,7 @@ class whonix_setup_wizard(QtGui.QWizard):
         self.common = common()
         self.steps = self.common.wizard_steps
         #self.env = self.common.environment
+        global _tor_satus
 
         if common.argument == 'repository':
             self.repository_wizard_page_1 = repository_wizard_page_1()
@@ -547,15 +558,21 @@ class whonix_setup_wizard(QtGui.QWizard):
                             self.tor_status_page.text.setText(self._('tor_enabled'))
                             torrc_text = open('/etc/tor/torrc').read()
                             self.tor_status_page.torrc.setPlainText(torrc_text)
+                            self.tor_status_page.icon.setPixmap(QtGui.QPixmap( \
+                                '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
 
                         elif common.tor_status == 'tor_already_enabled':
                             self.tor_status_page.text.setText(self._('tor_already_enabled'))
                             torrc_text = open('/etc/tor/torrc').read()
                             self.tor_status_page.torrc.setPlainText(torrc_text)
+                            self.tor_status_page.icon.setPixmap(QtGui.QPixmap( \
+                                '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
 
                         else:
                             self.tor_status_page.torrc.setFrameShape(QtGui.QFrame.NoFrame)
                             self.tor_status_page.text.setText(self._('something_wrong'))
+                            self.tor_status_page.icon.setPixmap(QtGui.QPixmap( \
+                                '/usr/share/icons/oxygen/48x48/status/task-reject.png'))
                             common.run_repo = False
                             # Do not run whonixrepository
                             self.removePage(self.steps.index('whonix_repo_page'))
@@ -569,19 +586,27 @@ class whonix_setup_wizard(QtGui.QWizard):
                         common.tor_status = tor_status.set_disabled()
                         QApplication.restoreOverrideCursor()
 
+                        _tor_satus = common.tor_status
+
                         if common.tor_status == 'tor_disabled':
                             self.tor_status_page.text.setText(self._('tor_disabled'))
                             torrc_text = open('/etc/tor/torrc').read()
                             self.tor_status_page.torrc.setPlainText(torrc_text)
+                            self.tor_status_page.icon.setPixmap(QtGui.QPixmap( \
+                                '/usr/share/icons/oxygen/48x48/status/task-attention.png'))
 
                         elif common.tor_status == 'tor_already_disabled':
                             self.tor_status_page.text.setText(self._('tor_already_disabled'))
                             torrc_text = open('/etc/tor/torrc').read()
                             self.tor_status_page.torrc.setPlainText(torrc_text)
+                            self.tor_status_page.icon.setPixmap(QtGui.QPixmap( \
+                                '/usr/share/icons/oxygen/48x48/status/task-attention.png'))
 
                         else:
                             self.tor_status_page.torrc.setFrameShape(QtGui.QFrame.NoFrame)
                             self.tor_status_page.text.setText(self._('something_wrong'))
+                            self.tor_status_page.icon.setPixmap(QtGui.QPixmap( \
+                                '/usr/share/icons/oxygen/48x48/status/task-reject.png'))
                             # Do not run whonixrepository
                             common.run_repo = False
                             self.removePage(self.steps.index('whonix_repo_page'))
@@ -669,6 +694,8 @@ class whonix_setup_wizard(QtGui.QWizard):
                 if self.env == 'gateway':
                     if (common.tor_status == 'tor_enabled' or
                         common.tor_status == 'tor_already_enabled'):
+                            self.finish_page.icon.setPixmap(QtGui.QPixmap( \
+                                '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
                             self.finish_page.text.setText(self._('finish_page_ok'))
 
                             # whonixsetup completed.
@@ -683,14 +710,20 @@ class whonix_setup_wizard(QtGui.QWizard):
 
                         if (common.tor_status == 'tor_disabled' or
                             common.tor_status == 'tor_already_disabled'):
+                                self.finish_page.icon.setPixmap(QtGui.QPixmap( \
+                                    '/usr/share/icons/oxygen/48x48/status/task-attention.png'))
                                 self.finish_page.text.setText(self._('finish_disabled'))
 
                         # ERROR pages.
                         elif common.tor_status == 'no_torrc':
+                            self.finish_page.icon.setPixmap(QtGui.QPixmap( \
+                                '/usr/share/icons/oxygen/48x48/status/task-reject.png'))
                             self.button(QtGui.QWizard.BackButton).setEnabled(False)
                             self.finish_page.text.setText(self._('no_torrc'))
 
                         elif common.tor_status == 'bad_torrc':
+                            self.finish_page.icon.setPixmap(QtGui.QPixmap( \
+                                '/usr/share/icons/oxygen/48x48/status/task-reject.png'))
                             self.button(QtGui.QWizard.BackButton).setEnabled(False)
                             self.finish_page.text.setText(self._('bad_torrc'))
 
@@ -700,6 +733,8 @@ class whonix_setup_wizard(QtGui.QWizard):
                             common.tor_status = tor_status.set_disabled()
                             QApplication.restoreOverrideCursor()
 
+                            self.finish_page.icon.setPixmap(QtGui.QPixmap( \
+                                '/usr/share/icons/oxygen/48x48/status/task-reject.png'))
                             self.button(QtGui.QWizard.BackButton).setEnabled(False)
                             self.finish_page.text.setText(self._('cannot_connect'))
 
