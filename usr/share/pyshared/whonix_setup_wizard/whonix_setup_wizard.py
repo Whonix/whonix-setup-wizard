@@ -33,7 +33,8 @@ class common:
     if argument == 'setup':
         if os.path.exists('/usr/share/anon-gw-base-files'):
             environment = 'gateway'
-            wizard_steps = ['disclaimer_1',
+            wizard_steps = ['greeter',
+                            'disclaimer_1',
                             'disclaimer_2',
                             'connection_page',
                             'tor_status_page',
@@ -44,7 +45,8 @@ class common:
                             'finish_page']
         elif os.path.exists('/usr/share/anon-ws-base-files'):
             environment = 'workstation'
-            wizard_steps = ['disclaimer_1',
+            wizard_steps = ['greeter',
+                            'disclaimer_1',
                             'disclaimer_2',
                             'whonix_repo_page',
                             'repository_wizard_page_1',
@@ -56,6 +58,41 @@ class common:
         wizard_steps = ['repository_wizard_page_1',
                         'repository_wizard_page_2',
                         'repository_wizard_finish']
+
+
+class greeter_page(QtGui.QWizardPage):
+    def __init__(self):
+        super(greeter_page, self).__init__()
+
+        self.env = common.environment
+
+        self.text = QtGui.QTextBrowser(self)
+
+        self.lang_group = QtGui.QGroupBox(self)
+        self.default_button = QtGui.QRadioButton(self.lang_group)
+        self.install_button = QtGui.QRadioButton(self.lang_group)
+
+        self.layout = QtGui.QVBoxLayout()
+
+        self.setupUi()
+
+    def setupUi(self):
+        self.text.setFrameShape(QtGui.QFrame.NoFrame)
+        self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.text.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextSelectableByMouse)
+        self.text.setOpenExternalLinks(True)
+
+        self.lang_group.setMinimumSize(0, 70)
+        self.lang_group.setTitle('Installation language')
+        self.default_button.setGeometry(QtCore.QRect(30, 20, 300, 21))
+        self.default_button.setText('Default language')
+        self.install_button.setGeometry(QtCore.QRect(30, 40, 300, 21))
+        self.install_button.setText('Other language')
+        self.default_button.setChecked(True)
+
+        self.layout.addWidget(self.text)
+        self.layout.addWidget(self.lang_group)
+        self.setLayout(self.layout)
 
 
 class disclaimer_page_1(QtGui.QWizardPage):
@@ -385,6 +422,10 @@ class whonix_setup_wizard(QtGui.QWizard):
         elif common.argument == 'setup':
             self.env = common.environment
 
+            if self.env == 'gateway':
+                self.greeter_page = greeter_page()
+                self.addPage(self.greeter_page)
+
             self.disclaimer_1 = disclaimer_page_1()
             self.addPage(self.disclaimer_1)
 
@@ -418,9 +459,10 @@ class whonix_setup_wizard(QtGui.QWizard):
     def setupUi(self):
         self.setWindowIcon(QtGui.QIcon("/usr/share/icons/anon-icon-pack/whonix.ico"))
         self.setWindowTitle('Whonix Setup Wizard')
+
         if common.argument == 'setup':
-            self.resize(760, 770)
-        else:
+            self.resize(600, 530)
+        elif common.argument == 'repository':
             self.resize(580, 370)
 
         # We use QTextBrowser with a white background.
@@ -448,6 +490,8 @@ class whonix_setup_wizard(QtGui.QWizard):
                 self.disclaimer_2.no_button.setText(self._('reject'))
 
                 if self.env == 'gateway':
+                    self.greeter_page.text.setText(self._('greeter_text'))
+
                     self.connection_page.text.setText(self._('connection_text'))
                     self.connection_page.enable.setText(self._('enable_tor'))
                     self.connection_page.disable.setText(self._('disable_tor'))
@@ -510,6 +554,10 @@ class whonix_setup_wizard(QtGui.QWizard):
         """
 
         if common.argument == 'setup':
+            if self.currentId() == self.steps.index('disclaimer_1'):
+                self.resize(760, 750)
+                self.center()
+
             # A more "normal" wizard size after the disclaimer pages.
             if (self.currentId() == self.steps.index('whonix_repo_page') or
                 self.currentId() == self.steps.index('finish_page')):
@@ -745,9 +793,12 @@ class whonix_setup_wizard(QtGui.QWizard):
         if common.argument == 'setup':
             if self.currentId() == self.steps.index('disclaimer_2'):
                 # Back to disclaimer size.
-                self.resize(760, 770)
+                self.resize(760, 750)
                 self.center()
 
+            if self.currentId() == self.steps.index('greeter'):
+                self.resize(600, 530)
+                self.center()
 
 def main():
     #import sys
