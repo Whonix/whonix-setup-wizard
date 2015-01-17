@@ -16,7 +16,8 @@ Standards-Version: 3.9.4
 
 Package: whonix-setup-wizard
 Architecture: all
-Depends: whonixsetup, menu, ${misc:Depends}, ${python:Depends}, python-yaml, python-guimessages
+Depends: whonixsetup, ${misc:Depends}, ${python:Depends}, python-yaml,
+ python-guimessages, x11-xserver-utils
 Recommends: anon-icon-pack
 Description: First Time Connection Setup
  When Whonix starts for the first time, it won't automatically connect to the

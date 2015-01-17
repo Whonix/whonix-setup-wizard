@@ -7,3 +7,4 @@
 ## For better usability, because otherwise the autostart of
 ## whonix-setup-wizard
 %sudo ALL=NOPASSWD: /usr/bin/whonix-setup-wizard *
+%sudo ALL=NOPASSWD: /usr/lib/whonix-setup-wizard/whonix-setup-wizard-setup *
