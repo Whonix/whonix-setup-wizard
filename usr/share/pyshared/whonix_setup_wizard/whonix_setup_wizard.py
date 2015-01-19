@@ -1,14 +1,22 @@
+# -*- coding: utf-8 -*-
+
 #!/usr/bin/python
 
 """ WHONIX SETUP WIZARD """
+from PyQt4.QtGui import *
+from PyQt4.QtCore import *
 
 from PyQt4 import QtCore, QtGui
+#from PyQt4.QtGui import *
 from subprocess import call
 import os, yaml
 import inspect
 import sys
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QApplication, QCursor
+#from PyQt4.QtCore import Qt
+#from PyQt4.QtGui import QApplication, QCursor
+
+import pycountry
+import icu
 
 from guimessages.translations import _translations
 from guimessages.guimessage import gui_message
@@ -17,8 +25,8 @@ import tor_status
 
 
 class common:
-    """ Variables and constants used through all the classes """
-
+    """ Variables and constants used through all the classes
+    """
     translations_path ='/usr/share/translations/whonix_setup.yaml'
 
     is_complete = False
@@ -33,8 +41,7 @@ class common:
     if argument == 'setup':
         if os.path.exists('/usr/share/anon-gw-base-files'):
             environment = 'gateway'
-            wizard_steps = ['greeter',
-                            'disclaimer_1',
+            wizard_steps = ['disclaimer_1',
                             'disclaimer_2',
                             'connection_page',
                             'tor_status_page',
@@ -42,11 +49,12 @@ class common:
                             'repository_wizard_page_1',
                             'repository_wizard_page_2',
                             'repository_wizard_finish',
-                            'finish_page']
+                            'finish_page',
+                            'first_use_notice']
+
         elif os.path.exists('/usr/share/anon-ws-base-files'):
             environment = 'workstation'
-            wizard_steps = ['greeter',
-                            'disclaimer_1',
+            wizard_steps = ['disclaimer_1',
                             'disclaimer_2',
                             'whonix_repo_page',
                             'repository_wizard_page_1',
@@ -59,39 +67,80 @@ class common:
                         'repository_wizard_page_2',
                         'repository_wizard_finish']
 
+    elif argument == 'locale_settings':
+        wizard_steps = ['locale_settings',
+                        'locale_settings_finish']
 
-class greeter_page(QtGui.QWizardPage):
+
+class locale_settings(QtGui.QWizardPage):
     def __init__(self):
-        super(greeter_page, self).__init__()
+        super(locale_settings, self).__init__()
 
-        self.env = common.environment
+        self.text = QtGui.QLabel(self)
 
-        self.text = QtGui.QTextBrowser(self)
+        self.group = QtGui.QGroupBox(self)
 
-        self.lang_group = QtGui.QGroupBox(self)
-        self.default_button = QtGui.QRadioButton(self.lang_group)
-        self.install_button = QtGui.QRadioButton(self.lang_group)
+        self.default_button = QtGui.QRadioButton(self.group)
+        self.other_button = QtGui.QRadioButton(self.group)
 
-        self.layout = QtGui.QVBoxLayout()
+        self.lang_checkbox = QtGui.QCheckBox(self.group)
+        self.kbd_check = QtGui.QCheckBox(self.group)
 
-        self.setupUi()
+        self.layout = QtGui.QVBoxLayout(self)
 
-    def setupUi(self):
-        self.text.setFrameShape(QtGui.QFrame.NoFrame)
+        self.setup_ui()
+
+    def setup_ui(self):
+        self.text.setMaximumSize(QtCore.QSize(400, 24))
         self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-        self.text.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextSelectableByMouse)
-        self.text.setOpenExternalLinks(True)
+        self.text.setText('Whonix installation language.')
 
-        self.lang_group.setMinimumSize(0, 70)
-        self.lang_group.setTitle('Installation language')
-        self.default_button.setGeometry(QtCore.QRect(30, 20, 300, 21))
-        self.default_button.setText('Default language')
-        self.install_button.setGeometry(QtCore.QRect(30, 40, 300, 21))
-        self.install_button.setText('Other language')
+        self.group.setMinimumSize(0, 112)
+
+        self.default_button.setGeometry(QtCore.QRect(20, 16, 483, 21))
+        self.default_button.setText('Default (English (US)')
         self.default_button.setChecked(True)
 
+        self.other_button.setGeometry(QtCore.QRect(20, 36, 483, 21))
+        self.other_button.setText('Other')
+        self.other_button.toggled.connect(self.other_button_toggled)
+
+        self.lang_checkbox.setEnabled(False)
+        self.lang_checkbox.setGeometry(QtCore.QRect(40, 58, 483, 21))
+        self.lang_checkbox.setText('Change country and language')
+
+        self.kbd_check.setEnabled(False)
+        self.kbd_check.setGeometry(QtCore.QRect(40, 78, 483, 21))
+        self.kbd_check.setText('Change keyboard layout')
+
         self.layout.addWidget(self.text)
-        self.layout.addWidget(self.lang_group)
+        self.layout.addWidget(self.group)
+
+        self.setLayout(self.layout)
+
+    def other_button_toggled(self, state):
+        if state:
+            self.lang_checkbox.setEnabled(True)
+            self.kbd_check.setEnabled(True)
+
+        else:
+            self.lang_checkbox.setEnabled(False)
+            self.kbd_check.setEnabled(False)
+
+
+class locale_settings_finish(QtGui.QWizardPage):
+    def __init__(self):
+        super(locale_settings_finish, self).__init__()
+
+        self.text = QtGui.QTextBrowser(self)
+        self.layout = QtGui.QVBoxLayout()
+
+        self.setup_ui()
+
+    def setup_ui(self):
+        self.text.setFrameShape(QtGui.QFrame.NoFrame)
+        self.layout.addWidget(self.text)
+
         self.setLayout(self.layout)
 
 
@@ -400,6 +449,23 @@ class finish_page(QtGui.QWizardPage):
         self.setLayout(self.layout)
 
 
+class first_use_notice(QtGui.QWizardPage):
+    def __init__(self):
+        super(first_use_notice, self).__init__()
+
+        self.text = QtGui.QTextBrowser(self)
+
+        self.layout = QtGui.QVBoxLayout()
+        self.setupUi()
+
+    def setupUi(self):
+        self.text.setFrameShape(QtGui.QFrame.NoFrame)
+        self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+
+        self.layout.addWidget(self.text)
+        self.setLayout(self.layout)
+
+
 class whonix_setup_wizard(QtGui.QWizard):
     def __init__(self):
         super(whonix_setup_wizard, self).__init__()
@@ -421,10 +487,6 @@ class whonix_setup_wizard(QtGui.QWizard):
 
         elif common.argument == 'setup':
             self.env = common.environment
-
-            if self.env == 'gateway':
-                self.greeter_page = greeter_page()
-                self.addPage(self.greeter_page)
 
             self.disclaimer_1 = disclaimer_page_1()
             self.addPage(self.disclaimer_1)
@@ -454,6 +516,17 @@ class whonix_setup_wizard(QtGui.QWizard):
             self.finish_page = finish_page()
             self.addPage(self.finish_page)
 
+            if self.env == 'gateway':
+                self.first_use_notice = first_use_notice()
+                self.addPage(self.first_use_notice)
+
+        elif common.argument == 'locale_settings':
+            self.locale_settings = locale_settings()
+            self.addPage(self.locale_settings)
+
+            self.locale_settings_finish = locale_settings_finish()
+            self.addPage(self.locale_settings_finish)
+
         self.setupUi()
 
     def setupUi(self):
@@ -461,9 +534,11 @@ class whonix_setup_wizard(QtGui.QWizard):
         self.setWindowTitle('Whonix Setup Wizard')
 
         if common.argument == 'setup':
-            self.resize(600, 530)
+            self.resize(760, 750)
         elif common.argument == 'repository':
             self.resize(580, 370)
+        elif common.argument == 'locale_settings':
+            self.resize(400, 168)
 
         # We use QTextBrowser with a white background.
         # Set a default (transparent) background.
@@ -490,19 +565,23 @@ class whonix_setup_wizard(QtGui.QWizard):
                 self.disclaimer_2.no_button.setText(self._('reject'))
 
                 if self.env == 'gateway':
-                    self.greeter_page.text.setText(self._('greeter_text'))
-
                     self.connection_page.text.setText(self._('connection_text'))
                     self.connection_page.enable.setText(self._('enable_tor'))
                     self.connection_page.disable.setText(self._('disable_tor'))
                     self.connection_page.censored.setText(self._('censored_tor'))
                     self.connection_page.use_proxy.setText(self._('use_proxy'))
 
-            self.repository_wizard_page_1.text.setText(self._('repo_page_1'))
-            self.repository_wizard_page_1.enable_repo.setText(self._('repo_enable'))
-            self.repository_wizard_page_1.disable_repo.setText(self._('repo_disable'))
+                    self.first_use_notice.text.setText(self._('first_use_notice'))
 
-            self.repository_wizard_page_2.text.setText(self._('repo_page_2'))
+
+            if common.argument == 'setup' or common.argument == 'repository':
+                self.repository_wizard_page_1.text.setText(self._('repo_page_1'))
+                self.repository_wizard_page_1.enable_repo.setText(self._('repo_enable'))
+                self.repository_wizard_page_1.disable_repo.setText(self._('repo_disable'))
+
+                self.repository_wizard_page_2.text.setText(self._('repo_page_2'))
+
+            #self.first_use_notice.text.setText(self._('first_use_notice'))
 
         except (yaml.scanner.ScannerError, yaml.parser.ParserError):
             pass
@@ -552,29 +631,24 @@ class whonix_setup_wizard(QtGui.QWizard):
         the corresponding button.
         Options (like button states, window size changes...) are set here.
         """
-
         if common.argument == 'setup':
-            if self.currentId() == self.steps.index('disclaimer_1'):
-                self.resize(760, 750)
+            # A more "normal" wizard size after the disclaimer pages.
+            if self.currentId() == self.steps.index('connection_page'):
+                self.resize(580, 370)
                 self.center()
 
-            # A more "normal" wizard size after the disclaimer pages.
-            if (self.currentId() == self.steps.index('whonix_repo_page') or
-                self.currentId() == self.steps.index('finish_page')):
-                    self.resize(580, 370)
-                    self.center()
-
             if self.env == 'gateway':
-                if self.currentId() == self.steps.index('connection_page'):
-                    self.resize(580, 370)
-                    self.center()
+                #if self.currentId() == self.steps.index('greeter_page'):
+                #    self.resize(580, 370)
+                #    self.center()
 
-                    # Set Next button state
+                # Set Next button state
+                if self.currentId() == self.steps.index('connection_page'):
                     if (self.connection_page.censored.isChecked() or
                         self.connection_page.use_proxy.isChecked()):
                             self.button(QtGui.QWizard.NextButton).setEnabled(False)
                     else:
-                        self.button(QtGui.QWizard.NextButton).setEnabled(True)
+                            self.button(QtGui.QWizard.NextButton).setEnabled(True)
 
                 if self.currentId() == self.steps.index('tor_status_page'):
                     if self.connection_page.enable.isChecked():
@@ -649,61 +723,62 @@ class whonix_setup_wizard(QtGui.QWizard):
                     common.run_repo = False
                     self.whonix_repo_page.text.setText(self._('repository_wizard_not_found'))
 
-        if self.currentId() == self.steps.index('repository_wizard_finish'):
-            if common.disable_repo:
-                command = 'whonix_repository --disable'
+        if common.argument == 'setup' or common.argument == 'repository':
+            if self.currentId() == self.steps.index('repository_wizard_finish'):
+                if common.disable_repo:
+                    command = 'whonix_repository --disable'
 
-                QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
-                exit_code = call(command, shell=True)
-                QApplication.restoreOverrideCursor()
+                    QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
+                    exit_code = call(command, shell=True)
+                    QApplication.restoreOverrideCursor()
 
-                mypath = inspect.getfile(inspect.currentframe())
+                    mypath = inspect.getfile(inspect.currentframe())
 
-                if exit_code == 0:
-                    self.repository_wizard_finish.text.setText(self._('repo_finish_disabled'))
-                    message = 'INFO %s: Ok, exit code of "%s" was %s.' % ( mypath, command, exit_code )
+                    if exit_code == 0:
+                        self.repository_wizard_finish.text.setText(self._('repo_finish_disabled'))
+                        message = 'INFO %s: Ok, exit code of "%s" was %s.' % ( mypath, command, exit_code )
 
-                else:
-                    error = '<p>ERROR %s: exit code of \"%s\" was %s.</p>' % ( mypath, command, exit_code )
-                    finish_text_failed =  error + self.finish_text_failed
-                    self.repository_wizard_finish.text.setText(self._('repo_finish_failed'))
-                    message = error
+                    else:
+                        error = '<p>ERROR %s: exit code of \"%s\" was %s.</p>' % ( mypath, command, exit_code )
+                        finish_text_failed =  error + self.finish_text_failed
+                        self.repository_wizard_finish.text.setText(self._('repo_finish_failed'))
+                        message = error
 
-                command = 'echo ' + message
-                call(command, shell=True)
-                self.one_shot = False
-
-            else:
-                if self.repository_wizard_page_2.stable_repo.isChecked():
-                    codename = ' --codename stable'
-
-                elif self.repository_wizard_page_2.testers_repo.isChecked():
-                    codename = ' --codename testers'
-
-                elif self.repository_wizard_page_2.devs_repo.isChecked():
-                    codename = ' --codename developers'
-
-                command = 'whonix_repository --enable' + codename
-
-                QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
-                exit_code = call(command, shell=True)
-                QApplication.restoreOverrideCursor()
-
-                mypath = inspect.getfile(inspect.currentframe())
-
-                if exit_code == 0:
-                    self.repository_wizard_finish.text.setText(self._('repo_finish_enabled'))
-                    message = 'INFO %s: Ok, exit code of "%s" was %s.' % ( mypath, command, exit_code )
+                    command = 'echo ' + message
+                    call(command, shell=True)
+                    self.one_shot = False
 
                 else:
-                    error = '<p>ERROR %s: exit code of \"%s\" was %s.</p>' % ( mypath, command, exit_code )
-                    finish_text_failed =  error + self.finish_text_failed
-                    self.repository_wizard_finish.text.setText(self._('repo_finish_failed'))
-                    message = error
+                    if self.repository_wizard_page_2.stable_repo.isChecked():
+                        codename = ' --codename stable'
 
-                command = 'echo ' + message
-                call(command, shell=True)
-                self.one_shot = False
+                    elif self.repository_wizard_page_2.testers_repo.isChecked():
+                        codename = ' --codename testers'
+
+                    elif self.repository_wizard_page_2.devs_repo.isChecked():
+                        codename = ' --codename developers'
+
+                    command = 'whonix_repository --enable' + codename
+
+                    QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
+                    exit_code = call(command, shell=True)
+                    QApplication.restoreOverrideCursor()
+
+                    mypath = inspect.getfile(inspect.currentframe())
+
+                    if exit_code == 0:
+                        self.repository_wizard_finish.text.setText(self._('repo_finish_enabled'))
+                        message = 'INFO %s: Ok, exit code of "%s" was %s.' % ( mypath, command, exit_code )
+
+                    else:
+                        error = '<p>ERROR %s: exit code of \"%s\" was %s.</p>' % ( mypath, command, exit_code )
+                        finish_text_failed =  error + self.finish_text_failed
+                        self.repository_wizard_finish.text.setText(self._('repo_finish_failed'))
+                        message = error
+
+                    command = 'echo ' + message
+                    call(command, shell=True)
+                    self.one_shot = False
 
         if common.argument == 'setup':
             if self.currentId() == self.steps.index('finish_page'):
@@ -737,9 +812,9 @@ class whonix_setup_wizard(QtGui.QWizard):
 
                         if (common.tor_status == 'tor_disabled' or
                             common.tor_status == 'tor_already_disabled'):
-                                self.finish_page.icon.setPixmap(QtGui.QPixmap( \
-                                    '/usr/share/icons/oxygen/48x48/status/task-attention.png'))
-                                self.finish_page.text.setText(self._('finish_disabled'))
+                            self.finish_page.icon.setPixmap(QtGui.QPixmap( \
+                                '/usr/share/icons/oxygen/48x48/status/task-attention.png'))
+                            self.finish_page.text.setText(self._('finish_disabled'))
 
                         # ERROR pages.
                         elif common.tor_status == 'no_torrc':
@@ -787,6 +862,21 @@ class whonix_setup_wizard(QtGui.QWizard):
                     whonixsetup_done = open('/var/lib/whonix/do_once/whonixsetup.done', 'w')
                     whonixsetup_done.close()
 
+        if common.argument == 'locale_settings':
+            if self.currentId() == self.steps.index('locale_settings_finish'):
+
+                if self.locale_settings.other_button.isChecked():
+
+                    if self.locale_settings.lang_checkbox.isChecked():
+                        command = '/usr/bin/kcmshell4 language'
+                        call(command, shell=True)
+
+                    if self.locale_settings.kbd_check.isChecked():
+                        command = '/usr/bin/kcmshell4 kcm_keyboard'
+                        call(command, shell=True)
+
+                self.locale_settings_finish.text.setText('Locale settings wizard is completed.')
+
     def BackButton_clicked(self):
         common.is_complete = False
 
@@ -796,9 +886,6 @@ class whonix_setup_wizard(QtGui.QWizard):
                 self.resize(760, 750)
                 self.center()
 
-            if self.currentId() == self.steps.index('greeter'):
-                self.resize(600, 530)
-                self.center()
 
 def main():
     #import sys
