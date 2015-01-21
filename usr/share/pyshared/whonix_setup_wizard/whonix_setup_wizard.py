@@ -554,7 +554,7 @@ class whonix_setup_wizard(QtGui.QWizard):
         elif common.argument == 'repository':
             self.resize(580, 370)
         elif common.argument == 'locale_settings':
-            self.resize(400, 168)
+            self.resize(440, 168)
 
         # We use QTextBrowser with a white background.
         # Set a default (transparent) background.
@@ -891,7 +891,13 @@ class whonix_setup_wizard(QtGui.QWizard):
                         command = '/usr/bin/kcmshell4 kcm_keyboard'
                         call(command, shell=True)
 
-                self.locale_settings_finish.text.setText('Locale settings wizard is completed.')
+                    self.button(QtGui.QWizard.BackButton).setEnabled(False)
+                    self.locale_settings_finish.text.setText(self._('locale_notice'))
+
+                else:
+                    text = ('<p>Whonix will be installed in the default language (English US).</p> \
+                            Click "Finish" to start the deskop environment')
+                    self.locale_settings_finish.text.setText(text)
 
     def BackButton_clicked(self):
         common.is_complete = False

@@ -1,5 +1,11 @@
 whonixsetup:
     en:
+        locale_notice:
+            <p>You can always change country/language again by going to</p>
+            <blockquote>Start Menu -> System Settings -> Locale</blockquote>
+             <p>You can always change keyboard layout again by going to</p>
+            <blockquote>Start Menu -> System Settings -> Input Devices </blockquote>
+           
         disclaimer_1:
             <p><b>ENG. Important Information About Whonix Part 1/2<br></br>
             GER. Wichtige Informationen zu Whonix Teil 1/2</b></p>
