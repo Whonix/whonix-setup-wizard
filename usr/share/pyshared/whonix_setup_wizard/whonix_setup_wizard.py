@@ -103,10 +103,12 @@ class locale_settings(QtGui.QWizardPage):
         self.other_button.toggled.connect(self.other_button_toggled)
 
         self.lang_checkbox.setEnabled(False)
+        self.lang_checkbox.setChecked(True)
         self.lang_checkbox.setGeometry(QtCore.QRect(40, 58, 483, 21))
         self.lang_checkbox.setText('Change country and language')
 
         self.kbd_check.setEnabled(False)
+        self.kbd_check.setChecked(True)
         self.kbd_check.setGeometry(QtCore.QRect(40, 78, 483, 21))
         self.kbd_check.setText('Change keyboard layout')
 
