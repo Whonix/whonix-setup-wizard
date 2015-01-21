@@ -889,10 +889,12 @@ def main():
     app = QtGui.QApplication(sys.argv)
 
     # root check.
-    if os.getuid() != 0:
-        print 'ERROR: This must be run as root!\nUse "kdesudo".'
-        not_root = gui_message(common.translations_path, 'not_root')
-        sys.exit(1)
+    # locale_settings has to be run as user.
+    if sys.argv[1] != 'locale_settings':
+        if os.getuid() != 0:
+            print 'ERROR: This must be run as root!\nUse "kdesudo".'
+            not_root = gui_message(common.translations_path, 'not_root')
+            sys.exit(1)
 
     wizard = whonix_setup_wizard()
 
