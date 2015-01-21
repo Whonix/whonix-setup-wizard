@@ -15,9 +15,6 @@ import sys
 #from PyQt4.QtCore import Qt
 #from PyQt4.QtGui import QApplication, QCursor
 
-import pycountry
-import icu
-
 from guimessages.translations import _translations
 from guimessages.guimessage import gui_message
 
