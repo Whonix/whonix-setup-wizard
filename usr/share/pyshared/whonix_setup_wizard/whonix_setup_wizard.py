@@ -81,7 +81,7 @@ class locale_settings(QtGui.QWizardPage):
         self.other_button = QtGui.QRadioButton(self.group)
 
         self.lang_checkbox = QtGui.QCheckBox(self.group)
-        self.kbd_check = QtGui.QCheckBox(self.group)
+        self.kbd_checkbox = QtGui.QCheckBox(self.group)
 
         self.layout = QtGui.QVBoxLayout(self)
 
@@ -106,11 +106,13 @@ class locale_settings(QtGui.QWizardPage):
         self.lang_checkbox.setChecked(True)
         self.lang_checkbox.setGeometry(QtCore.QRect(40, 58, 483, 21))
         self.lang_checkbox.setText('Change country and language')
+        self.lang_checkbox.toggled.connect(self.lang_checkbox_toggled)
 
-        self.kbd_check.setEnabled(False)
-        self.kbd_check.setChecked(True)
-        self.kbd_check.setGeometry(QtCore.QRect(40, 78, 483, 21))
-        self.kbd_check.setText('Change keyboard layout')
+        self.kbd_checkbox.setEnabled(False)
+        self.kbd_checkbox.setChecked(True)
+        self.kbd_checkbox.setGeometry(QtCore.QRect(40, 78, 483, 21))
+        self.kbd_checkbox.setText('Change keyboard layout')
+        self.kbd_checkbox.toggled.connect(self.kbd_checkbox_toggled)
 
         self.layout.addWidget(self.text)
         self.layout.addWidget(self.group)
@@ -120,11 +122,27 @@ class locale_settings(QtGui.QWizardPage):
     def other_button_toggled(self, state):
         if state:
             self.lang_checkbox.setEnabled(True)
-            self.kbd_check.setEnabled(True)
+            self.kbd_checkbox.setEnabled(True)
 
         else:
             self.lang_checkbox.setEnabled(False)
-            self.kbd_check.setEnabled(False)
+            self.kbd_checkbox.setEnabled(False)
+
+    def lang_checkbox_toggled(self, state):
+        if (not self.lang_checkbox.isChecked() and
+            not self.kbd_checkbox.isChecked()):
+            self.lang_checkbox.setChecked(True)
+            self.kbd_checkbox.setChecked(True)
+            self.default_button.setChecked(True)
+            self.other_button.setChecked(False)
+
+    def kbd_checkbox_toggled(self, state):
+        if (not self.lang_checkbox.isChecked() and
+            not self.kbd_checkbox.isChecked()):
+            self.lang_checkbox.setChecked(True)
+            self.kbd_checkbox.setChecked(True)
+            self.default_button.setChecked(True)
+            self.other_button.setChecked(False)
 
 
 class locale_settings_finish(QtGui.QWizardPage):
@@ -870,7 +888,7 @@ class whonix_setup_wizard(QtGui.QWizard):
                         command = '/usr/bin/kcmshell4 language'
                         call(command, shell=True)
 
-                    if self.locale_settings.kbd_check.isChecked():
+                    if self.locale_settings.kbd_checkbox.isChecked():
                         command = '/usr/bin/kcmshell4 kcm_keyboard'
                         call(command, shell=True)
 
@@ -889,6 +907,9 @@ class whonix_setup_wizard(QtGui.QWizard):
 def main():
     #import sys
     app = QtGui.QApplication(sys.argv)
+
+    if not os.path.exists('/usr/bin/kcmshell4'):
+        sys.exit(0)
 
     # root check.
     # locale_settings has to be run as user.
