@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
-
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 """ WHONIX SETUP WIZARD """
 from PyQt4.QtGui import *
