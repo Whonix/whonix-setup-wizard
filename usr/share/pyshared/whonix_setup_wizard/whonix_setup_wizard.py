@@ -32,6 +32,11 @@ class common:
 
     tor_status = ''
 
+    if not os.path.exists("/home/user/.gateway/first_use_check.done"):
+        first_use_notice = True
+    else:
+        first_use_notice = False
+
     argument = sys.argv[1]
 
     if argument == 'setup':
@@ -532,7 +537,7 @@ class whonix_setup_wizard(QtGui.QWizard):
             self.finish_page = finish_page()
             self.addPage(self.finish_page)
 
-            if self.env == 'gateway':
+            if self.env == 'gateway'and common.first_use_notice:
                 self.first_use_notice = first_use_notice()
                 self.addPage(self.first_use_notice)
 
@@ -587,7 +592,8 @@ class whonix_setup_wizard(QtGui.QWizard):
                     self.connection_page.censored.setText(self._('censored_tor'))
                     self.connection_page.use_proxy.setText(self._('use_proxy'))
 
-                    self.first_use_notice.text.setText(self._('first_use_notice'))
+                    if common.first_use_notice:
+                        self.first_use_notice.text.setText(self._('first_use_notice'))
 
 
             if common.argument == 'setup' or common.argument == 'repository':
@@ -596,8 +602,6 @@ class whonix_setup_wizard(QtGui.QWizard):
                 self.repository_wizard_page_1.disable_repo.setText(self._('repo_disable'))
 
                 self.repository_wizard_page_2.text.setText(self._('repo_page_2'))
-
-            #self.first_use_notice.text.setText(self._('first_use_notice'))
 
         except (yaml.scanner.ScannerError, yaml.parser.ParserError):
             pass
@@ -925,6 +929,10 @@ def main():
             sys.exit(1)
 
     wizard = whonix_setup_wizard()
+
+    if common.first_use_notice:
+        f = open("/home/user/.gateway/first_use_check.done", "w")
+        f.close()
 
     # run whonixcheck
     if common.is_complete:
