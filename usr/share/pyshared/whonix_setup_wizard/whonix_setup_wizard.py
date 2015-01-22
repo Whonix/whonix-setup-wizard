@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
-
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 """ WHONIX SETUP WIZARD """
 from PyQt4.QtGui import *
@@ -14,9 +13,6 @@ import inspect
 import sys
 #from PyQt4.QtCore import Qt
 #from PyQt4.QtGui import QApplication, QCursor
-
-import pycountry
-import icu
 
 from guimessages.translations import _translations
 from guimessages.guimessage import gui_message
@@ -84,7 +80,7 @@ class locale_settings(QtGui.QWizardPage):
         self.other_button = QtGui.QRadioButton(self.group)
 
         self.lang_checkbox = QtGui.QCheckBox(self.group)
-        self.kbd_check = QtGui.QCheckBox(self.group)
+        self.kbd_checkbox = QtGui.QCheckBox(self.group)
 
         self.layout = QtGui.QVBoxLayout(self)
 
@@ -106,12 +102,16 @@ class locale_settings(QtGui.QWizardPage):
         self.other_button.toggled.connect(self.other_button_toggled)
 
         self.lang_checkbox.setEnabled(False)
+        self.lang_checkbox.setChecked(True)
         self.lang_checkbox.setGeometry(QtCore.QRect(40, 58, 483, 21))
         self.lang_checkbox.setText('Change country and language')
+        self.lang_checkbox.toggled.connect(self.lang_checkbox_toggled)
 
-        self.kbd_check.setEnabled(False)
-        self.kbd_check.setGeometry(QtCore.QRect(40, 78, 483, 21))
-        self.kbd_check.setText('Change keyboard layout')
+        self.kbd_checkbox.setEnabled(False)
+        self.kbd_checkbox.setChecked(True)
+        self.kbd_checkbox.setGeometry(QtCore.QRect(40, 78, 483, 21))
+        self.kbd_checkbox.setText('Change keyboard layout')
+        self.kbd_checkbox.toggled.connect(self.kbd_checkbox_toggled)
 
         self.layout.addWidget(self.text)
         self.layout.addWidget(self.group)
@@ -121,11 +121,27 @@ class locale_settings(QtGui.QWizardPage):
     def other_button_toggled(self, state):
         if state:
             self.lang_checkbox.setEnabled(True)
-            self.kbd_check.setEnabled(True)
+            self.kbd_checkbox.setEnabled(True)
 
         else:
             self.lang_checkbox.setEnabled(False)
-            self.kbd_check.setEnabled(False)
+            self.kbd_checkbox.setEnabled(False)
+
+    def lang_checkbox_toggled(self, state):
+        if (not self.lang_checkbox.isChecked() and
+            not self.kbd_checkbox.isChecked()):
+            self.lang_checkbox.setChecked(True)
+            self.kbd_checkbox.setChecked(True)
+            self.default_button.setChecked(True)
+            self.other_button.setChecked(False)
+
+    def kbd_checkbox_toggled(self, state):
+        if (not self.lang_checkbox.isChecked() and
+            not self.kbd_checkbox.isChecked()):
+            self.lang_checkbox.setChecked(True)
+            self.kbd_checkbox.setChecked(True)
+            self.default_button.setChecked(True)
+            self.other_button.setChecked(False)
 
 
 class locale_settings_finish(QtGui.QWizardPage):
@@ -538,7 +554,7 @@ class whonix_setup_wizard(QtGui.QWizard):
         elif common.argument == 'repository':
             self.resize(580, 370)
         elif common.argument == 'locale_settings':
-            self.resize(400, 168)
+            self.resize(440, 168)
 
         # We use QTextBrowser with a white background.
         # Set a default (transparent) background.
@@ -871,11 +887,17 @@ class whonix_setup_wizard(QtGui.QWizard):
                         command = '/usr/bin/kcmshell4 language'
                         call(command, shell=True)
 
-                    if self.locale_settings.kbd_check.isChecked():
+                    if self.locale_settings.kbd_checkbox.isChecked():
                         command = '/usr/bin/kcmshell4 kcm_keyboard'
                         call(command, shell=True)
 
-                self.locale_settings_finish.text.setText('Locale settings wizard is completed.')
+                    self.button(QtGui.QWizard.BackButton).setEnabled(False)
+                    self.locale_settings_finish.text.setText(self._('locale_notice'))
+
+                else:
+                    text = ('<p>Whonix will be installed in the default language (English US).</p> \
+                            Click "Finish" to start the deskop environment')
+                    self.locale_settings_finish.text.setText(text)
 
     def BackButton_clicked(self):
         common.is_complete = False
@@ -891,11 +913,16 @@ def main():
     #import sys
     app = QtGui.QApplication(sys.argv)
 
+    if not os.path.exists('/usr/bin/kcmshell4'):
+        sys.exit(0)
+
     # root check.
-    if os.getuid() != 0:
-        print 'ERROR: This must be run as root!\nUse "kdesudo".'
-        not_root = gui_message(common.translations_path, 'not_root')
-        sys.exit(1)
+    # locale_settings has to be run as user.
+    if sys.argv[1] != 'locale_settings':
+        if os.getuid() != 0:
+            print 'ERROR: This must be run as root!\nUse "kdesudo".'
+            not_root = gui_message(common.translations_path, 'not_root')
+            sys.exit(1)
 
     wizard = whonix_setup_wizard()
 
