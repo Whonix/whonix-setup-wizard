@@ -32,11 +32,6 @@ class common:
 
     tor_status = ''
 
-    if not os.path.exists("/home/user/.gateway/first_use_check.done"):
-        first_use_notice = True
-    else:
-        first_use_notice = False
-
     argument = sys.argv[1]
 
     if argument == 'setup':
@@ -71,6 +66,15 @@ class common:
     elif argument == 'locale_settings':
         wizard_steps = ['locale_settings',
                         'locale_settings_finish']
+
+    first_use_notice = False
+
+    if environment == 'gateway':
+        if not os.path.exists("/home/user/.gateway/first_use_check.done"):
+            first_use_notice = True
+        else:
+            first_use_notice = False
+
 
 
 class locale_settings(QtGui.QWizardPage):
@@ -652,15 +656,17 @@ class whonix_setup_wizard(QtGui.QWizard):
         Options (like button states, window size changes...) are set here.
         """
         if common.argument == 'setup':
-            # A more "normal" wizard size after the disclaimer pages.
-            if self.currentId() == self.steps.index('connection_page'):
-                self.resize(580, 370)
-                self.center()
+
+            if self.env == 'workstation':
+                if (self.currentId() == self.steps.index('whonix_repo_page') or
+                    self.currentId() == self.steps.index('finish_page')):
+                    self.resize(470, 310)
+                    self.center()
 
             if self.env == 'gateway':
-                #if self.currentId() == self.steps.index('greeter_page'):
-                #    self.resize(580, 370)
-                #    self.center()
+                if self.currentId() == self.steps.index('connection_page'):
+                    self.resize(580, 370)
+                    self.center()
 
                 # Set Next button state
                 if self.currentId() == self.steps.index('connection_page'):
@@ -812,6 +818,11 @@ class whonix_setup_wizard(QtGui.QWizard):
                     self.removePage(self.steps.index('repository_wizard_page_1'))
                     self.removePage(self.steps.index('repository_wizard_page_2'))
                     self.removePage(self.steps.index('repository_wizard_finish'))
+
+                if self.env == 'workstation':
+                    self.finish_page.icon.setPixmap(QtGui.QPixmap( \
+                        '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
+                    self.finish_page.text.setText(self._('finish_page_ok'))
 
                 if self.env == 'gateway':
                     if (common.tor_status == 'tor_enabled' or
