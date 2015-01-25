@@ -896,12 +896,8 @@ class whonix_setup_wizard(QtGui.QWizard):
                         call(command, shell=True)
 
                     self.button(QtGui.QWizard.BackButton).setEnabled(False)
-                    self.locale_settings_finish.text.setText(self._('locale_notice'))
 
-                else:
-                    text = ('<p>Whonix will be installed in the default language (English US).</p> \
-                            Click "Finish" to start the deskop environment')
-                    self.locale_settings_finish.text.setText(text)
+                self.locale_settings_finish.text.setText(self._('locale_finish'))
 
     def BackButton_clicked(self):
         common.is_complete = False
