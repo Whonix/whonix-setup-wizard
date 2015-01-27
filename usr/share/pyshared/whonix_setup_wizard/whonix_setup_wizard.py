@@ -654,10 +654,11 @@ class whonix_setup_wizard(QtGui.QWizard):
         Options (like button states, window size changes...) are set here.
         """
         if common.argument == 'setup':
-            # A more "normal" wizard size after the disclaimer pages.
-            if self.currentId() == self.steps.index('connection_page'):
-                self.resize(580, 370)
-                self.center()
+            if self.env == 'workstation':
+                if (self.currentId() == self.steps.index('whonix_repo_page') or
+                    self.currentId() == self.steps.index('finish_page')):
+                    self.resize(470, 310)
+                    self.center()
 
             if self.env == 'gateway':
                 #if self.currentId() == self.steps.index('greeter_page'):
@@ -666,6 +667,8 @@ class whonix_setup_wizard(QtGui.QWizard):
 
                 # Set Next button state
                 if self.currentId() == self.steps.index('connection_page'):
+                    self.resize(580, 370)
+                    self.center()
                     if (self.connection_page.censored.isChecked() or
                         self.connection_page.use_proxy.isChecked()):
                             self.button(QtGui.QWizard.NextButton).setEnabled(False)
@@ -804,6 +807,7 @@ class whonix_setup_wizard(QtGui.QWizard):
 
         if common.argument == 'setup':
             if self.currentId() == self.steps.index('finish_page'):
+
                 # for whonixcheck.
                 common.is_complete = True
 
@@ -875,6 +879,8 @@ class whonix_setup_wizard(QtGui.QWizard):
                     call(command, shell=True)
 
                 if self.env == 'workstation':
+                    self.finish_page.icon.setPixmap(QtGui.QPixmap( \
+                    '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
                     self.finish_page.text.setText(self._('finish_page_ok'))
 
                     # whonixsetup completed.
