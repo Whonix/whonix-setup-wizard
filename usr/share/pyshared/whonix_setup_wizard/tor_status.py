@@ -18,6 +18,23 @@ def set_enabled():
     for line in lines:
         if line.strip() == 'DisableNetwork 0':
             line_exists = True
+
+            # tor might be stopped.
+            command = 'service tor status'
+            tor_status = call(command, shell=True)
+
+            if tor_status != 0:
+                command = 'service tor start'
+                call(command, shell=True)
+
+                command = 'service tor status'
+                tor_status = call(command, shell=True)
+
+                if tor_status == 0:
+                    return 'tor_enabled'
+                else:
+                    return 'cannot_connect'
+
             return 'tor_already_enabled'
 
         elif line.strip() == '#DisableNetwork 0':
@@ -31,7 +48,7 @@ def set_enabled():
 
             command = 'service tor reload'
             call(command, shell=True)
-            time.sleep(1)
+            #time.sleep(1)
 
             command = 'service tor status'
             tor_status = call(command, shell=True)
@@ -46,7 +63,7 @@ def set_enabled():
             if tor_status != 0:
                 command = 'service tor start'
                 call(command, shell=True)
-                time.sleep(1)
+            #    time.sleep(1)
 
                 command = 'service tor status'
                 tor_status = call(command, shell=True)
