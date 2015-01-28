@@ -25,18 +25,26 @@ class common:
     """
     translations_path ='/usr/share/translations/whonix_setup.yaml'
 
+    first_use_notice = False
     is_complete = False
-
     run_repo = False
     disable_repo = False
-
     tor_status = ''
 
     argument = sys.argv[1]
 
+    if os.path.exists('/usr/share/anon-gw-base-files'):
+        environment = 'gateway'
+
+    elif os.path.exists('/usr/share/anon-ws-base-files'):
+        environment = 'workstation'
+
+    if environment == 'gateway':
+        if not os.path.exists("/home/user/.gateway/first_use_check.done"):
+            first_use_notice = True
+
     if argument == 'setup':
-        if os.path.exists('/usr/share/anon-gw-base-files'):
-            environment = 'gateway'
+        if environment == 'gateway':
             wizard_steps = ['disclaimer_1',
                             'disclaimer_2',
                             'connection_page',
@@ -48,8 +56,7 @@ class common:
                             'finish_page',
                             'first_use_notice']
 
-        elif os.path.exists('/usr/share/anon-ws-base-files'):
-            environment = 'workstation'
+        elif environment == 'workstation':
             wizard_steps = ['disclaimer_1',
                             'disclaimer_2',
                             'whonix_repo_page',
@@ -532,7 +539,7 @@ class whonix_setup_wizard(QtGui.QWizard):
             self.finish_page = finish_page()
             self.addPage(self.finish_page)
 
-            if self.env == 'gateway':
+            if self.env == 'gateway'and common.first_use_notice:
                 self.first_use_notice = first_use_notice()
                 self.addPage(self.first_use_notice)
 
@@ -587,7 +594,8 @@ class whonix_setup_wizard(QtGui.QWizard):
                     self.connection_page.censored.setText(self._('censored_tor'))
                     self.connection_page.use_proxy.setText(self._('use_proxy'))
 
-                    self.first_use_notice.text.setText(self._('first_use_notice'))
+                    if common.first_use_notice:
+                        self.first_use_notice.text.setText(self._('first_use_notice'))
 
 
             if common.argument == 'setup' or common.argument == 'repository':
@@ -596,8 +604,6 @@ class whonix_setup_wizard(QtGui.QWizard):
                 self.repository_wizard_page_1.disable_repo.setText(self._('repo_disable'))
 
                 self.repository_wizard_page_2.text.setText(self._('repo_page_2'))
-
-            #self.first_use_notice.text.setText(self._('first_use_notice'))
 
         except (yaml.scanner.ScannerError, yaml.parser.ParserError):
             pass
@@ -648,10 +654,11 @@ class whonix_setup_wizard(QtGui.QWizard):
         Options (like button states, window size changes...) are set here.
         """
         if common.argument == 'setup':
-            # A more "normal" wizard size after the disclaimer pages.
-            if self.currentId() == self.steps.index('connection_page'):
-                self.resize(580, 370)
-                self.center()
+            if self.env == 'workstation':
+                if (self.currentId() == self.steps.index('whonix_repo_page') or
+                    self.currentId() == self.steps.index('finish_page')):
+                    self.resize(470, 310)
+                    self.center()
 
             if self.env == 'gateway':
                 #if self.currentId() == self.steps.index('greeter_page'):
@@ -660,6 +667,8 @@ class whonix_setup_wizard(QtGui.QWizard):
 
                 # Set Next button state
                 if self.currentId() == self.steps.index('connection_page'):
+                    self.resize(580, 370)
+                    self.center()
                     if (self.connection_page.censored.isChecked() or
                         self.connection_page.use_proxy.isChecked()):
                             self.button(QtGui.QWizard.NextButton).setEnabled(False)
@@ -798,6 +807,7 @@ class whonix_setup_wizard(QtGui.QWizard):
 
         if common.argument == 'setup':
             if self.currentId() == self.steps.index('finish_page'):
+
                 # for whonixcheck.
                 common.is_complete = True
 
@@ -869,6 +879,8 @@ class whonix_setup_wizard(QtGui.QWizard):
                     call(command, shell=True)
 
                 if self.env == 'workstation':
+                    self.finish_page.icon.setPixmap(QtGui.QPixmap( \
+                    '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
                     self.finish_page.text.setText(self._('finish_page_ok'))
 
                     # whonixsetup completed.
@@ -892,12 +904,8 @@ class whonix_setup_wizard(QtGui.QWizard):
                         call(command, shell=True)
 
                     self.button(QtGui.QWizard.BackButton).setEnabled(False)
-                    self.locale_settings_finish.text.setText(self._('locale_notice'))
 
-                else:
-                    text = ('<p>Whonix will be installed in the default language (English US).</p> \
-                            Click "Finish" to start the deskop environment')
-                    self.locale_settings_finish.text.setText(text)
+                self.locale_settings_finish.text.setText(self._('locale_finish'))
 
     def BackButton_clicked(self):
         common.is_complete = False
@@ -925,6 +933,10 @@ def main():
             sys.exit(1)
 
     wizard = whonix_setup_wizard()
+
+    if common.first_use_notice:
+        f = open("/home/user/.gateway/first_use_check.done", "w")
+        f.close()
 
     # run whonixcheck
     if common.is_complete:
