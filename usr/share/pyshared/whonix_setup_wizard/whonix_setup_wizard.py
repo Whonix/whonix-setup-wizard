@@ -484,6 +484,7 @@ class first_use_notice(QtGui.QWizardPage):
     def setupUi(self):
         self.text.setFrameShape(QtGui.QFrame.NoFrame)
         self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.text.setOpenExternalLinks(True)
 
         self.layout.addWidget(self.text)
         self.setLayout(self.layout)
