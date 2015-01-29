@@ -21,30 +21,23 @@ def tor_status():
 
 if os.path.exists('/usr/share/anon-gw-base-files'):
 
-    command = '/usr/lib/gateway_first_run_notice'
-    call(command, shell = True)
-    time.sleep(0.5)
+    #command = '/usr/lib/gateway_first_run_notice'
+    #call(command, shell = True)
+    #time.sleep(0.5)
 
-    if os.path.exists('/tmp/rads/start_x.status'):
+    if os.path.exists('/usr/bin/whonix-setup-wizard'):
         tor_status = tor_status()
+        if tor_status == 'tor_disabled':
+            command = 'xhost +local:root'
+            call(command, shell = True)
 
-        if os.path.exists('/usr/bin/whonix-setup-wizard'):
-            if tor_status == 'tor_disabled':
-                command = 'xhost +local:root'
-                call(command, shell = True)
-
-                command = 'sudo /usr/bin/whonix-setup-wizard setup'
-                call(command, shell = True)
-
-        else:
-            # revert to cli. TODO: add gui message.
-            command = '/usr/lib/whonixsetup_cli_start_maybe'
+            command = 'sudo /usr/bin/whonix-setup-wizard setup'
             call(command, shell = True)
 
     else:
+        # revert to cli. TODO: add gui message.
         command = '/usr/lib/whonixsetup_cli_start_maybe'
         call(command, shell = True)
-
 
 elif os.path.exists('/usr/share/anon-ws-base-files'):
 
