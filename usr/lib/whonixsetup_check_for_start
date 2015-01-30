@@ -3,7 +3,7 @@
 from subprocess import call
 import sys, os
 import time
-
+import distutils.spawn
 
 def tor_status():
     if not os.path.exists('/etc/tor/torrc'):
@@ -25,14 +25,15 @@ if os.path.exists('/usr/share/anon-gw-base-files'):
     #call(command, shell = True)
     #time.sleep(0.5)
 
-    if os.path.exists('/usr/bin/whonix-setup-wizard'):
+    whonix_setup_wizard = distutils.spawn.find_executable("whonix-setup-wizard")
+    if not whonix_setup_wizard == "":
         tor_status = tor_status()
         if tor_status == 'tor_disabled':
             command = 'xhost +local:root'
             call(command, shell = True)
 
-            command = 'sudo /usr/bin/whonix-setup-wizard setup'
-            call(command, shell = True)
+            command = 'sudo %s setup' % (whonix_setup_wizard)
+            call(command, shell=True)
 
     else:
         # revert to cli. TODO: add gui message.
@@ -42,11 +43,13 @@ if os.path.exists('/usr/share/anon-gw-base-files'):
 elif os.path.exists('/usr/share/anon-ws-base-files'):
 
     if not os.path.exists('/var/lib/whonix/do_once/whonixsetup.done'):
-        command = 'xhost +local:root'
-        call(command, shell = True)
+        whonix_setup_wizard = distutils.spawn.find_executable("whonix-setup-wizard")
+        if not whonix_setup_wizard == "":
+            command = 'xhost +local:root'
+            call(command, shell = True)
 
-        command = 'sudo /usr/bin/whonix-setup-wizard setup'
-        call(command, shell = True)
+            command = 'sudo %s setup' % (whonix_setup_wizard)
+            call(command, shell=True)
 
 
 
