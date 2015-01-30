@@ -50,8 +50,3 @@ elif os.path.exists('/usr/share/anon-ws-base-files'):
 
             command = 'sudo %s setup' % (whonix_setup_wizard)
             call(command, shell=True)
-
-
-
-
-
