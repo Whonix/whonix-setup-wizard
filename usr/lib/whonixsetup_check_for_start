@@ -19,7 +19,7 @@ def tor_status():
             return 'tor_disabled'
 
 
-if os.path.exists('/usr/share/anon-gw-base-files'):
+if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
 
     #command = '/usr/lib/gateway_first_run_notice'
     #call(command, shell = True)
@@ -40,7 +40,7 @@ if os.path.exists('/usr/share/anon-gw-base-files'):
         command = '/usr/lib/whonixsetup_cli_start_maybe'
         call(command, shell = True)
 
-elif os.path.exists('/usr/share/anon-ws-base-files'):
+elif os.path.exists('/usr/share/anon-ws-base-files/workstation'):
 
     if not os.path.exists('/var/lib/whonix/do_once/whonixsetup.done'):
         whonix_setup_wizard = distutils.spawn.find_executable("whonix-setup-wizard")
