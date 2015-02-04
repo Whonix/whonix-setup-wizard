@@ -1,0 +1,766 @@
+commit 787759d9b685bf5861c29b7e04fea1dcaa774e39
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 4 00:41:03 2015 +0000
+
+    updated makefile generic to version 1.3
+
+commit 9a37125c1bf11a62f6b23cd160b106135a11ffca
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 3 23:59:03 2015 +0000
+
+    Added creation of upstream changelog to debian/rules
+
+commit 48965cf2dd4abd71228bfc39c551c52ea745ecda
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 30 12:19:32 2015 +0000
+
+    moved from /usr/lib/whonixsetup_check_for_start to /usr/lib/whonix-setup-wizard/whonixsetup_check_for_start
+
+commit 841111fc28386b5f63136ba5d38c40e58e479371
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 30 12:17:45 2015 +0000
+
+    check for exact marker file rather than folder
+
+commit 7255731d45af40740a63a0a02ede18f68dfab0e4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 30 12:16:31 2015 +0000
+
+    removed extra new lines
+
+commit 56b2194892eb0f7506020eff416fe84e7d700fbe
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 30 12:14:18 2015 +0000
+
+    check if whonix-setup-wizard is executable rather than just for existing path, using distutils.spawn.find_executable (+ additional /etc/sudoers.d exception) allows others to put their preferred version into /usr/local/bin/whonix-setup-wizard, such as to add a wrapper
+
+commit 9b3b9ce278ba6c50153fe42be68e6dbbd68fe5ef
+Merge: 424aa72 8bcc2b1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 29 23:04:58 2015 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 8bcc2b12e99f3b633625f170447989ca43f503e8
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Jan 29 21:53:02 2015 +0000
+
+    remove "if os.path.exists('/tmp/rads/start_x.status'):" in whonixsetup_check_for_start
+
+commit 424aa722f2f2cdef687a5767f9e08b94e5268043
+Merge: 199c6a9 4859ab8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 29 00:35:32 2015 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 4859ab8c19ed084137ba78c56df391d87a51f9a5
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Jan 28 19:37:45 2015 +0000
+
+    tor status check even if DisableNetwork 0 uncommented.
+
+commit a4d24fa10a0505595ef3001b852700e12a9caf64
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Jan 28 19:09:08 2015 +0000
+
+    + setOpenExternalLinks i first use notice.
+
+commit 199c6a991a29108a778dce98a1c920e6a1cb86f6
+Merge: eb82e89 64ab7f8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 28 18:57:59 2015 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 64ab7f8df3cb63ea7d1ac902be04edce480cccad
+Author: troubadoour <trobador@riseup.net>
+Date:   Tue Jan 27 17:11:56 2015 +0000
+
+    more fixes for Whonix-Workstation
+
+commit 9563557b408d2c70aee0d080301d0d9f9aa41438
+Author: troubadoour <trobador@riseup.net>
+Date:   Tue Jan 27 15:11:36 2015 +0000
+
+    fixes for Whonix-Workstation
+
+commit 385ae14bb307331a4b061c3e2440587f0c4b3b0f
+Merge: 6ec9db9 986c5fa
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Jan 25 14:32:12 2015 +0000
+
+    Merge branch 'master' of https://github.com/troubadoour/whonix-setup-wizard
+
+commit 6ec9db9fad2e0604e76fd20ddff3e9bbe361e0d5
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Jan 25 14:28:39 2015 +0000
+
+    consistent message in locale_settings finish page.
+    run first_use_notice only once.
+
+commit 986c5fa57fb7efab7c9e85b24eecabd5d188753f
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Jan 23 13:00:51 2015 +0000
+
+    adjustments for Whonix-Workstation
+
+commit 29d69d57d4fc47f42505329fb587181872cb0363
+Merge: 3b97ca0 eb82e89
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Jan 23 07:25:09 2015 +0000
+
+    Merge remote-tracking branch 'origin/master'
+
+commit eb82e8939bdd6632b8efaaacca6446f82d6c2015
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 22 22:46:49 2015 +0000
+
+    removed pyc files
+
+commit a74632201105a726d9f64a33ae57e832d42ab250
+Merge: 07ac0f6 70d395f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 22 19:17:23 2015 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 3b97ca06b28eef69cb88cde62c063a76020e61ad
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Jan 22 19:15:31 2015 +0000
+
+    display first_use_notice only once.
+
+commit 70d395f42e1722fe42dffa8666ec52261f68aaf1
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Jan 21 16:05:56 2015 +0000
+
+    locale_settings: message in finish page if locales changed.
+
+commit 5ceea73782ecba6d99ea50207cb7569e3366f807
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Jan 21 15:26:46 2015 +0000
+
+    "coding: utf-8" in the right place.
+
+commit 9b9a922fcc69177f2262022277ce0c97bf47d9e1
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Jan 21 15:16:22 2015 +0000
+
+    locale_settings: back to default if no option checked.
+
+commit 5b33957f720ffcf4f62b0b98a18e4102416c3774
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Jan 21 12:35:48 2015 +0000
+
+    set language and keyboard checkboxes.
+
+commit d9f2b64bb02bffe0e9fed54812dd9d5c497a6249
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Jan 21 12:14:33 2015 +0000
+
+    allow locale_settings as user.
+
+commit ca1b7d05c853a56df7c47adfa7f1fe8b4291d729
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Jan 21 12:11:06 2015 +0000
+
+    remove pycountry and icu imports.
+
+commit 07ac0f62e17009f862952ec7ccda1c7656e9a81b
+Merge: 1887598 e6689d9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 19 23:17:46 2015 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit e6689d94339d9498e2a22f680ce304bef27f8852
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Jan 19 21:12:22 2015 +0000
+
+    + first_use_notice
+    + locale_settings
+
+commit 188759890b88ffb6dc679f69ac22afcc18c9002d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 17 23:54:51 2015 +0000
+
+    Fix, don't use hard coded "kdesudo" within ".desktop" file, lintian doesn't
+    like this and it's not desktop environment agnostic. Added a wrapper to
+    workaround the lack of a Debian utility such as "su-to-root -X" that supports
+    passing command line parameters.
+
+commit 7442cec5793bc7c77f9fcca0f4562919029109e4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 17 22:57:11 2015 +0000
+
+    fixed changelog
+
+commit 852d211dda99da352794625593b263eb97ec6536
+Merge: 80a737c b92d452
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 11 15:18:13 2015 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit b92d452d7e67b884354b3a944f82061622559a2e
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Jan 11 10:06:54 2015 +0000
+
+    greeter page.
+
+commit e6c19f8af544e557431e4b5425d751780a2e47bf
+Merge: 7c740de dfc1328
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Jan 11 03:19:24 2015 +0000
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 7c740def5ea78bd89dbf305064c649f74a08428b
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Jan 11 03:18:35 2015 +0000
+
+    cleanup.
+
+commit 80a737cec094aef6ca306f452844f3a7cc4403ea
+Merge: dfc1328 984a471
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 10 19:40:46 2015 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 984a4715837ed82a292deddcdcabe8a2e96a8497
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Jan 10 18:48:21 2015 +0000
+
+    icons in tor_status and finish pages.
+
+commit dfc132826606b34ce73a0e916b676da051807290
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 7 19:45:50 2015 +0000
+
+    updated readme
+
+commit 277b71f5e88e24913739f01212d6c825840bd392
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 7 19:35:05 2015 +0000
+
+    bumped compat from 8 to 9
+
+commit c70c527d233cb9db7ebfda9371d46c1d5d22d333
+Merge: 1202b42 035ea7b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 5 20:28:51 2015 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 035ea7b45286b6e87bd379ad3c5d8bc2cc61e929
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Jan 5 17:08:26 2015 +0000
+
+    changed from terminal to Startup on "no_torrc"
+
+commit 1202b423b1e89175672ad028a122b4e529a6c917
+Merge: 292c17e a1ba9b2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 5 16:47:58 2015 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit a1ba9b28790f0d4ece956db3a39625d0eece67b7
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Jan 5 16:14:57 2015 +0000
+
+    removed terminal option (sudo nano)
+
+commit 3b59400eda219c1748de822303e346d5112ca779
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Jan 1 16:52:18 2015 +0000
+
+    terminal option (sudo nano) in repo pages.
+
+commit 292c17e7eb646909c65bd8d70b54386aac7771be
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 1 15:18:03 2015 +0000
+
+    bumped version number
+
+commit 3bea11fc39cf80cf91b18cc8b065ded1e84a718f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 1 15:17:15 2015 +0000
+
+    moved /etc/xdg/autostart/whonixsetup.desktop from whonixsetup to whonix-setup-wizard /etc/xdg/autostart/whonix-setup-wizard.desktop
+
+commit 80de9027847eb6aaebfc795e083909513b007343
+Merge: ad96156 006060e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 1 15:14:40 2015 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 006060e78c388072d4a50f69b171f25a10bef96a
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Jan 1 12:43:56 2015 +0000
+
+    cannot_connect page.
+
+commit 353850bcdcaed42869def3ecf021c92c75c2a052
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Jan 1 09:45:32 2015 +0000
+
+    os.mkdir() instead of calling a shell.
+
+commit ad961566eed3210b57b83a0725fa79bcfd52f8b0
+Merge: 8bd5686 469eabd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 1 08:33:39 2015 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 469eabdd1753321dec7e315c9ad4f5fd2a26982b
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Dec 27 21:39:01 2014 +0000
+
+    bug fix: whonixsetup.done written before disclaimer buttons check.
+
+commit b3826822e44160d3ebe18a6408407c09d180b62b
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Dec 27 21:08:00 2014 +0000
+
+    fix whonixsetup.done path.
+
+commit 035a3eb629d273dfda89363619562e880eaf1ada
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Dec 27 20:48:49 2014 +0000
+
+    whonixsetup.done
+
+commit 79e77050f38a8ab1a07db3c9db8268d62c502bda
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Dec 22 19:29:09 2014 +0000
+
+    missing 'xhost +local:root' and sudo.
+
+commit cf1d784aeceb0df4edb6b087849e7bf25778daad
+Merge: bc7c03c 8bd5686
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Dec 22 17:02:36 2014 +0000
+
+    Merge remote-tracking branch 'origin/master'
+
+commit bc7c03cb79719f90900e30ed453007302298fd86
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Dec 22 16:48:51 2014 +0000
+
+    no longer use /usr/lib/whonixsetup_x_start_maybe.
+    starting directly "whonix-setup-wizard setup" in X environment.
+
+commit 0b08d11165b10abe31c79192fc64a8f97de8f694
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Dec 22 16:38:09 2014 +0000
+
+    'sudo service tor status' at the end.
+
+commit 8bd5686422df8fd23ba5aa2861991aa04051a2a8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Dec 21 17:05:39 2014 +0000
+
+    fix output
+
+commit 7f53ce5965fefccb98d389e073fd71f0bb063d7c
+Merge: e434569 1a6cac9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Dec 21 13:58:16 2014 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 1a6cac92658d494dc27dcdb2f22ff5bc2c3e84dd
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Dec 21 11:49:57 2014 +0000
+
+    deleted:    etc/xdg/autostart/whonixsetup.desktop
+
+commit f6a0fcef25c51c47dd905232f9388cb1542dd9ef
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Dec 21 05:45:46 2014 +0000
+
+    external links.
+
+commit 767b15ca7b4c8046e884e91adc5a831bbabcf2aa
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Dec 20 20:37:58 2014 +0000
+
+    Changes to tor_status.py. Strange issue when whonix-setup-wizard is auto-started.
+
+commit 37d7243746b4ebb3f368c03c4b1864efeacd472c
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Dec 20 20:31:12 2014 +0000
+
+    integration of gateway_first_run_notice in Whonix Setup.
+
+commit 283ffd0be1198cc15bac81acb7f3df1df39f861d
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Dec 20 19:37:34 2014 +0000
+
+    fix for worksation
+
+commit 25aee9714a0c78785d9f6d59d3bcd94c8c85ef65
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Dec 20 19:07:48 2014 +0000
+
+    fix for worksation
+
+commit e434569cb21081f2f2afe8ffdf495b12688f654f
+Merge: 918f7b9 5070893
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Dec 20 18:51:27 2014 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 507089351076b85000689be6ea519b6b91f5b96d
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Dec 20 16:43:33 2014 +0000
+
+    output of exit code of whonix_repository
+
+commit 918f7b9140d50e64caadf7dac4862f8f0464b1ed
+Merge: 08987da af935e4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 19 07:04:51 2014 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit af935e4c9bd2bb36d217d2877504b4efbcf6b19f
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Dec 18 19:26:49 2014 +0000
+
+    cleaning. new conditions for argument.
+
+commit cdaf1de3228b38a2a04d968c81f4311b18bab716
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Dec 18 17:08:20 2014 +0000
+
+    embedded whonix-repository-wizard
+
+commit 08987da41d06164366c05b9719ea26d7df107cfa
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Dec 15 17:21:08 2014 +0000
+
+    fix
+
+commit 7040a304ccae1a51a12c87a9030b585b9f5ce1c0
+Merge: 3b8e8ef 26e0ab0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Dec 15 17:20:41 2014 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 26e0ab07e242b14c9de82c438750528e4826db50
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Dec 15 16:19:52 2014 +0000
+
+    connection page: Next button state on load.
+
+commit f040ab78821be00464f7075d4710e842225b6aaa
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Dec 15 16:05:58 2014 +0000
+
+    Revert "connection page: Next button state on load."
+    
+    This reverts commit 128c18fdaf5f0caf286229301db883a04711962a.
+
+commit 128c18fdaf5f0caf286229301db883a04711962a
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Dec 14 06:57:26 2014 +0000
+
+    connection page: Next button state on load.
+
+commit 3b8e8efee1c3f01e783a3adc7186f05d40e2ed4a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Dec 14 01:20:02 2014 +0000
+
+    output
+
+commit 48778eed4c000b4f3b1badae61c2f110b152fa44
+Merge: a20a127 63160c8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Dec 14 00:26:04 2014 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 63160c86c9c705435562363a21066447b0d31dcf
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Dec 13 21:00:13 2014 +0000
+
+    last tooltips + workaround (disable Next button if pure text option selected).
+
+commit 8516f069be8dd4d8e96df7d1e256a8d23456ad08
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Dec 13 19:36:37 2014 +0000
+
+    cleaning, comments
+
+commit a20a127cf0a5f58102d163115f732ad1d03686fa
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Dec 13 18:30:24 2014 +0000
+
+    fix
+
+commit d6981beb9f3d64f48934fe8c883f35e52b86f323
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Dec 13 17:45:28 2014 +0000
+
+    added sudoers exception file etc/sudoers.d/whonix-setup-wizard for allowing to start whonix-setup-wizard as root without password for better usability when autostarting it
+
+commit 65f1c31c459824ffdfc74e1a5880b079e41edec1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Dec 13 14:03:22 2014 +0000
+
+    reverted to generic packaging method
+
+commit e847ae3b1704fb4ef1fc1a90d0f5b80742a506ec
+Merge: 826c1d0 308e3ab
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 12 22:58:10 2014 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 308e3ab0d260fc5bc12e5d559c4b886be81275ac
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Dec 12 21:33:03 2014 +0000
+
+    check whonix-repository-wizard exists.
+
+commit 826c1d017daea3f9ca16bd3188e757eab47d9a27
+Merge: bf58535 bcd28d0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 12 00:08:30 2014 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit bcd28d0e097e7eea29daee1e1262cec636592889
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Dec 7 19:25:28 2014 +0000
+
+    removed 'select "I want to disable Tor"' from tooltip.
+
+commit ed093ebc15a8b9dc15aa7dd8648e36d1dc68314e
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Dec 7 19:19:20 2014 +0000
+
+    wizard size increase for torrc display.
+
+commit bf58535230645688782d2fa06ae56fbba996c945
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Dec 6 20:46:03 2014 +0000
+
+    removed Help button, added mouse hover popups (tooltips).
+
+commit 98f9860ab0ed8c381c4baa789691b959f487bb30
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Dec 6 08:36:30 2014 +0000
+
+    connection options help.
+
+commit d13d47375ceabd0b8afc1f4a2ca0ea74a70204c7
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Dec 6 08:35:03 2014 +0000
+
+    remove byecode files (.pyc)
+
+commit 8e2d368958fe0c3173cde433255e158b938a36b4
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Dec 5 23:31:48 2014 +0000
+
+    gateway setup progress: enable/disable Tor networking
+
+commit 5503d4328f99a838ddc3468ba89b67d151b32a39
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Dec 5 23:30:04 2014 +0000
+
+    new script tor_status.py
+
+commit aab28b6848b6bca07f25264011c8c4fa96f27332
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Dec 5 23:28:45 2014 +0000
+
+    updated .yaml for tor status
+
+commit 846b89765919a1973ed0008617fcb05b27b18f5b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 5 19:01:32 2014 +0000
+
+    updated generic makefile
+
+commit 893b8bb3cabc62bbfa3becf17db09cc8e3b6676a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Dec 5 17:47:42 2014 +0000
+
+    packaging
+
+commit b9d4c300bfc79180e11d1d41ea78e44b68381090
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Dec 4 01:55:21 2014 +0000
+
+    minor
+
+commit 8519a75085b9a1c7b6908d2744dc141f78552ec4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Dec 4 01:29:37 2014 +0000
+
+    removed obsolete files from previous packaging method
+
+commit 25fca25f19c3884a95fcf16a6d061db683077843
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Dec 4 01:27:22 2014 +0000
+
+    deleted backup file whonix_setup_wizard/whonix_setup_wizard.py~
+
+commit 31c2469579f9f6b4e05202b751ee918ce9bdb1a0
+Merge: 5fac5dd 42f3e41
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Dec 4 01:27:02 2014 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 42f3e41029c634e01a8fa2e8f390f8e12d5755d0
+Author: troubadoour <trobador@riseup.net>
+Date:   Tue Dec 2 20:21:01 2014 +0000
+
+    wizard size: layout change with su-to-root
+    + .gitattributes
+
+commit 45e02593fd09d4f6eb205ea599c118cc2fa52fd9
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Dec 1 21:58:37 2014 +0100
+
+    Debian Python package: initial commit
+
+commit 5fac5ddba95d14f0424224c6add4c90eec3d09f4
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Nov 30 18:01:09 2014 +0100
+
+    gateway setup wizard: progress, step 1.
+
+commit 8e269141ced96cfcdf99b6b21cdda8937b36f005
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Nov 28 17:14:57 2014 +0000
+
+    added missing build dependencies
+
+commit 24aea63a544f651297b9cbfb4f72595951cf74f4
+Merge: 82b7ed4 1bc3177
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Nov 26 22:32:15 2014 +0100
+
+    Merge remote-tracking branch 'adre/master'
+
+commit 82b7ed4ec5f14af1e3b0435e76466d36c0aabe1e
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Nov 26 22:10:25 2014 +0100
+
+    path corrections.
+
+commit 1bc317703ee0239f98bc6dcbba2a193958729bdb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Nov 26 20:55:55 2014 +0000
+
+    added man page
+
+commit a754b8c4973ccf4fa105e8ed353f19cc01dd577c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Nov 26 20:50:22 2014 +0000
+
+    using "su-to-root -X -c whonix-setup-wizard" rather than hardcoding kdesudo in .desktop file
+
+commit 25995925f0d461dd6f410c0ee908402d9fdf5922
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Nov 26 20:48:06 2014 +0000
+
+    fix lintian warning "whonix-setup-wizard: unusual-interpreter usr/share/applications/whonix_setup.desktop #!xdg-open"
+
+commit ee6ba6e3ff2a30d0e7ed7ff9d8b8bebed7f3c532
+Merge: 86df25c 32dd6a6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Nov 26 20:45:55 2014 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 86df25cf943ecf150aa99602d995acfe16b40511
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Nov 26 20:42:41 2014 +0000
+
+    this package has no man page yet, commented out man related code in debian/rules
+
+commit d370f5120feba4cb934f6bcfd0620dc60961854c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Nov 26 20:41:53 2014 +0000
+
+    fixed package name
+
+commit 7da35b7af313208a8b350ae92c786ebd504ae38c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Nov 26 20:39:25 2014 +0000
+
+    added me as uploader
+
+commit 2d0e58687900d538dfd3b8e866fa010dd218fd04
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Nov 26 20:38:45 2014 +0000
+
+    added new line at the end
+
+commit 0fa8749413b713c410be909da95fabfdde80ce3a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Nov 26 20:38:27 2014 +0000
+
+    fix guimessages -> python-guimessages
+
+commit 5ca9bd1355f458c1acec2a939a6c9949ae9b16da
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Nov 26 20:35:57 2014 +0000
+
+    bumped version number
+
+commit 32dd6a6ae1279a4002ee75680e8516ddaaf80aac
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Nov 26 18:10:33 2014 +0100
+
+    + button and postion in .yaml, help text.
+
+commit 0c6cf8331895ab225f5aec397f8f437586f607ad
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Nov 26 18:08:46 2014 +0100
+
+    cleanup.
+    + docstrings and comments.
+    + wizard steps list.
+    - one_shot condition.
+    + help button, HelpButton_clicked slot.
+    + remove whonix_repo_page if whonix-repository-wizard hes been run.
+    + help message box.
+    + whonix icon.
+
+commit 7960c65addfe9bbec28688316a6f0b06b0722403
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Nov 26 09:55:10 2014 +0100
+
+    dist-packages name: whonix_setup_wizard as per python conventions.
+
+commit bf7cc9c7de0c46f43bd22dc4defdd72c0d9b4377
+Author: troubadoour <trobador@riseup.net>
+Date:   Tue Nov 25 10:16:08 2014 +0100
+
+    removed bytecode files .pyc
+
+commit 567fd1d83e02428dc8c1dea949ceb68c5b8cfdec
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Nov 24 23:00:25 2014 +0100
+
+    debian/control dependencies
+
+commit 1d55a123a346a7107e0ab2334f5a61490a91f074
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Nov 24 20:49:28 2014 +0100
+
+    initial release
