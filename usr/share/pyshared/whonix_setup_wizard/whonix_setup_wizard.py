@@ -19,6 +19,8 @@ from guimessages.guimessage import gui_message
 
 import tor_status
 
+import distutils.spawn
+
 
 class common:
     """ Variables and constants used through all the classes
@@ -71,6 +73,10 @@ class common:
                         'repository_wizard_finish']
 
     elif argument == 'locale_settings':
+        kcmshell = distutils.spawn.find_executable("kcmshell4")
+        if kcmshell == "":
+            print "kcmshell4 not found. Exiting."
+            sys.exit(0)
         wizard_steps = ['locale_settings',
                         'locale_settings_finish']
 
@@ -896,12 +902,14 @@ class whonix_setup_wizard(QtGui.QWizard):
 
                 if self.locale_settings.other_button.isChecked():
 
+                    kcmshell = distutils.spawn.find_executable("kcmshell4")
+
                     if self.locale_settings.lang_checkbox.isChecked():
-                        command = '/usr/bin/kcmshell4 language'
+                        command = '%s language' % (kcmshell)
                         call(command, shell=True)
 
                     if self.locale_settings.kbd_checkbox.isChecked():
-                        command = '/usr/bin/kcmshell4 kcm_keyboard'
+                        command = '%s kcm_keyboard' % (kcmshell)
                         call(command, shell=True)
 
                     self.button(QtGui.QWizard.BackButton).setEnabled(False)
@@ -921,9 +929,6 @@ class whonix_setup_wizard(QtGui.QWizard):
 def main():
     #import sys
     app = QtGui.QApplication(sys.argv)
-
-    if not os.path.exists('/usr/bin/kcmshell4'):
-        sys.exit(0)
 
     # root check.
     # locale_settings has to be run as user.
