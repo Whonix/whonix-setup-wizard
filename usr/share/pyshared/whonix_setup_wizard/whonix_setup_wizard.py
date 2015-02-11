@@ -73,10 +73,6 @@ class common:
                         'repository_wizard_finish']
 
     elif argument == 'locale_settings':
-        kcmshell = distutils.spawn.find_executable("kcmshell4")
-        if kcmshell == "":
-            print "kcmshell4 not found. Exiting."
-            sys.exit(0)
         wizard_steps = ['locale_settings',
                         'locale_settings_finish']
 
@@ -903,18 +899,24 @@ class whonix_setup_wizard(QtGui.QWizard):
                 if self.locale_settings.other_button.isChecked():
 
                     kcmshell = distutils.spawn.find_executable("kcmshell4")
+                    if kcmshell != None:
+                        if self.locale_settings.lang_checkbox.isChecked():
+                            command = '%s language' % (kcmshell)
+                            call(command, shell=True)
 
-                    if self.locale_settings.lang_checkbox.isChecked():
-                        command = '%s language' % (kcmshell)
-                        call(command, shell=True)
+                        if self.locale_settings.kbd_checkbox.isChecked():
+                            command = '%s kcm_keyboard' % (kcmshell)
+                            call(command, shell=True)
 
-                    if self.locale_settings.kbd_checkbox.isChecked():
-                        command = '%s kcm_keyboard' % (kcmshell)
-                        call(command, shell=True)
+                        self.button(QtGui.QWizard.BackButton).setEnabled(False)
+                        self.locale_settings_finish.text.setText(self._('locale_finish'))
 
-                    self.button(QtGui.QWizard.BackButton).setEnabled(False)
+                    else:
+                        self.button(QtGui.QWizard.BackButton).setEnabled(False)
+                        self.locale_settings_finish.text.setText(self._('kcmshell_not_found'))
 
-                self.locale_settings_finish.text.setText(self._('locale_finish'))
+                else:
+                    self.locale_settings_finish.text.setText(self._('locale_finish'))
 
     def BackButton_clicked(self):
         common.is_complete = False
