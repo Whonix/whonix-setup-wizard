@@ -637,7 +637,7 @@ class whonix_setup_wizard(QtGui.QWizard):
                 self.connection_page.censored.toggled.connect(self.set_next_button_state)
                 self.connection_page.use_proxy.toggled.connect(self.set_next_button_state)
 
-        if not common.show_disclaimer:
+        if not common.show_disclaimer and not common.argument == 'locale_settings':
             self.resize(580, 370)
 
         self.exec_()
