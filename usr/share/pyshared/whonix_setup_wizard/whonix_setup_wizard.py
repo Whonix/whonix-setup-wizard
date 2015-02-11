@@ -897,13 +897,14 @@ class whonix_setup_wizard(QtGui.QWizard):
             if self.currentId() == self.steps.index('locale_settings_finish'):
 
                 if self.locale_settings.other_button.isChecked():
+                    kcmshell = distutils.spawn.find_executable("kcmshell4")
 
                     if self.locale_settings.lang_checkbox.isChecked():
-                        command = '/usr/bin/kcmshell4 language'
+                        command = command = '%s language' % (kcmshell)
                         call(command, shell=True)
 
                     if self.locale_settings.kbd_checkbox.isChecked():
-                        command = '/usr/bin/kcmshell4 kcm_keyboard'
+                        command = command = '%s kcm_keyboard' % (kcmshell)
                         call(command, shell=True)
 
                     self.button(QtGui.QWizard.BackButton).setEnabled(False)
