@@ -897,26 +897,19 @@ class whonix_setup_wizard(QtGui.QWizard):
             if self.currentId() == self.steps.index('locale_settings_finish'):
 
                 if self.locale_settings.other_button.isChecked():
-
                     kcmshell = distutils.spawn.find_executable("kcmshell4")
-                    if kcmshell != None:
-                        if self.locale_settings.lang_checkbox.isChecked():
-                            command = '%s language' % (kcmshell)
-                            call(command, shell=True)
 
-                        if self.locale_settings.kbd_checkbox.isChecked():
-                            command = '%s kcm_keyboard' % (kcmshell)
-                            call(command, shell=True)
+                    if self.locale_settings.lang_checkbox.isChecked():
+                        command = command = '%s language' % (kcmshell)
+                        call(command, shell=True)
 
-                        self.button(QtGui.QWizard.BackButton).setEnabled(False)
-                        self.locale_settings_finish.text.setText(self._('locale_finish'))
+                    if self.locale_settings.kbd_checkbox.isChecked():
+                        command = command = '%s kcm_keyboard' % (kcmshell)
+                        call(command, shell=True)
 
-                    else:
-                        self.button(QtGui.QWizard.BackButton).setEnabled(False)
-                        self.locale_settings_finish.text.setText(self._('kcmshell_not_found'))
+                    self.button(QtGui.QWizard.BackButton).setEnabled(False)
 
-                else:
-                    self.locale_settings_finish.text.setText(self._('locale_finish'))
+                self.locale_settings_finish.text.setText(self._('locale_finish'))
 
     def BackButton_clicked(self):
         common.is_complete = False
@@ -931,6 +924,14 @@ class whonix_setup_wizard(QtGui.QWizard):
 def main():
     #import sys
     app = QtGui.QApplication(sys.argv)
+
+    # locale settings are designed for KDE desktop.
+    # skip if other desktop.
+    if sys.argv[1] == 'locale_settings':
+        kcmshell = distutils.spawn.find_executable("kcmshell4")
+        if kcmshell == None:
+            print 'kcmshell4 not found. Exiting'
+            sys.exit()
 
     # root check.
     # locale_settings has to be run as user.
