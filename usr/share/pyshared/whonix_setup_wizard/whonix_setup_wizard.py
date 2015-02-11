@@ -600,7 +600,7 @@ class whonix_setup_wizard(QtGui.QWizard):
                 self.disclaimer_2.yes_button.setText(self._('accept'))
                 self.disclaimer_2.no_button.setText(self._('reject'))
 
-            if self.env == 'gateway':
+            if common.argument == 'setup'and self.env == 'gateway':
                 self.connection_page.text.setText(self._('connection_text'))
                 self.connection_page.enable.setText(self._('enable_tor'))
                 self.connection_page.disable.setText(self._('disable_tor'))
