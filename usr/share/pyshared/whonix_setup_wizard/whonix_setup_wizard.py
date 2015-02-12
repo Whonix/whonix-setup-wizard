@@ -34,7 +34,7 @@ class common:
     run_repo = not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonix_repository.done')
     print 'repo %s' % run_repo
     show_disclaimer = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer_done') and
-                       not os.path.exists('/var/lib/whonix-setup-wizard/status-files/disclaimer_skip'))
+                       not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer_skip'))
     argument = sys.argv[1]
 
     if os.path.exists('/usr/share/anon-gw-base-files'):
