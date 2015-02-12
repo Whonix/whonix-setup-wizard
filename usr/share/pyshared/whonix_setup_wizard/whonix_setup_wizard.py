@@ -6,13 +6,10 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 
 from PyQt4 import QtCore, QtGui
-#from PyQt4.QtGui import *
 from subprocess import call
 import os, yaml
 import inspect
 import sys
-#from PyQt4.QtCore import Qt
-#from PyQt4.QtGui import QApplication, QCursor
 
 from guimessages.translations import _translations
 from guimessages.guimessage import gui_message
@@ -32,7 +29,6 @@ class common:
     disable_repo = False
     tor_status = ''
     run_repo = not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonix_repository.done')
-    print 'repo %s' % run_repo
     show_disclaimer = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer_done') and
                        not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer_skip'))
     argument = sys.argv[1]
@@ -621,7 +617,6 @@ class whonix_setup_wizard(QtGui.QWizard):
         except (yaml.scanner.ScannerError, yaml.parser.ParserError):
             pass
 
-        #self.setOption(QtGui.QWizard.HaveHelpButton, True)
         self.button(QtGui.QWizard.CancelButton).setVisible(False)
 
         self.button(QtGui.QWizard.BackButton).clicked.connect(self.BackButton_clicked)
@@ -713,12 +708,6 @@ class whonix_setup_wizard(QtGui.QWizard):
                             self.tor_status_page.text.setText(self._('something_wrong'))
                             self.tor_status_page.icon.setPixmap(QtGui.QPixmap( \
                                 '/usr/share/icons/oxygen/48x48/status/task-reject.png'))
-                            #common.run_repo = False
-                            # Do not run whonixrepository
-                            #self.removePage(self.steps.index('whonix_repo_page'))
-                            #self.removePage(self.steps.index('repository_wizard_page_1'))
-                            #self.removePage(self.steps.index('repository_wizard_page_2'))
-                            #self.removePage(self.steps.index('repository_wizard_finish'))
 
                     elif self.connection_page.disable.isChecked():
 
@@ -745,20 +734,9 @@ class whonix_setup_wizard(QtGui.QWizard):
                             self.tor_status_page.text.setText(self._('something_wrong'))
                             self.tor_status_page.icon.setPixmap(QtGui.QPixmap( \
                                 '/usr/share/icons/oxygen/48x48/status/task-reject.png'))
-                            # Do not run whonixrepository
-                            #common.run_repo = False
-                            #self.removePage(self.steps.index('whonix_repo_page'))
-                            #self.removePage(self.steps.index('repository_wizard_page_1'))
-                            #self.removePage(self.steps.index('repository_wizard_page_2'))
-                            #self.removePage(self.steps.index('repository_wizard_finish'))
 
             if self.currentId() == self.steps.index('whonix_repo_page'):
-                #if os.path.exists('/usr/bin/whonix-repository-wizard'):
                 self.whonix_repo_page.text.setText(self._('whonix_repository_page'))
-
-                #else:
-                #    common.run_repo = False
-                #    self.whonix_repo_page.text.setText(self._('repository_wizard_not_found'))
 
         if common.argument == 'setup' or common.argument == 'repository':
             if self.currentId() == self.steps.index('repository_wizard_finish'):
@@ -823,27 +801,12 @@ class whonix_setup_wizard(QtGui.QWizard):
                 # for whonixcheck.
                 common.is_complete = True
 
-                #if common.run_repo:
-                    #  Do not run whonix-repository-wizard twice.
-                    #common.run_repo = False
-                    #self.removePage(self.steps.index('whonix_repo_page'))
-                    #self.removePage(self.steps.index('repository_wizard_page_1'))
-                    #self.removePage(self.steps.index('repository_wizard_page_2'))
-                    #self.removePage(self.steps.index('repository_wizard_finish'))
-
                 if self.env == 'gateway':
                     if (common.tor_status == 'tor_enabled' or
                         common.tor_status == 'tor_already_enabled'):
                             self.finish_page.icon.setPixmap(QtGui.QPixmap( \
                                 '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
                             self.finish_page.text.setText(self._('finish_page_ok'))
-
-                            # whonixsetup completed.
-                            #if not os.path.exists('/var/lib/whonix/do_once'):
-                            #    os.mkdir('/var/lib/whonix/do_once')
-
-                            #whonixsetup_done = open('/var/lib/whonix/do_once/whonixsetup.done', 'w')
-                            #whonixsetup_done.close()
 
                     else:
                         common.is_complete = False
@@ -935,7 +898,7 @@ def main():
     #import sys
     app = QtGui.QApplication(sys.argv)
 
-    # locale settings are designed for KDE desktop.
+    # locale settings are implemented for KDE desktop only.
     # skip if other desktop.
     if sys.argv[1] == 'locale_settings':
         kcmshell = distutils.spawn.find_executable("kcmshell4")
