@@ -1,3 +1,98 @@
+commit e7ab058dcc40de3a2c77d64aafed6da8191771d9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 12 21:58:58 2015 +0000
+
+    added postinst script that creates /var/cache/whonix-setup-wizard/status-files
+
+commit 33c67c0fc78c8bca8767113d34812deb861076ed
+Merge: 9fa7c38 ef2dde0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 12 21:32:55 2015 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit ef2dde08e4391139ec1d47a725866f9485bdc9b4
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Feb 12 20:36:18 2015 +0000
+
+    cleaning up, comments
+
+commit f641bb55531cf35aa3675ea06a2cbdca870d9dca
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Feb 12 20:24:04 2015 +0000
+
+    all status files in /var/cache/whonix-setup-wizard/status-files/
+
+commit ebd107ced797ebfb5e2cee73134b12cab847db9f
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Feb 11 22:02:03 2015 +0000
+
+    fix: locale_settings window size
+
+commit 6152195965d910c2150a4def089f734f9c3cb381
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Feb 11 21:56:48 2015 +0000
+
+    fix: bug when running repository only
+
+commit d01f7dde10b696bacf31f7eed4c9fdbbcb1e0f9c
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Feb 11 21:40:02 2015 +0000
+
+    new status file. back button through the whole wizard (don't delete whoinx-repository pages)
+
+commit 9fa7c38aa2a785df8b28d85e5af033ccca792738
+Merge: 24eeac0 3c90504
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 11 17:44:26 2015 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 3c90504286afd1bc983d4f90e7422214b36d9a22
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Feb 11 16:46:16 2015 +0000
+
+    kcmshell commands
+
+commit 02da9d4fb6873087c3aa8450b75cba0476af1f2e
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Feb 11 15:30:00 2015 +0000
+
+    kcmshell4 check in main()
+
+commit 24eeac094bcbd6e66e49ae04739aade1b84009c5
+Merge: ec04e29 161f730
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 11 01:17:59 2015 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 161f7304be95f5f7fc1c25be13ebd6c4b25d3c78
+Author: troubadoour <trobador@riseup.net>
+Date:   Tue Feb 10 21:14:30 2015 +0000
+
+    translations for new pages
+
+commit 730f693bed51966b128fb051faee804aff3b9f5a
+Author: troubadoour <trobador@riseup.net>
+Date:   Tue Feb 10 20:43:43 2015 +0000
+
+    new page in locale_settings if kcmshell4 not found
+
+commit ec04e296843ff09dcdb890474963bc161ee0efd3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 10 03:48:36 2015 +0000
+
+    - fixed whonix-setup-wizard start bug if /usr/bin/kcmshell4 does not exist https://phabricator.whonix.org/T156
+    - print output, if kcmshell4 does not exist
+    - search for kcmshell4 (similar to `which`) rather than hardcoding /usr/bin/kcmshell4
+
+commit 9707d44d34ac6ca58add41b20e4e2eba3d74cb9c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 4 00:56:47 2015 +0000
+
+    bumped changelog version
+
 commit 6b2244760dca891fa591f270b25d955a87fdb7bd
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Feb 4 00:45:09 2015 +0000
