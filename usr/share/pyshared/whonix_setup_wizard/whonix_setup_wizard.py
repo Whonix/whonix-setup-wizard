@@ -29,8 +29,8 @@ class common:
     disable_repo = False
     tor_status = ''
     run_repo = not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonix_repository.done')
-    show_disclaimer = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer_done') and
-                       not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer_skip'))
+    show_disclaimer = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer.done') and
+                       not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer.skip'))
     argument = sys.argv[1]
 
     if os.path.exists('/usr/share/anon-gw-base-files'):
@@ -921,7 +921,7 @@ def main():
         f.close()
 
     if common.show_disclaimer:
-        f = open('/var/cache/whonix-setup-wizard/status-files/disclaimer_done', 'w')
+        f = open('/var/cache/whonix-setup-wizard/status-files/disclaimer.done', 'w')
         f.close()
 
     if common.first_use_notice:
