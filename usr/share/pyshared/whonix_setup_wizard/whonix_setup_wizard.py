@@ -19,7 +19,7 @@ import tor_status
 import distutils.spawn
 
 
-class common:
+class Common:
     """ Variables and constants used through all the classes
     """
     translations_path ='/usr/share/translations/whonix_setup.yaml'
@@ -84,9 +84,9 @@ class common:
                         'locale_settings_finish']
 
 
-class locale_settings(QtGui.QWizardPage):
+class LocaleSettings(QtGui.QWizardPage):
     def __init__(self):
-        super(locale_settings, self).__init__()
+        super(LocaleSettings, self).__init__()
 
         self.text = QtGui.QLabel(self)
 
@@ -160,9 +160,9 @@ class locale_settings(QtGui.QWizardPage):
             self.other_button.setChecked(False)
 
 
-class locale_settings_finish(QtGui.QWizardPage):
+class LocaleSettingsFinish(QtGui.QWizardPage):
     def __init__(self):
-        super(locale_settings_finish, self).__init__()
+        super(LocaleSettingsFinish, self).__init__()
 
         self.text = QtGui.QTextBrowser(self)
         self.layout = QtGui.QVBoxLayout()
@@ -176,11 +176,11 @@ class locale_settings_finish(QtGui.QWizardPage):
         self.setLayout(self.layout)
 
 
-class disclaimer_page_1(QtGui.QWizardPage):
+class DisclaimerPage1(QtGui.QWizardPage):
     def __init__(self):
-        super(disclaimer_page_1, self).__init__()
+        super(DisclaimerPage1, self).__init__()
 
-        self.steps = common.wizard_steps
+        self.steps = Common.wizard_steps
 
         self.text = QtGui.QTextBrowser(self)
         self.accept_group = QtGui.QGroupBox(self)
@@ -212,12 +212,12 @@ class disclaimer_page_1(QtGui.QWizardPage):
             return self.steps.index('finish_page')
 
 
-class disclaimer_page_2(QtGui.QWizardPage):
+class DisclaimerPage2(QtGui.QWizardPage):
     def __init__(self):
-        super(disclaimer_page_2, self).__init__()
+        super(DisclaimerPage2, self).__init__()
 
-        self.steps = common.wizard_steps
-        self.env = common.environment
+        self.steps = Common.wizard_steps
+        self.env = Common.environment
 
         self.text = QtGui.QTextBrowser(self)
         self.accept_group = QtGui.QGroupBox(self)
@@ -243,7 +243,7 @@ class disclaimer_page_2(QtGui.QWizardPage):
 
     def nextId(self):
         if self.yes_button.isChecked():
-            if common.run_repo:
+            if Common.run_repo:
                 if self.env == 'gateway':
                     return self.steps.index('connection_page')
                 elif self.env == 'workstation':
@@ -259,16 +259,16 @@ class disclaimer_page_2(QtGui.QWizardPage):
             return self.steps.index('finish_page')
 
 
-class connection_page(QtGui.QWizardPage):
+class ConnectionPage(QtGui.QWizardPage):
     def __init__(self):
-        super(connection_page, self).__init__()
+        super(ConnectionPage, self).__init__()
 
-        translation = _translations(common.translations_path, 'whonixsetup')
+        translation = _translations(Common.translations_path, 'whonixsetup')
         self._ = translation.gettext
 
-        self.common = common()
-        self.steps = self.common.wizard_steps
-        self.env = self.common.environment
+        self.Common = Common()
+        self.steps = self.Common.wizard_steps
+        self.env = self.Common.environment
 
         self.text = QtGui.QTextBrowser(self)
         self.layout = QtGui.QGridLayout()
@@ -308,11 +308,11 @@ class connection_page(QtGui.QWizardPage):
         self.setLayout(self.layout)
 
 
-class tor_status_page(QtGui.QWizardPage):
+class TorStatusPage(QtGui.QWizardPage):
     def __init__(self):
-        super(tor_status_page, self).__init__()
+        super(TorStatusPage, self).__init__()
 
-        self.steps = common.wizard_steps
+        self.steps = Common.wizard_steps
 
         self.icon = QtGui.QLabel(self)
         self.text = QtGui.QTextBrowser(self)
@@ -337,17 +337,17 @@ class tor_status_page(QtGui.QWizardPage):
         self.setLayout(self.layout)
 
     def nextId(self):
-        if common.run_repo:
+        if Common.run_repo:
             return self.steps.index('whonix_repo_page')
         else:
             return self.steps.index('finish_page')
 
 
-class whonix_repository_page(QtGui.QWizardPage):
+class WhonixRepositoryPage(QtGui.QWizardPage):
     def __init__(self):
-        super(whonix_repository_page, self).__init__()
+        super(WhonixRepositoryPage, self).__init__()
 
-        self.steps = common.wizard_steps
+        self.steps = Common.wizard_steps
 
         self.text = QtGui.QTextBrowser(self)
         self.layout = QtGui.QGridLayout()
@@ -362,15 +362,15 @@ class whonix_repository_page(QtGui.QWizardPage):
         self.setLayout(self.layout)
 
     def nextId(self):
-        common.run_repo = True
+        Common.run_repo = True
         return self.steps.index('repository_wizard_page_1')
 
 
-class repository_wizard_page_1(QtGui.QWizardPage):
+class RepositoryWizardPage1(QtGui.QWizardPage):
     def __init__(self):
-        super(repository_wizard_page_1, self).__init__()
+        super(RepositoryWizardPage1, self).__init__()
 
-        self.steps = common.wizard_steps
+        self.steps = Common.wizard_steps
 
         self.text = QtGui.QTextBrowser(self)
 
@@ -402,13 +402,13 @@ class repository_wizard_page_1(QtGui.QWizardPage):
             return self.steps.index('repository_wizard_page_2')
 
         elif self.disable_repo.isChecked():
-            common.disable_repo = True
+            Common.disable_repo = True
             return self.steps.index('repository_wizard_finish')
 
 
-class repository_wizard_page_2(QtGui.QWizardPage):
+class RepositoryWizardPage2(QtGui.QWizardPage):
     def __init__(self):
-        super(repository_wizard_page_2, self).__init__()
+        super(RepositoryWizardPage2, self).__init__()
 
         self.text = QtGui.QTextBrowser(self)
 
@@ -441,9 +441,9 @@ class repository_wizard_page_2(QtGui.QWizardPage):
         self.setLayout(self.layout)
 
 
-class repository_wizard_finish(QtGui.QWizardPage):
+class RepositoryWizardfinish(QtGui.QWizardPage):
     def __init__(self):
-        super(repository_wizard_finish, self).__init__()
+        super(RepositoryWizardfinish, self).__init__()
 
         self.text = QtGui.QTextBrowser(self)
         self.layout = QtGui.QVBoxLayout()
@@ -458,9 +458,9 @@ class repository_wizard_finish(QtGui.QWizardPage):
         self.setLayout(self.layout)
 
 
-class finish_page(QtGui.QWizardPage):
+class FinishPage(QtGui.QWizardPage):
     def __init__(self):
-        super(finish_page, self).__init__()
+        super(FinishPage, self).__init__()
 
         self.icon = QtGui.QLabel(self)
         self.text = QtGui.QTextBrowser(self)
@@ -480,9 +480,9 @@ class finish_page(QtGui.QWizardPage):
         self.setLayout(self.layout)
 
 
-class first_use_notice(QtGui.QWizardPage):
+class FirstUseNotice(QtGui.QWizardPage):
     def __init__(self):
-        super(first_use_notice, self).__init__()
+        super(FirstUseNotice, self).__init__()
 
         self.text = QtGui.QTextBrowser(self)
 
@@ -502,61 +502,61 @@ class whonix_setup_wizard(QtGui.QWizard):
     def __init__(self):
         super(whonix_setup_wizard, self).__init__()
 
-        translation = _translations(common.translations_path, 'whonixsetup')
+        translation = _translations(Common.translations_path, 'whonixsetup')
         self._ = translation.gettext
 
-        self.steps = common.wizard_steps
-        self.env = common.environment
+        self.steps = Common.wizard_steps
+        self.env = Common.environment
 
-        if common.argument == 'repository':
-            self.repository_wizard_page_1 = repository_wizard_page_1()
+        if Common.argument == 'repository':
+            self.repository_wizard_page_1 = RepositoryWizardPage1()
             self.addPage(self.repository_wizard_page_1)
 
-            self.repository_wizard_page_2 = repository_wizard_page_2()
+            self.repository_wizard_page_2 = RepositoryWizardPage2()
             self.addPage(self.repository_wizard_page_2)
 
-            self.repository_wizard_finish = repository_wizard_finish()
+            self.repository_wizard_finish = RepositoryWizardfinish()
             self.addPage(self.repository_wizard_finish)
 
-        elif common.argument == 'setup':
-            if common.show_disclaimer:
-                self.disclaimer_1 = disclaimer_page_1()
+        elif Common.argument == 'setup':
+            if Common.show_disclaimer:
+                self.disclaimer_1 = DisclaimerPage1()
                 self.addPage(self.disclaimer_1)
 
-                self.disclaimer_2 = disclaimer_page_2()
+                self.disclaimer_2 = DisclaimerPage2()
                 self.addPage(self.disclaimer_2)
 
             if self.env == 'gateway':
-                self.connection_page = connection_page()
+                self.connection_page = ConnectionPage()
                 self.addPage(self.connection_page)
 
-                self.tor_status_page = tor_status_page()
+                self.tor_status_page = TorStatusPage()
                 self.addPage(self.tor_status_page)
 
-            self.whonix_repo_page = whonix_repository_page()
+            self.whonix_repo_page = WhonixRepositoryPage()
             self.addPage(self.whonix_repo_page)
 
-            self.repository_wizard_page_1 = repository_wizard_page_1()
+            self.repository_wizard_page_1 = RepositoryWizardPage1()
             self.addPage(self.repository_wizard_page_1)
 
-            self.repository_wizard_page_2 = repository_wizard_page_2()
+            self.repository_wizard_page_2 = RepositoryWizardPage2()
             self.addPage(self.repository_wizard_page_2)
 
-            self.repository_wizard_finish = repository_wizard_finish()
+            self.repository_wizard_finish = RepositoryWizardfinish()
             self.addPage(self.repository_wizard_finish)
 
-            self.finish_page = finish_page()
+            self.finish_page = FinishPage()
             self.addPage(self.finish_page)
 
-            if self.env == 'gateway'and common.first_use_notice:
-                self.first_use_notice = first_use_notice()
+            if self.env == 'gateway'and Common.first_use_notice:
+                self.first_use_notice = FirstUseNotice()
                 self.addPage(self.first_use_notice)
 
-        elif common.argument == 'locale_settings':
-            self.locale_settings = locale_settings()
+        elif Common.argument == 'locale_settings':
+            self.locale_settings = LocaleSettings()
             self.addPage(self.locale_settings)
 
-            self.locale_settings_finish = locale_settings_finish()
+            self.locale_settings_finish = LocaleSettingsFinish()
             self.addPage(self.locale_settings_finish)
 
         self.setupUi()
@@ -565,11 +565,11 @@ class whonix_setup_wizard(QtGui.QWizard):
         self.setWindowIcon(QtGui.QIcon("/usr/share/icons/anon-icon-pack/whonix.ico"))
         self.setWindowTitle('Whonix Setup Wizard')
 
-        if common.argument == 'setup':
+        if Common.argument == 'setup':
             self.resize(760, 750)
-        elif common.argument == 'repository':
+        elif Common.argument == 'repository':
             self.resize(580, 370)
-        elif common.argument == 'locale_settings':
+        elif Common.argument == 'locale_settings':
             self.resize(440, 168)
 
         # We use QTextBrowser with a white background.
@@ -587,7 +587,7 @@ class whonix_setup_wizard(QtGui.QWizard):
         self.setPalette(palette)
 
         try:
-            if common.argument == 'setup' and common.show_disclaimer:
+            if Common.argument == 'setup' and Common.show_disclaimer:
                 self.disclaimer_1.text.setText(self._('disclaimer_1'))
                 self.disclaimer_1.yes_button.setText(self._('accept'))
                 self.disclaimer_1.no_button.setText(self._('reject'))
@@ -596,18 +596,18 @@ class whonix_setup_wizard(QtGui.QWizard):
                 self.disclaimer_2.yes_button.setText(self._('accept'))
                 self.disclaimer_2.no_button.setText(self._('reject'))
 
-            if common.argument == 'setup'and self.env == 'gateway':
+            if Common.argument == 'setup'and self.env == 'gateway':
                 self.connection_page.text.setText(self._('connection_text'))
                 self.connection_page.enable.setText(self._('enable_tor'))
                 self.connection_page.disable.setText(self._('disable_tor'))
                 self.connection_page.censored.setText(self._('censored_tor'))
                 self.connection_page.use_proxy.setText(self._('use_proxy'))
 
-                if common.first_use_notice:
+                if Common.first_use_notice:
                     self.first_use_notice.text.setText(self._('first_use_notice'))
 
 
-            if common.argument == 'setup' or common.argument == 'repository':
+            if Common.argument == 'setup' or Common.argument == 'repository':
                 self.repository_wizard_page_1.text.setText(self._('repo_page_1'))
                 self.repository_wizard_page_1.enable_repo.setText(self._('repo_enable'))
                 self.repository_wizard_page_1.disable_repo.setText(self._('repo_disable'))
@@ -619,20 +619,20 @@ class whonix_setup_wizard(QtGui.QWizard):
 
         self.button(QtGui.QWizard.CancelButton).setVisible(False)
 
-        self.button(QtGui.QWizard.BackButton).clicked.connect(self.BackButton_clicked)
-        self.button(QtGui.QWizard.NextButton).clicked.connect(self.NextButton_clicked)
+        self.button(QtGui.QWizard.BackButton).clicked.connect(self.back_button_clicked)
+        self.button(QtGui.QWizard.NextButton).clicked.connect(self.next_button_clicked)
 
         # Temporary workaround.
         # The pluggable transports are not implemented yet, but we want to
         # be able to display the tooltips for censored and firewall. For this,
         # the options must be enabled, but the slot will disable the Next
         # button if either is checked.
-        if common.argument == 'setup':
+        if Common.argument == 'setup':
             if self.env == 'gateway':
                 self.connection_page.censored.toggled.connect(self.set_next_button_state)
                 self.connection_page.use_proxy.toggled.connect(self.set_next_button_state)
 
-        if not common.show_disclaimer and not common.argument == 'locale_settings':
+        if not Common.show_disclaimer and not Common.argument == 'locale_settings':
             self.resize(580, 370)
 
         self.exec_()
@@ -654,7 +654,7 @@ class whonix_setup_wizard(QtGui.QWizard):
         frame_gm.moveCenter(center_point)
         self.move(frame_gm.topLeft())
 
-    def NextButton_clicked(self):
+    def next_button_clicked(self):
         """ Next button slot.
         The commands cannot be implemented in the wizard's nextId() function,
         as it is polled by the event handler on the creation of the page.
@@ -664,7 +664,7 @@ class whonix_setup_wizard(QtGui.QWizard):
         the corresponding button.
         Options (like button states, window size changes...) are set here.
         """
-        if common.argument == 'setup':
+        if Common.argument == 'setup':
             if self.env == 'workstation':
                 if (self.currentId() == self.steps.index('whonix_repo_page') or
                     self.currentId() == self.steps.index('finish_page')):
@@ -686,17 +686,17 @@ class whonix_setup_wizard(QtGui.QWizard):
                     if self.connection_page.enable.isChecked():
 
                         QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
-                        common.tor_status = tor_status.set_enabled()
+                        Common.tor_status = tor_status.set_enabled()
                         QApplication.restoreOverrideCursor()
 
-                        if common.tor_status == 'tor_enabled':
+                        if Common.tor_status == 'tor_enabled':
                             self.tor_status_page.text.setText(self._('tor_enabled'))
                             torrc_text = open('/etc/tor/torrc').read()
                             self.tor_status_page.torrc.setPlainText(torrc_text)
                             self.tor_status_page.icon.setPixmap(QtGui.QPixmap( \
                                 '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
 
-                        elif common.tor_status == 'tor_already_enabled':
+                        elif Common.tor_status == 'tor_already_enabled':
                             self.tor_status_page.text.setText(self._('tor_already_enabled'))
                             torrc_text = open('/etc/tor/torrc').read()
                             self.tor_status_page.torrc.setPlainText(torrc_text)
@@ -712,17 +712,17 @@ class whonix_setup_wizard(QtGui.QWizard):
                     elif self.connection_page.disable.isChecked():
 
                         QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
-                        common.tor_status = tor_status.set_disabled()
+                        Common.tor_status = tor_status.set_disabled()
                         QApplication.restoreOverrideCursor()
 
-                        if common.tor_status == 'tor_disabled':
+                        if Common.tor_status == 'tor_disabled':
                             self.tor_status_page.text.setText(self._('tor_disabled'))
                             torrc_text = open('/etc/tor/torrc').read()
                             self.tor_status_page.torrc.setPlainText(torrc_text)
                             self.tor_status_page.icon.setPixmap(QtGui.QPixmap( \
                                 '/usr/share/icons/oxygen/48x48/status/task-attention.png'))
 
-                        elif common.tor_status == 'tor_already_disabled':
+                        elif Common.tor_status == 'tor_already_disabled':
                             self.tor_status_page.text.setText(self._('tor_already_disabled'))
                             torrc_text = open('/etc/tor/torrc').read()
                             self.tor_status_page.torrc.setPlainText(torrc_text)
@@ -738,9 +738,9 @@ class whonix_setup_wizard(QtGui.QWizard):
             if self.currentId() == self.steps.index('whonix_repo_page'):
                 self.whonix_repo_page.text.setText(self._('whonix_repository_page'))
 
-        if common.argument == 'setup' or common.argument == 'repository':
+        if Common.argument == 'setup' or Common.argument == 'repository':
             if self.currentId() == self.steps.index('repository_wizard_finish'):
-                if common.disable_repo:
+                if Common.disable_repo:
                     command = 'whonix_repository --disable'
 
                     QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
@@ -795,45 +795,45 @@ class whonix_setup_wizard(QtGui.QWizard):
                     call(command, shell=True)
                     self.one_shot = False
 
-        if common.argument == 'setup':
+        if Common.argument == 'setup':
             if self.currentId() == self.steps.index('finish_page'):
 
                 # for whonixcheck.
-                common.is_complete = True
+                Common.is_complete = True
 
                 if self.env == 'gateway':
-                    if (common.tor_status == 'tor_enabled' or
-                        common.tor_status == 'tor_already_enabled'):
+                    if (Common.tor_status == 'tor_enabled' or
+                        Common.tor_status == 'tor_already_enabled'):
                             self.finish_page.icon.setPixmap(QtGui.QPixmap( \
                                 '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
                             self.finish_page.text.setText(self._('finish_page_ok'))
 
                     else:
-                        common.is_complete = False
+                        Common.is_complete = False
 
-                        if (common.tor_status == 'tor_disabled' or
-                            common.tor_status == 'tor_already_disabled'):
+                        if (Common.tor_status == 'tor_disabled' or
+                            Common.tor_status == 'tor_already_disabled'):
                             self.finish_page.icon.setPixmap(QtGui.QPixmap( \
                                 '/usr/share/icons/oxygen/48x48/status/task-attention.png'))
                             self.finish_page.text.setText(self._('finish_disabled'))
 
                         # ERROR pages.
-                        elif common.tor_status == 'no_torrc':
+                        elif Common.tor_status == 'no_torrc':
                             self.finish_page.icon.setPixmap(QtGui.QPixmap( \
                                 '/usr/share/icons/oxygen/48x48/status/task-reject.png'))
                             self.button(QtGui.QWizard.BackButton).setEnabled(False)
                             self.finish_page.text.setText(self._('no_torrc'))
 
-                        elif common.tor_status == 'bad_torrc':
+                        elif Common.tor_status == 'bad_torrc':
                             self.finish_page.icon.setPixmap(QtGui.QPixmap( \
                                 '/usr/share/icons/oxygen/48x48/status/task-reject.png'))
                             self.button(QtGui.QWizard.BackButton).setEnabled(False)
                             self.finish_page.text.setText(self._('bad_torrc'))
 
-                        elif common.tor_status == 'cannot_connect':
+                        elif Common.tor_status == 'cannot_connect':
                             # #DisableNetwork 0 was uncommented. re-comment.
                             QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
-                            common.tor_status = tor_status.set_disabled()
+                            Common.tor_status = tor_status.set_disabled()
                             QApplication.restoreOverrideCursor()
 
                             self.finish_page.icon.setPixmap(QtGui.QPixmap( \
@@ -841,7 +841,7 @@ class whonix_setup_wizard(QtGui.QWizard):
                             self.button(QtGui.QWizard.BackButton).setEnabled(False)
                             self.finish_page.text.setText(self._('cannot_connect'))
 
-                if common.show_disclaimer:
+                if Common.show_disclaimer:
                     # Disclaimer page 1 not undesrstood -> leave
                     if self.disclaimer_1.no_button.isChecked():
                         self.hide()
@@ -866,7 +866,7 @@ class whonix_setup_wizard(QtGui.QWizard):
                     whonixsetup_done = open('/var/lib/whonix/do_once/whonixsetup.done', 'w')
                     whonixsetup_done.close()
 
-        if common.argument == 'locale_settings':
+        if Common.argument == 'locale_settings':
             if self.currentId() == self.steps.index('locale_settings_finish'):
 
                 if self.locale_settings.other_button.isChecked():
@@ -884,10 +884,10 @@ class whonix_setup_wizard(QtGui.QWizard):
 
                 self.locale_settings_finish.text.setText(self._('locale_finish'))
 
-    def BackButton_clicked(self):
-        common.is_complete = False
+    def back_button_clicked(self):
+        Common.is_complete = False
 
-        if common.argument == 'setup' and common.show_disclaimer:
+        if Common.argument == 'setup' and Common.show_disclaimer:
             if self.currentId() == self.steps.index('disclaimer_2'):
                 # Back to disclaimer size.
                 self.resize(760, 750)
@@ -911,25 +911,25 @@ def main():
     if sys.argv[1] != 'locale_settings':
         if os.getuid() != 0:
             print 'ERROR: This must be run as root!\nUse "kdesudo".'
-            not_root = gui_message(common.translations_path, 'not_root')
+            not_root = gui_message(Common.translations_path, 'not_root')
             sys.exit(1)
 
     wizard = whonix_setup_wizard()
 
-    if common.run_repo:
+    if Common.run_repo:
         f = open('/var/cache/whonix-setup-wizard/status-files/whonix_repository.done', 'w')
         f.close()
 
-    if common.show_disclaimer:
+    if Common.show_disclaimer:
         f = open('/var/cache/whonix-setup-wizard/status-files/disclaimer.done', 'w')
         f.close()
 
-    if common.first_use_notice:
+    if Common.first_use_notice:
         f = open('/var/cache/whonix-setup-wizard/status-files/first_use_check.done', 'w')
         f.close()
 
     # run whonixcheck
-    if common.is_complete:
+    if Common.is_complete:
         command = '/usr/lib/whonixsetup_/ft_m_end'
         call(command, shell=True)
 
