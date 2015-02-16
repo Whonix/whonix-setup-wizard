@@ -21,6 +21,8 @@ case "$1" in
       true "INFO: Configuring $DPKG_MAINTSCRIPT_PACKAGE..."
 
       mkdir --parents "/var/cache/whonix-setup-wizard/status-files"
+      chmod g+w "/var/cache/whonix-setup-wizard/status-files"
+      chmod o+w "/var/cache/whonix-setup-wizard/status-files"
 
       true "INFO: End configuring $DPKG_MAINTSCRIPT_PACKAGE."
 
