@@ -18,10 +18,27 @@ import tor_status
 
 import distutils.spawn
 
+def parse_command_line_parameter():
+    '''
+    The wizard might be used from terminal.
+    '''
+    try:
+        arg_list = ['setup', 'repository', 'locale_settings']
+        argument = sys.argv[1]
+        if argument not in arg_list:
+            print >> sys.stderr, 'Command line parameter not recognized: %s' % argument
+            sys.exit(1)
+
+    except (IndexError) as e:
+        print >> sys.stderr, 'Parsing command line parameter failed. | e: %s' % (e)
+        sys.exit(1)
+
+    return argument
 
 class Common:
-    """ Variables and constants used through all the classes
-    """
+    '''
+    Variables and constants used through all the classes
+    '''
     translations_path ='/usr/share/translations/whonix_setup.yaml'
 
     first_use_notice = False
@@ -31,7 +48,8 @@ class Common:
     run_repo = not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonix_repository.done')
     show_disclaimer = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer.done') and
                        not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer.skip'))
-    argument = sys.argv[1]
+
+    argument = parse_command_line_parameter()
 
     if os.path.exists('/usr/share/anon-gw-base-files'):
         environment = 'gateway'
