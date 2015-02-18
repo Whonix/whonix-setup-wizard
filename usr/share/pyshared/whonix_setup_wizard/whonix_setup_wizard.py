@@ -20,20 +20,15 @@ import distutils.spawn
 
 def parse_command_line_parameter():
     '''
-    The wizard might be used from terminal.
+    The wizard might be run from terminal.
     '''
-    try:
-        arg_list = ['setup', 'repository', 'locale_settings']
-        argument = sys.argv[1]
-        if argument not in arg_list:
-            print >> sys.stderr, 'Command line parameter not recognized: %s' % argument
-            sys.exit(1)
+    import argparse
+    parser = argparse.ArgumentParser()
 
-    except (IndexError) as e:
-        print >> sys.stderr, 'Parsing command line parameter failed. | e: %s' % (e)
-        sys.exit(1)
+    parser.add_argument('option', choices=['setup' ,'repository', 'locale_settings'])
+    args = parser.parse_args()
 
-    return argument
+    return args.option
 
 class Common:
     '''
