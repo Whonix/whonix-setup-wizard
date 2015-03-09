@@ -873,10 +873,10 @@ class whonix_setup_wizard(QtGui.QWizard):
                     self.finish_page.text.setText(self._('finish_page_ok'))
 
                     # whonixsetup completed.
-                    if not os.path.exists('/var/lib/whonix/do_once'):
-                        os.mkdir('/var/lib/whonix/do_once')
+                    if not os.path.exists('/var/cache/whonix-setup-wizard/status-files'):
+                        os.mkdir('/var/cache/whonix-setup-wizard/status-files')
 
-                    whonixsetup_done = open('/var/lib/whonix/do_once/whonixsetup.done', 'w')
+                    whonixsetup_done = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
                     whonixsetup_done.close()
 
         if Common.argument == 'locale_settings':
