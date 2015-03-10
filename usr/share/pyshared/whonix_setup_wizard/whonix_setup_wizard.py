@@ -40,7 +40,8 @@ class Common:
     is_complete = False
     disable_repo = False
     tor_status = ''
-    run_repo = not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonix_repository.done')
+    run_repo = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonix_repository.done') and
+                not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonix_repository.skip'))
     show_disclaimer = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer.done') and
                        not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer.skip'))
 
@@ -53,7 +54,8 @@ class Common:
         environment = 'workstation'
 
     if environment == 'gateway':
-        first_use_notice = not os.path.exists('/var/cache/whonix-setup-wizard/status-files/first_use_check.done')
+        first_use_notice = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/first_use_check.done') and
+                            not os.path.exists('/var/cache/whonix-setup-wizard/status-files/first_use_check.skip'))
 
     if argument == 'setup':
         if environment == 'gateway' and show_disclaimer:
