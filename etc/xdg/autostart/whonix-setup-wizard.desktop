@@ -5,5 +5,4 @@
 [Desktop Entry]
 Type=Application
 Terminal=false
-#Exec=/usr/lib/whonixsetup_x_start_maybe
 Exec=/usr/lib/whonix-setup-wizard/whonixsetup_check_for_start
