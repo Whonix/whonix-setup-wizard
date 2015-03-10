@@ -56,10 +56,10 @@ def set_enabled():
             # Extra start required when whonixsetup_check is auto-started.
             # tor start and tor reload returns 0, but tor status returns an error.
             # /run/tor/control and /run/tor/tor.pid are not written.
-            # The same happen wether whonix-setup-wizard is run directly or
+            # The same happen whether whonix-setup-wizard is run directly or
             # through whonixsetup_x_start_maybe.
             # The original setup (start-reload-status) works when run by the user.
-            # Probably the Tor bug refered to in /usr/lib/whonixsetup/ft_m_1.
+            # Probably the Tor bug refereed to in /usr/lib/whonixsetup/ft_m_1.
             if tor_status != 0:
                 command = 'service tor start'
                 call(command, shell=True)
