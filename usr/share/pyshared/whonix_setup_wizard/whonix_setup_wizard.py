@@ -513,9 +513,9 @@ class FirstUseNotice(QtGui.QWizardPage):
         self.setLayout(self.layout)
 
 
-class whonix_setup_wizard(QtGui.QWizard):
+class WhonixSetupWizard(QtGui.QWizard):
     def __init__(self):
-        super(whonix_setup_wizard, self).__init__()
+        super(WhonixSetupWizard, self).__init__()
 
         translation = _translations(Common.translations_path, 'whonixsetup')
         self._ = translation.gettext
@@ -929,7 +929,7 @@ def main():
             not_root = gui_message(Common.translations_path, 'not_root')
             sys.exit(1)
 
-    wizard = whonix_setup_wizard()
+    wizard = WhonixSetupWizard()
 
     if Common.run_repo:
         f = open('/var/cache/whonix-setup-wizard/status-files/whonix_repository.done', 'w')
