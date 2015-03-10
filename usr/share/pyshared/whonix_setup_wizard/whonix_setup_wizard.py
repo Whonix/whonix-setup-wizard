@@ -567,13 +567,6 @@ class whonix_setup_wizard(QtGui.QWizard):
                 self.first_use_notice = FirstUseNotice()
                 self.addPage(self.first_use_notice)
 
-            # whonixsetup completed.
-            if not os.path.exists('/var/cache/whonix-setup-wizard/status-files'):
-                os.mkdir('/var/cache/whonix-setup-wizard/status-files')
-
-            whonixsetup_done = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
-            whonixsetup_done.close()
-
         elif Common.argument == 'locale_settings':
             self.locale_settings = LocaleSettings()
             self.addPage(self.locale_settings)
