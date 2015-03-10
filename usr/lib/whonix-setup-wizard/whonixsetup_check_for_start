@@ -42,7 +42,7 @@ if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
 
 elif os.path.exists('/usr/share/anon-ws-base-files/workstation'):
 
-    if not os.path.exists('/var/lib/whonix/do_once/whonixsetup.done'):
+    if not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done'):
         whonix_setup_wizard = distutils.spawn.find_executable("whonix-setup-wizard")
         if not whonix_setup_wizard == "":
             command = 'xhost +local:root'
