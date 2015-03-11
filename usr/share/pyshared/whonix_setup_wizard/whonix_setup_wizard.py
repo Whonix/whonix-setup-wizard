@@ -878,9 +878,6 @@ class WhonixSetupWizard(QtGui.QWizard):
                     if not os.path.exists('/var/cache/whonix-setup-wizard/status-files'):
                         os.mkdir('/var/cache/whonix-setup-wizard/status-files')
 
-                    whonixsetup_done = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
-                    whonixsetup_done.close()
-
         if Common.argument == 'locale_settings':
             if self.currentId() == self.steps.index('locale_settings_finish'):
 
@@ -943,8 +940,10 @@ def main():
         f = open('/var/cache/whonix-setup-wizard/status-files/first_use_check.done', 'w')
         f.close()
 
-    # run whonixcheck
     if Common.is_complete:
+        f = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
+        f.close()
+        # run whonixcheck
         command = '/usr/lib/whonixsetup_/ft_m_end'
         call(command, shell=True)
 
