@@ -513,9 +513,9 @@ class FirstUseNotice(QtGui.QWizardPage):
         self.setLayout(self.layout)
 
 
-class whonix_setup_wizard(QtGui.QWizard):
+class WhonixSetupWizard(QtGui.QWizard):
     def __init__(self):
-        super(whonix_setup_wizard, self).__init__()
+        super(WhonixSetupWizard, self).__init__()
 
         translation = _translations(Common.translations_path, 'whonixsetup')
         self._ = translation.gettext
@@ -566,13 +566,6 @@ class whonix_setup_wizard(QtGui.QWizard):
             if self.env == 'gateway'and Common.first_use_notice:
                 self.first_use_notice = FirstUseNotice()
                 self.addPage(self.first_use_notice)
-
-            # whonixsetup completed.
-            if not os.path.exists('/var/cache/whonix-setup-wizard/status-files'):
-                os.mkdir('/var/cache/whonix-setup-wizard/status-files')
-
-            whonixsetup_done = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
-            whonixsetup_done.close()
 
         elif Common.argument == 'locale_settings':
             self.locale_settings = LocaleSettings()
@@ -885,9 +878,6 @@ class whonix_setup_wizard(QtGui.QWizard):
                     if not os.path.exists('/var/cache/whonix-setup-wizard/status-files'):
                         os.mkdir('/var/cache/whonix-setup-wizard/status-files')
 
-                    whonixsetup_done = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
-                    whonixsetup_done.close()
-
         if Common.argument == 'locale_settings':
             if self.currentId() == self.steps.index('locale_settings_finish'):
 
@@ -936,7 +926,7 @@ def main():
             not_root = gui_message(Common.translations_path, 'not_root')
             sys.exit(1)
 
-    wizard = whonix_setup_wizard()
+    wizard = WhonixSetupWizard()
 
     if Common.run_repo:
         f = open('/var/cache/whonix-setup-wizard/status-files/whonix_repository.done', 'w')
@@ -950,8 +940,10 @@ def main():
         f = open('/var/cache/whonix-setup-wizard/status-files/first_use_check.done', 'w')
         f.close()
 
-    # run whonixcheck
     if Common.is_complete:
+        f = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
+        f.close()
+        # run whonixcheck
         command = '/usr/lib/whonixsetup_/ft_m_end'
         call(command, shell=True)
 
