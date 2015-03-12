@@ -40,8 +40,13 @@ class Common:
     is_complete = False
     disable_repo = False
     tor_status = ''
+
+    if not os.path.exists('/var/cache/whonix-setup-wizard/status-files'):
+        os.mkdir('/var/cache/whonix-setup-wizard/status-files')
+
     run_repo = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonix_repository.done') and
                 not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonix_repository.skip'))
+
     show_disclaimer = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer.done') and
                        not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer.skip'))
 
