@@ -879,10 +879,6 @@ class WhonixSetupWizard(QtGui.QWizard):
                     '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
                     self.finish_page.text.setText(self._('finish_page_ok'))
 
-                    # whonixsetup completed.
-                    if not os.path.exists('/var/cache/whonix-setup-wizard/status-files'):
-                        os.mkdir('/var/cache/whonix-setup-wizard/status-files')
-
         if Common.argument == 'locale_settings':
             if self.currentId() == self.steps.index('locale_settings_finish'):
 
@@ -946,8 +942,9 @@ def main():
         f.close()
 
     if Common.is_complete:
-        f = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
-        f.close()
+        if not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done'):
+            f = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
+            f.close()
         # run whonixcheck
         command = '/usr/lib/whonixsetup_/ft_m_end'
         call(command, shell=True)
