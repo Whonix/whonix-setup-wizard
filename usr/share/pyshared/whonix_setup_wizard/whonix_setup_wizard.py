@@ -103,6 +103,11 @@ class Common:
         wizard_steps = ['locale_settings',
                         'locale_settings_finish']
 
+    if (argument == 'setup' and
+        environment == 'workstation' and
+        not show_disclaimer):
+            sys.exit()
+
 
 class LocaleSettings(QtGui.QWizardPage):
     def __init__(self):
