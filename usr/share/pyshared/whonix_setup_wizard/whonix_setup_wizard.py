@@ -40,8 +40,13 @@ class Common:
     is_complete = False
     disable_repo = False
     tor_status = ''
+
+    if not os.path.exists('/var/cache/whonix-setup-wizard/status-files'):
+        os.mkdir('/var/cache/whonix-setup-wizard/status-files')
+
     run_repo = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonix_repository.done') and
                 not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonix_repository.skip'))
+
     show_disclaimer = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer.done') and
                        not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer.skip'))
 
@@ -97,6 +102,11 @@ class Common:
     elif argument == 'locale_settings':
         wizard_steps = ['locale_settings',
                         'locale_settings_finish']
+
+    if (argument == 'setup' and
+        environment == 'workstation' and
+        not show_disclaimer):
+            sys.exit()
 
 
 class LocaleSettings(QtGui.QWizardPage):
@@ -874,10 +884,6 @@ class WhonixSetupWizard(QtGui.QWizard):
                     '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
                     self.finish_page.text.setText(self._('finish_page_ok'))
 
-                    # whonixsetup completed.
-                    if not os.path.exists('/var/cache/whonix-setup-wizard/status-files'):
-                        os.mkdir('/var/cache/whonix-setup-wizard/status-files')
-
         if Common.argument == 'locale_settings':
             if self.currentId() == self.steps.index('locale_settings_finish'):
 
@@ -941,8 +947,9 @@ def main():
         f.close()
 
     if Common.is_complete:
-        f = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
-        f.close()
+        if not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done'):
+            f = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
+            f.close()
         # run whonixcheck
         command = '/usr/lib/whonixsetup_/ft_m_end'
         call(command, shell=True)
