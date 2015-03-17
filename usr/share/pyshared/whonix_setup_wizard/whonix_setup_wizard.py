@@ -30,6 +30,7 @@ def parse_command_line_parameter():
 
     return args.option
 
+
 class Common:
     '''
     Variables and constants used through all the classes
@@ -58,6 +59,9 @@ class Common:
     elif os.path.exists('/usr/share/anon-ws-base-files'):
         environment = 'workstation'
 
+    run_whonixcheck_only = (argument == 'setup' and environment == 'workstation'
+                            and not run_repo and not show_disclaimer)
+
     if environment == 'gateway':
         first_use_notice = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/first_use_check.done') and
                             not os.path.exists('/var/cache/whonix-setup-wizard/status-files/first_use_check.skip'))
@@ -85,7 +89,7 @@ class Common:
                             'finish_page',
                             'first_use_notice']
 
-        elif environment == 'workstation':
+        elif environment == 'workstation'and not run_whonixcheck_only:
             wizard_steps = ['disclaimer_1',
                             'disclaimer_2',
                             'whonix_repo_page',
@@ -93,6 +97,9 @@ class Common:
                             'repository_wizard_page_2',
                             'repository_wizard_finish',
                             'finish_page']
+
+        elif environment == 'workstation'and run_whonixcheck_only:
+            wizard_steps = ['finish_page']
 
     elif argument == 'repository':
         wizard_steps = ['repository_wizard_page_1',
@@ -102,11 +109,6 @@ class Common:
     elif argument == 'locale_settings':
         wizard_steps = ['locale_settings',
                         'locale_settings_finish']
-
-    if (argument == 'setup' and
-        environment == 'workstation' and
-        not show_disclaimer):
-            sys.exit()
 
 
 class LocaleSettings(QtGui.QWizardPage):
@@ -543,7 +545,7 @@ class WhonixSetupWizard(QtGui.QWizard):
             self.repository_wizard_finish = RepositoryWizardfinish()
             self.addPage(self.repository_wizard_finish)
 
-        elif Common.argument == 'setup':
+        if Common.argument == 'setup':
             if Common.show_disclaimer:
                 self.disclaimer_1 = DisclaimerPage1()
                 self.addPage(self.disclaimer_1)
@@ -551,33 +553,38 @@ class WhonixSetupWizard(QtGui.QWizard):
                 self.disclaimer_2 = DisclaimerPage2()
                 self.addPage(self.disclaimer_2)
 
-            if self.env == 'gateway':
-                self.connection_page = ConnectionPage()
-                self.addPage(self.connection_page)
+            if Common.run_whonixcheck_only:
+                self.finish_page = FinishPage()
+                self.addPage(self.finish_page)
 
-                self.tor_status_page = TorStatusPage()
-                self.addPage(self.tor_status_page)
+            else:
+                if self.env == 'gateway':
+                    self.connection_page = ConnectionPage()
+                    self.addPage(self.connection_page)
 
-            self.whonix_repo_page = WhonixRepositoryPage()
-            self.addPage(self.whonix_repo_page)
+                    self.tor_status_page = TorStatusPage()
+                    self.addPage(self.tor_status_page)
 
-            self.repository_wizard_page_1 = RepositoryWizardPage1()
-            self.addPage(self.repository_wizard_page_1)
+                self.whonix_repo_page = WhonixRepositoryPage()
+                self.addPage(self.whonix_repo_page)
 
-            self.repository_wizard_page_2 = RepositoryWizardPage2()
-            self.addPage(self.repository_wizard_page_2)
+                self.repository_wizard_page_1 = RepositoryWizardPage1()
+                self.addPage(self.repository_wizard_page_1)
 
-            self.repository_wizard_finish = RepositoryWizardfinish()
-            self.addPage(self.repository_wizard_finish)
+                self.repository_wizard_page_2 = RepositoryWizardPage2()
+                self.addPage(self.repository_wizard_page_2)
 
-            self.finish_page = FinishPage()
-            self.addPage(self.finish_page)
+                self.repository_wizard_finish = RepositoryWizardfinish()
+                self.addPage(self.repository_wizard_finish)
 
-            if self.env == 'gateway'and Common.first_use_notice:
-                self.first_use_notice = FirstUseNotice()
-                self.addPage(self.first_use_notice)
+                self.finish_page = FinishPage()
+                self.addPage(self.finish_page)
 
-        elif Common.argument == 'locale_settings':
+                if self.env == 'gateway'and Common.first_use_notice:
+                    self.first_use_notice = FirstUseNotice()
+                    self.addPage(self.first_use_notice)
+
+        if Common.argument == 'locale_settings':
             self.locale_settings = LocaleSettings()
             self.addPage(self.locale_settings)
 
@@ -590,7 +597,7 @@ class WhonixSetupWizard(QtGui.QWizard):
         self.setWindowIcon(QtGui.QIcon("/usr/share/icons/anon-icon-pack/whonix.ico"))
         self.setWindowTitle('Whonix Setup Wizard')
 
-        if Common.argument == 'setup':
+        if Common.argument == 'setup' and not Common.run_whonixcheck_only:
             self.resize(760, 750)
         elif Common.argument == 'repository':
             self.resize(580, 370)
@@ -612,32 +619,40 @@ class WhonixSetupWizard(QtGui.QWizard):
         self.setPalette(palette)
 
         try:
-            if Common.argument == 'setup' and Common.show_disclaimer:
-                self.disclaimer_1.text.setText(self._('disclaimer_1'))
-                self.disclaimer_1.yes_button.setText(self._('accept'))
-                self.disclaimer_1.no_button.setText(self._('reject'))
+            if Common.run_whonixcheck_only:
+                self.finish_page.icon.setPixmap(QtGui.QPixmap( \
+                '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
+                self.finish_page.text.setText(self._('finish_page_ok'))
+                Common.is_complete = True
 
-                self.disclaimer_2.text.setText(self._('disclaimer_2'))
-                self.disclaimer_2.yes_button.setText(self._('accept'))
-                self.disclaimer_2.no_button.setText(self._('reject'))
+            else:
+                if Common.argument == 'setup' and Common.show_disclaimer:
+                    self.disclaimer_1.text.setText(self._('disclaimer_1'))
+                    self.disclaimer_1.yes_button.setText(self._('accept'))
+                    self.disclaimer_1.no_button.setText(self._('reject'))
 
-            if Common.argument == 'setup'and self.env == 'gateway':
-                self.connection_page.text.setText(self._('connection_text'))
-                self.connection_page.enable.setText(self._('enable_tor'))
-                self.connection_page.disable.setText(self._('disable_tor'))
-                self.connection_page.censored.setText(self._('censored_tor'))
-                self.connection_page.use_proxy.setText(self._('use_proxy'))
+                    self.disclaimer_2.text.setText(self._('disclaimer_2'))
+                    self.disclaimer_2.yes_button.setText(self._('accept'))
+                    self.disclaimer_2.no_button.setText(self._('reject'))
 
-                if Common.first_use_notice:
-                    self.first_use_notice.text.setText(self._('first_use_notice'))
+                if Common.argument == 'setup'and self.env == 'gateway':
+                    self.connection_page.text.setText(self._('connection_text'))
+                    self.connection_page.enable.setText(self._('enable_tor'))
+                    self.connection_page.disable.setText(self._('disable_tor'))
+                    self.connection_page.censored.setText(self._('censored_tor'))
+                    self.connection_page.use_proxy.setText(self._('use_proxy'))
+
+                    if Common.first_use_notice:
+                        self.first_use_notice.text.setText(self._('first_use_notice'))
 
 
-            if Common.argument == 'setup' or Common.argument == 'repository':
-                self.repository_wizard_page_1.text.setText(self._('repo_page_1'))
-                self.repository_wizard_page_1.enable_repo.setText(self._('repo_enable'))
-                self.repository_wizard_page_1.disable_repo.setText(self._('repo_disable'))
+                if ((Common.argument == 'setup' or Common.argument == 'repository')
+                    and not Common.run_whonixcheck_only):
+                    self.repository_wizard_page_1.text.setText(self._('repo_page_1'))
+                    self.repository_wizard_page_1.enable_repo.setText(self._('repo_enable'))
+                    self.repository_wizard_page_1.disable_repo.setText(self._('repo_disable'))
 
-                self.repository_wizard_page_2.text.setText(self._('repo_page_2'))
+                    self.repository_wizard_page_2.text.setText(self._('repo_page_2'))
 
         except (yaml.scanner.ScannerError, yaml.parser.ParserError):
             pass
@@ -958,5 +973,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
