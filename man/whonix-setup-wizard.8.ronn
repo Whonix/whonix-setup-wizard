@@ -1,4 +1,4 @@
-whonix-setup-wizard(8) -- Connection Wizard
+whonix-setup-wizard(8) -- Whonix Settings Wizard
 =============================================
 
 <span class="comment">
@@ -16,7 +16,7 @@ whonix-setup-wizard(8) -- Connection Wizard
 
 ## SYNOPSIS
 
-`whonix-setup-wizard`
+`whonix-setup-wizard` {setup,repository,locale_settings}
 
 ## DESCRIPTION
 
@@ -24,9 +24,13 @@ Graphical version of `whonixsetup`, that asks in which environment you are
 using Whonix, informs about various situations, helps to enable Tor in
 /etc/tor/torrc.
 
-## EXAMPLE
+## EXAMPLES
 
-`whonix-setup-wizard`
+`whonix-setup-wizard setup`
+
+`whonix-setup-wizard repository`
+
+`whonix-setup-wizard locale_settings`
 
 ## WWW
 
