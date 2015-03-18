@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#! /usr/bin/python
 
 from subprocess import call
 import sys, os
@@ -7,28 +7,31 @@ import distutils.spawn
 
 def tor_status():
     if not os.path.exists('/etc/tor/torrc'):
-        # TODO: add gui message.
         return 'no_torrc'
 
     fh = open('/etc/tor/torrc','r')
     lines = fh.readlines()
     fh.close()
 
+    line_exists = False
     for line in lines:
         if line.strip() == '#DisableNetwork 0':
+            line_exists = True
             return 'tor_disabled'
+        elif line.strip() == 'DisableNetwork 0':
+            line_exists = True
+
+    if not line_exists:
+        return 'bad_torrc'
 
 
 if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
 
-    #command = '/usr/lib/gateway_first_run_notice'
-    #call(command, shell = True)
-    #time.sleep(0.5)
-
     whonix_setup_wizard = distutils.spawn.find_executable("whonix-setup-wizard")
     if not whonix_setup_wizard == "":
         tor_status = tor_status()
-        if tor_status == 'tor_disabled':
+        if (tor_status == 'tor_disabled' or tor_status == 'no_torrc'
+            or tor_status == 'bad_torrc'):
             command = 'xhost +local:root'
             call(command, shell = True)
 
@@ -36,7 +39,6 @@ if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
             call(command, shell=True)
 
     else:
-        # revert to cli. TODO: add gui message.
         command = '/usr/lib/whonixsetup_cli_start_maybe'
         call(command, shell = True)
 
