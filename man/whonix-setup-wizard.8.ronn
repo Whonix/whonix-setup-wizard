@@ -32,6 +32,10 @@ using Whonix, informs about various situations, helps to enable Tor in
 
 `whonix-setup-wizard locale_settings`
 
+## SKIP FILES
+
+See also `man whonixsetup` for skip files.
+
 ## WWW
 
 https://www.whonix.org
