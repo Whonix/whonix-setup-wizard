@@ -53,10 +53,10 @@ class Common:
 
     argument = parse_command_line_parameter()
 
-    if os.path.exists('/usr/share/anon-gw-base-files'):
+    if os.path.isfile('/usr/share/anon-gw-base-files/gateway'):
         environment = 'gateway'
 
-    elif os.path.exists('/usr/share/anon-ws-base-files'):
+    elif os.path.isfile('/usr/share/anon-ws-base-files/workstation'):
         environment = 'workstation'
 
     run_whonixcheck_only = (argument == 'setup' and environment == 'workstation'
