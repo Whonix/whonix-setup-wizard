@@ -7,9 +7,12 @@
 from subprocess import call
 import sys, os
 import time
+import distutils.spawn
 
 command = 'xhost +local:root'
 call(command, shell = True)
 
-command = 'sudo /usr/bin/whonix-setup-wizard setup'
-call(command, shell = True)
+whonix_setup_wizard = distutils.spawn.find_executable("whonix-setup-wizard")
+if not whonix_setup_wizard == "":
+    command = 'sudo %s setup' % (whonix_setup_wizard)
+    call(command, shell=True)
