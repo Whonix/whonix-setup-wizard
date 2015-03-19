@@ -805,13 +805,13 @@ class WhonixSetupWizard(QtGui.QWizard):
 
                 else:
                     if self.repository_wizard_page_2.stable_repo.isChecked():
-                        codename = ' --codename stable'
+                        codename = ' --repository stable'
 
                     elif self.repository_wizard_page_2.testers_repo.isChecked():
-                        codename = ' --codename testers'
+                        codename = ' --repository testers'
 
                     elif self.repository_wizard_page_2.devs_repo.isChecked():
-                        codename = ' --codename developers'
+                        codename = ' --repository developers'
 
                     command = 'whonix_repository --enable' + codename
 
