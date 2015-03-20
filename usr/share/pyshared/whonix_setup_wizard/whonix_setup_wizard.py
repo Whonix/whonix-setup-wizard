@@ -597,8 +597,13 @@ class WhonixSetupWizard(QtGui.QWizard):
         self.setWindowIcon(QtGui.QIcon("/usr/share/icons/anon-icon-pack/whonix.ico"))
         self.setWindowTitle('Whonix Setup Wizard')
 
+        available_height = QtGui.QDesktopWidget().availableGeometry().height() - 60
+        self.disclaimer_height = 750
+        if available_height < self.disclaimer_height:
+            self.disclaimer_height = available_height
+
         if Common.argument == 'setup' and not Common.run_whonixcheck_only:
-            self.resize(760, 750)
+            self.resize(760, self.disclaimer_height)
         elif Common.argument == 'repository':
             self.resize(580, 370)
         elif Common.argument == 'locale_settings':
@@ -923,7 +928,7 @@ class WhonixSetupWizard(QtGui.QWizard):
         if Common.argument == 'setup' and Common.show_disclaimer:
             if self.currentId() == self.steps.index('disclaimer_2'):
                 # Back to disclaimer size.
-                self.resize(760, 750)
+                self.resize(760, self.disclaimer_height)
                 self.center()
 
 
