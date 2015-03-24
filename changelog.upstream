@@ -1,3 +1,271 @@
+commit e9f9649439c93a245591bb63d14654b54cd6864d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 24 17:27:04 2015 +0000
+
+    updated makefile generic to version 1.4
+
+commit bf7fc8a5d3ca5d5fab9a96b3a42f6c6e8053785e
+Merge: b84a98e 1378352
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Mar 20 09:11:32 2015 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 13783523563e82461bfeede216a985a135b0fe0e
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Mar 20 06:10:14 2015 +0000
+
+    fix resizing issue
+
+commit b84a98ea7a88ff15477a3ed71f51e05da6267a0b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Mar 19 12:18:23 2015 +0000
+
+    use --repository rather then --codename to fix "whonix-setup-wizard repository - code names issue - stable vs wheezy" - https://phabricator.whonix.org/T232
+
+commit 402599ad4a99ac5ce924bcba050d09713417da2b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Mar 18 22:15:22 2015 +0000
+
+    man page
+
+commit fd1157311a7cebeafd1226184f409bf7f58b301f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Mar 18 22:14:38 2015 +0000
+
+    man page
+
+commit 76adf69c1dac839db439cf18b0ad5b171d6c79ae
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Mar 18 22:08:47 2015 +0000
+
+    instead of checking for anon base files folder, check for anon base marker files
+
+commit a9a0c091ec95b0f27ab3da72a249b156188029be
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Mar 18 22:02:36 2015 +0000
+
+    use distutils.spawn.find_executable instead of hardcoding paths for startup wrappers
+
+commit 99e1a78a1ef6669b70e4c186ff7d17cb40e27cbe
+Merge: ff45ef2 162f8d9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Mar 18 21:04:09 2015 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 162f8d95fcc9a8ceeec92ea291ef1bfe4c728a38
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Mar 18 20:49:44 2015 +0000
+
+    start the wizard in case of problem with /etc/tor/torrc
+
+commit ff45ef25ff161d11eb6a177dd478b27c341bbb6e
+Merge: 9b19ca7 e59e6ee
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 17 17:43:11 2015 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit e59e6eee19b167e1d6bd18343ec1da70f1b56a5c
+Author: troubadoour <trobador@riseup.net>
+Date:   Tue Mar 17 16:58:31 2015 +0000
+
+    finish page only if all status files exist
+
+commit 9b19ca736fea17f4c08be1b8db2660d9a71d3ba4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Mar 13 23:35:10 2015 +0000
+
+    added whonix-setup-wizard repository start menu item
+
+commit 3481a35a6854b6579fcc8e02b44ee2c4a0ad25be
+Merge: 237d3ae 1cfe449
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Mar 12 23:58:49 2015 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 1cfe44910b74f8d3f1d4ab319e01c3175ea723c2
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Mar 12 20:21:19 2015 +0000
+
+    exit if not show_disclaimer (workstation).
+
+commit 6cc731d54652afec7211982643d01a5efef5060b
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Mar 12 19:36:15 2015 +0000
+
+    check if whonixsetup.done. remove satus files folder check in finish page.
+
+commit 61d3c3116ec029a04aa0f96ccdf54ab5bcb6b563
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Mar 12 19:24:04 2015 +0000
+
+    check if status files folder exists
+
+commit 237d3aeeecbda96ffed89f996ddcdb03a77df8f7
+Merge: 967c855 7c8deda
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Mar 11 20:52:54 2015 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 7c8deda88b911987c497050914b23dbc3f082d98
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Mar 11 20:18:51 2015 +0000
+
+    whonixsetup.done in wirkstation and gateway
+
+commit a0463f58ca131c536f5255f0e9c289305e6c6f29
+Author: troubadoour <trobador@riseup.net>
+Date:   Tue Mar 10 21:30:51 2015 +0000
+
+    - whonix_setup_wizard + WhonixSetupWizard
+
+commit 30f8317ccfe494de691c38a640ac0b1394a2666f
+Author: troubadoour <trobador@riseup.net>
+Date:   Tue Mar 10 21:21:31 2015 +0000
+
+    remove whonixsetup completed in whonix_setup_wizard __init__
+
+commit 967c855dbdd0e483cee40a4e27072ababb8ad146
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 10 10:35:42 2015 +0000
+
+    comment
+
+commit 1c209b83912b3a8d11cbdd07287f5fe7dbd052da
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 10 10:34:05 2015 +0000
+
+    typos
+
+commit 32274f479f4facb067b1df8e2039580648bd7516
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 10 10:31:33 2015 +0000
+
+    cleanup
+
+commit 4a45a757d2e29b62ad66e27024a5d97701868cc4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 10 09:45:01 2015 +0000
+
+    support for legacy /var/lib/whonix/do_once/whonixsetup.done
+
+commit c10ec2c5e45fa765536aba9ca372ea7aa68107a6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 10 09:42:25 2015 +0000
+
+    added support for /var/cache/whonix-setup-wizard/status-files/whonixsetup.skip
+
+commit fc7aae5689f99755228a252916d18e874ff44c6d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 10 09:26:16 2015 +0000
+
+    implemented /var/cache/whonix-setup-wizard/status-files/whonix_repository.skip and /var/cache/whonix-setup-wizard/status-files/first_use_check.skip
+
+commit 5b379ec2e2dd27fd93e163fb4f35132d55d9fe0a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 10 09:19:38 2015 +0000
+
+    instead of /var/lib/whonix/do_once/whonixsetup.done use /var/cache/whonix-setup-wizard/status-files/whonixsetup.done - https://phabricator.whonix.org/T155
+
+commit 563462322791d060bb49d8c5632c8e50bb357b7c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Mar 9 20:14:26 2015 +0000
+
+    fix, create /var/cache/whonix-setup-wizard/status-files/whonixsetup.done also on Whonix-Gateway
+
+commit 3203700c6ad08e08ca0a987601c675a552eed987
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Mar 9 20:08:39 2015 +0000
+
+    instead of /var/lib/whonix/do_once/whonixsetup.done create /var/cache/whonix-setup-wizard/status-files/whonixsetup.done - https://phabricator.whonix.org/T155
+
+commit 157710e28de19a4410b44617a01a1dd644140376
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 23 16:56:01 2015 +0000
+
+    fix, removed config-package-dev dependency, since not needed
+
+commit 74bfb68c4c59b9a580176efcc76633628abcc8ae
+Merge: 6821231 ab7348d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 18 09:26:30 2015 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit ab7348d85cf9b0f5df9498a3040aafa971613e2e
+Author: troubadoour <trobador@riseup.net>
+Date:   Tue Feb 17 22:06:42 2015 +0000
+
+    arguments parsing -> argparse
+
+commit 68212319052ec2743ab9b00733c47f5d7f3dc7e3
+Merge: d278705 98e6ff2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 17 20:21:58 2015 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 98e6ff2f7a0318c2a1a73c793a66b94aeed1c16c
+Author: troubadoour <trobador@riseup.net>
+Date:   Tue Feb 17 19:16:53 2015 +0000
+
+    parse command line parameter
+
+commit d2787058939480d666edf6a6a912135574d5d362
+Merge: 2cba459 9494ff9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 16 21:15:40 2015 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 9494ff92de2e875bd57a15be488ffc0e8d35cc33
+Merge: 07a9170 2cba459
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Feb 16 20:05:41 2015 +0000
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 2cba459e7a2bba9b54b326177cf5af71b727b95b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 16 07:38:42 2015 +0000
+
+    made /var/cache/whonix-setup-wizard/status-files writeable by everyone - https://phabricator.whonix.org/T155
+
+commit 23a9205929a63c3ac6ee334f9ddbda2f02076486
+Merge: a67cbc4 04a7a34
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Feb 14 03:10:21 2015 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 07a91709dbea28e43c975b9d4f52b0d46eec15ee
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Feb 13 21:32:35 2015 +0000
+
+    pep8 compatibility
+
+commit 04a7a34fd87616af0e428334eabdffce6edd79c1
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Feb 13 20:12:08 2015 +0000
+
+    status files -> "."
+
+commit e94a2786938e26e61916d6f5e036e16ea6fd90bd
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Feb 13 19:58:47 2015 +0000
+
+    status files -> "."
+
+commit a67cbc462229d9c4f5750a690bd4438764850a96
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 12 22:09:08 2015 +0000
+
+    bumped changelog version
+
 commit e7ab058dcc40de3a2c77d64aafed6da8191771d9
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Feb 12 21:58:58 2015 +0000
