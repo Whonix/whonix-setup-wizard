@@ -1,3 +1,22 @@
+commit 4b30fff0f80b762ab8115311d156965d5211e26a
+Merge: 38b6cfa 33b63f7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Mar 30 12:21:03 2015 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 33b63f7d6aca34cf47b2d12e22180205050598ef
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Mar 25 19:40:00 2015 +0000
+
+    unknown arguments, increase size of concection  page
+
+commit 38b6cfa81b8989803214519e6c0f2afdcb18e10f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 24 17:37:14 2015 +0000
+
+    bumped changelog version
+
 commit e9f9649439c93a245591bb63d14654b54cd6864d
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Mar 24 17:27:04 2015 +0000
