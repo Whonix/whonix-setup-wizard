@@ -26,7 +26,7 @@ def parse_command_line_parameter():
     parser = argparse.ArgumentParser()
 
     parser.add_argument('option', choices=['setup' ,'repository', 'locale_settings'])
-    args = parser.parse_args()
+    args, unknown_args = parser.parse_known_args()
 
     return args.option
 
@@ -605,7 +605,7 @@ class WhonixSetupWizard(QtGui.QWizard):
         if Common.argument == 'setup' and not Common.run_whonixcheck_only:
             self.resize(760, self.disclaimer_height)
         elif Common.argument == 'repository':
-            self.resize(580, 370)
+            self.resize(580, 390)
         elif Common.argument == 'locale_settings':
             self.resize(440, 168)
 
@@ -678,7 +678,7 @@ class WhonixSetupWizard(QtGui.QWizard):
                 self.connection_page.use_proxy.toggled.connect(self.set_next_button_state)
 
         if not Common.show_disclaimer and not Common.argument == 'locale_settings':
-            self.resize(580, 370)
+            self.resize(580, 390)
 
         self.exec_()
 
@@ -719,7 +719,7 @@ class WhonixSetupWizard(QtGui.QWizard):
             if self.env == 'gateway':
                 # Set Next button state
                 if self.currentId() == self.steps.index('connection_page'):
-                    self.resize(580, 370)
+                    self.resize(580, 390)
                     self.center()
                     if (self.connection_page.censored.isChecked() or
                         self.connection_page.use_proxy.isChecked()):
