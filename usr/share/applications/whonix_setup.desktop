@@ -13,3 +13,4 @@ Categories=System
 Icon=/usr/share/icons/anon-icon-pack/advancedsettings.ico
 ## Because we need a wrapper to start it.
 X-KDE-StartupNotify=false
+Keywords=system;Whonix;setup;connection;Tor

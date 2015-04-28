@@ -13,3 +13,4 @@ Categories=System
 Icon=/usr/share/icons/anon-icon-pack/whonixlock.png
 ## Because we need a wrapper to start it.
 X-KDE-StartupNotify=false
+Keywords=system;Whonix;repository;apt-get
