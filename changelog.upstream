@@ -1,3 +1,15 @@
+commit d5aacf5c58d5aad1c158e589b43d0dd5ccc9cc3f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat May 23 14:48:34 2015 +0000
+
+    fix 'Tor fails after reload related to torrc DisableNetwork setting issue' by only restarting Tor, no longer trying to reload Tor - https://phabricator.whonix.org/T320
+
+commit 21397c874c1a2b522832bb11fcd3f9b94fa6e2db
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 30 17:57:16 2015 +0000
+
+    bumped changelog version
+
 commit ce89f2cab08e9f68c8977768b33dbd2c0c95b4b2
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Apr 28 14:26:49 2015 +0000
