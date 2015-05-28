@@ -1,3 +1,15 @@
+commit bd6952502259517defea9197e1cab5b5a5cfddb8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu May 28 15:22:39 2015 +0000
+
+    typo
+
+commit 816078ba8d92f33a015e8b000ccc6652af0137ae
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat May 23 14:50:48 2015 +0000
+
+    bumped changelog version
+
 commit d5aacf5c58d5aad1c158e589b43d0dd5ccc9cc3f
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat May 23 14:48:34 2015 +0000
