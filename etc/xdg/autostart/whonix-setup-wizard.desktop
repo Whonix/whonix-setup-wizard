@@ -6,3 +6,4 @@
 Type=Application
 Terminal=false
 Exec=/usr/lib/whonix-setup-wizard/whonixsetup_check_for_start
+NotShowIn=QUBES;
