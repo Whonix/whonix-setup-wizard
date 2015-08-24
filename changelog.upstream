@@ -1,3 +1,15 @@
+commit bf6b1a08ee376899dcae19e02a1dd99a2fccf18c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 12 04:09:11 2015 +0200
+
+    added 'NotShowIn=QUBES;' to etc/xdg/autostart/whonix-setup-wizard.desktop so the qubes-whonix postinst script does not have to modify that file
+
+commit 468d59e26f8aa70b689d7bac3358f6ad6eae1f9a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jun 3 15:00:45 2015 +0000
+
+    bumped changelog version
+
 commit c163be3169ae19d9c3e9561b01c8ae19e9c5a018
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu May 28 15:25:50 2015 +0000
