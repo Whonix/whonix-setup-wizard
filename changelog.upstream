@@ -1,3 +1,27 @@
+commit 8b12599663348784893c94bdcc0ecf58b7fb3d05
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 26 02:14:28 2015 +0000
+
+    output
+
+commit 2e0b087f07d9e701ba9b722ef0ae6d08ca2cee15
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 26 02:10:36 2015 +0000
+
+    minor
+
+commit ed586662f54047b48a3557462f439ad2a023b1c5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 26 02:05:47 2015 +0000
+
+    implemented 'whonix-setup-wizard quick', which instantly exits 0 if Tor has been enabled [not already been enabled] so the number of Whonix Setup Wizard pages in Qubes can be reduced to 1
+
+commit 545aa19c069d7b685924b2c309c1a1a5fe2697d0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 25 14:08:37 2015 +0000
+
+    bumped changelog version
+
 commit 05ec9550c04b49ac5dad26218db862407a0fd642
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Aug 24 17:47:33 2015 +0000
