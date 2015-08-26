@@ -25,7 +25,7 @@ def parse_command_line_parameter():
     import argparse
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('option', choices=['setup' ,'repository', 'locale_settings'])
+    parser.add_argument('option', choices=['setup', 'quick', 'repository', 'locale_settings'])
     args, unknown_args = parser.parse_known_args()
 
     return args.option
@@ -40,6 +40,7 @@ class Common:
     first_use_notice = False
     is_complete = False
     disable_repo = False
+    exit_after_tor_enabled = False
     tor_status = ''
 
     if not os.path.exists('/var/cache/whonix-setup-wizard/status-files'):
@@ -52,6 +53,10 @@ class Common:
                        not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer.skip'))
 
     argument = parse_command_line_parameter()
+
+    if argument == 'quick':
+        exit_after_tor_enabled = True
+        argument = "setup"
 
     if os.path.isfile('/usr/share/anon-gw-base-files/gateway'):
         environment = 'gateway'
@@ -735,6 +740,8 @@ class WhonixSetupWizard(QtGui.QWizard):
                         QApplication.restoreOverrideCursor()
 
                         if Common.tor_status == 'tor_enabled':
+                            if Common.exit_after_tor_enabled:
+                                sys.exit(0)
                             self.tor_status_page.text.setText(self._('tor_enabled'))
                             torrc_text = open('/etc/tor/torrc').read()
                             self.tor_status_page.torrc.setPlainText(torrc_text)
