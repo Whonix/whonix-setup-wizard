@@ -894,13 +894,13 @@ class WhonixSetupWizard(QtGui.QWizard):
                             self.finish_page.text.setText(self._('cannot_connect'))
 
                 if Common.show_disclaimer:
-                    # Disclaimer page 1 not undesrstood -> leave
+                    # Disclaimer page 1 not understood -> leave
                     if self.disclaimer_1.no_button.isChecked():
                         self.hide()
                         command = '/sbin/poweroff'
                         call(command, shell=True)
 
-                    # Disclaimer page 2 not undesrstood -> leave
+                    # Disclaimer page 2 not understood -> leave
                     if self.disclaimer_2.no_button.isChecked():
                         self.hide()
                         command = '/sbin/poweroff'
