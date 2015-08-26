@@ -177,7 +177,7 @@ whonixsetup:
 
         tooltip_2:
             <p>This option will disable Tor networking.</p>
-            <p>It should be used in case you want blah blah...</p>
+            <p>It should be used in case you want to make sure Tor will not connect to the public Tor network.</p>
 
         tooltip_3:
             <p><b>The bridges option is not available yet. You must configure Tor manually.</b></p>
@@ -195,7 +195,7 @@ whonixsetup:
             Where Tor is censored but VPNs are allowed, you can hide your Tor connection inside a VPN connection.
             To the censors, your internet traffic will look like an encrypted VPN connection. The VPN will then send your
             Tor traffic onward to the first Tor relay.</p>
-            <p>If you are using Whonix-Gateway inside VirtualBox, configure your VPN software inside the host operating system.
+            <p>If you are using Whonix-Gateway inside a virtual machine, configure your VPN software on the host operating system.
             Your VPN provider will have instructions for you to follow and possibly custom software to help you connect.</p>
             <p>However, you MUST configure your VPN software (whether custom or built into your operating system) to send
             all internet traffic through the VPN connection, and you MUST configure your VPN software to block all internet
