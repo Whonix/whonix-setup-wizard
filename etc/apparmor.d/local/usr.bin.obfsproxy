@@ -1,0 +1,6 @@
+# Site-specific additions and overrides for usr.bin.obfsproxy.
+# For more details, please see /etc/apparmor.d/local/README.
+
+  # Qubes-Whonix. 
+  /rw/usrlocal/lib/python2.7/dist-packages/ r,
+  /var/lib/tor/pt_state/scramblesuit/* rwk,
