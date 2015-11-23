@@ -52,6 +52,7 @@ class Common:
     use_proxy = False
     bridge_type = ''
     bridges = []
+    bridges_default_path = '/usr/share/whonix-setup-wizard/bridges_default'
     proxy_type = ''
     tor_status = ''
 
@@ -1179,7 +1180,7 @@ class WhonixSetupWizard(QtGui.QWizard):
                     shutil.copy('/etc/tor/torrc.anondist', '/etc/tor/torrc')
 
                     if Common.use_bridges:
-                        bridges = json.loads(open('/etc/bridges/default.json').read())
+                        bridges = json.loads(open(Common.bridges_default_path).read())
                         with open('/etc/tor/torrc', 'a') as f:
                             f.write('UseBridges 1\n')
 
