@@ -1220,8 +1220,13 @@ class WhonixSetupWizard(QtGui.QWizard):
                             self.tor_status_page.text.setText('<p><b>Bootstrapping Tor...</b></p>Bootstrap phase: %s' % bootstrap_phase)
                             self.tor_status_page.bootstrap_progress.setValue(bootstrap_percent)
 
-
                         QApplication.restoreOverrideCursor()
+
+                        if Common.exit_after_tor_enabled:
+                            if not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done'):
+                                f = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
+                                f.close()
+                            sys.exit(0)
 
                         self.tor_status_page.icon.setVisible(True)
                         self.tor_status_page.bootstrap_progress.setVisible(False)
