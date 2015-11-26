@@ -15,8 +15,7 @@ import time
 import re
 import shutil
 
-import stem
-from stem.control import Controller
+from stem.connection import connect
 
 from guimessages.translations import _translations
 from guimessages.guimessage import gui_message
@@ -1203,9 +1202,8 @@ class WhonixSetupWizard(QtGui.QWizard):
                     if Common.tor_status == 'tor_enabled' or Common.tor_status == 'tor_already_enabled':
                         if Common.exit_after_tor_enabled:
                             sys.exit(0)
-                        c = Controller.from_port(address = '127.0.0.1', port = 9051)
-                        c.authenticate()
-                        bootstrap_status = c.get_info("status/bootstrap-phase")
+                        controller = connect()
+                        bootstrap_status = controller.get_info("status/bootstrap-phase")
                         bootstrap_percent = int(re.match('.* PROGRESS=([0-9]+).*', bootstrap_status).group(1))
                         if bootstrap_percent < 100:
                             bootstrap_timeout = False
@@ -1217,7 +1215,7 @@ class WhonixSetupWizard(QtGui.QWizard):
                             self.tor_status_page.bootstrap_progress.setValue(bootstrap_percent)
                             while True:#bootstrap_percent < 100:
                                 time.sleep(0.1)
-                                bootstrap_status = c.get_info("status/bootstrap-phase")
+                                bootstrap_status = controller.get_info("status/bootstrap-phase")
                                 bootstrap_phase = re.search(r'SUMMARY=(.*)', bootstrap_status).group(1)
                                 bootstrap_percent = int(re.match('.* PROGRESS=([0-9]+).*', bootstrap_status).group(1))
                                 self.tor_status_page.text.setText('<p><b>Bootstrapping Tor...</b></p>Bootstrap phase: %s' % bootstrap_phase)
