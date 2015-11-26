@@ -1200,32 +1200,26 @@ class WhonixSetupWizard(QtGui.QWizard):
                     Common.tor_status = tor_status.set_enabled()
 
                     if Common.tor_status == 'tor_enabled' or Common.tor_status == 'tor_already_enabled':
-                        if Common.exit_after_tor_enabled:
-                            sys.exit(0)
                         controller = connect()
                         bootstrap_status = controller.get_info("status/bootstrap-phase")
                         bootstrap_percent = int(re.match('.* PROGRESS=([0-9]+).*', bootstrap_status).group(1))
-                        if bootstrap_percent < 100:
-                            bootstrap_timeout = False
-                            bootstrap_start_time = time.time()
-                            print bootstrap_start_time
+                        bootstrap_start_time = time.time()
+                        bootstrap_timeout = False
+                        while True:
+                            time.sleep(0.1)
+                            if bootstrap_percent == 100:
+                                break
+                            elapsed_time = time.time() - bootstrap_start_time
+                            if elapsed_time >= 120:
+                                bootstrap_timeout = True
+                                break
+                            bootstrap_status = controller.get_info("status/bootstrap-phase")
                             bootstrap_phase = re.search(r'SUMMARY=(.*)', bootstrap_status).group(1)
-                            self.tor_status_page.text.setText('<p><b>Bootstrapping Tor...</b></p>Bootstrap phase: %s' % bootstrap_phase)
+                            bootstrap_percent = int(re.match('.* PROGRESS=([0-9]+).*', bootstrap_status).group(1))
                             self.tor_status_page.bootstrap_progress.setVisible(True)
+                            self.tor_status_page.text.setText('<p><b>Bootstrapping Tor...</b></p>Bootstrap phase: %s' % bootstrap_phase)
                             self.tor_status_page.bootstrap_progress.setValue(bootstrap_percent)
-                            while True:#bootstrap_percent < 100:
-                                time.sleep(0.1)
-                                bootstrap_status = controller.get_info("status/bootstrap-phase")
-                                bootstrap_phase = re.search(r'SUMMARY=(.*)', bootstrap_status).group(1)
-                                bootstrap_percent = int(re.match('.* PROGRESS=([0-9]+).*', bootstrap_status).group(1))
-                                self.tor_status_page.text.setText('<p><b>Bootstrapping Tor...</b></p>Bootstrap phase: %s' % bootstrap_phase)
-                                self.tor_status_page.bootstrap_progress.setValue(bootstrap_percent)
-                                if bootstrap_percent == 100:
-                                    break
-                                elapsed_time = time.time() - bootstrap_start_time
-                                if elapsed_time >= 120:
-                                    bootstrap_timeout = True
-                                    break
+
 
                         QApplication.restoreOverrideCursor()
 
