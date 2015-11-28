@@ -475,13 +475,7 @@ class BridgesWizardPage2(QtGui.QWizardPage):
 
         self.steps = Common.wizard_steps
 
-        self.bridges = ['flashproxy',
-                        'fte',
-                        'fte-ipv6',
-                        'meek-amazon',
-                        'meek-azure',
-                        'meek-google',
-                        'obfs3 (recommended)',
+        self.bridges = ['obfs3 (recommended)',
                         'obfs4',
                         'scramblesuit']
 
@@ -538,9 +532,6 @@ class BridgesWizardPage2(QtGui.QWizardPage):
         self.comboBox.setGeometry(QtCore.QRect(135, 22, 181, 27))
         for bridge in self.bridges:
             self.comboBox.addItem(bridge)
-        for bridge in range(0, 6):
-            self.comboBox.model().item(bridge).setEnabled(False)
-        self.comboBox.setCurrentIndex(6)
 
         self.label_4.setEnabled(False)
         self.label_4.setGeometry(QtCore.QRect(38, 83, 300, 20))
