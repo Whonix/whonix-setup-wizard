@@ -55,6 +55,9 @@ class Common:
     proxy_type = ''
     tor_status = ''
 
+    if not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done'):
+        shutil.copy('/etc/tor/torrc', '/etc/tor/torrc.orig')
+
     if not os.path.exists('/var/cache/whonix-setup-wizard/status-files'):
         os.mkdir('/var/cache/whonix-setup-wizard/status-files')
 
@@ -1166,8 +1169,7 @@ class WhonixSetupWizard(QtGui.QWizard):
 
                 if self.currentId() == self.steps.index('tor_status_page'):
                     ## Get a fresh torrc
-                    shutil.copy('/etc/tor/torrc', '/etc/tor/torrc.orig')
-                    shutil.copy('/etc/tor/torrc.anondist', '/etc/tor/torrc')
+                    shutil.copy('/etc/tor/torrc.orig', '/etc/tor/torrc')
 
                     if Common.use_bridges:
                         bridges = json.loads(open(Common.bridges_default_path).read())
