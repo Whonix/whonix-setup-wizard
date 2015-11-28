@@ -1196,6 +1196,7 @@ class WhonixSetupWizard(QtGui.QWizard):
                         bootstrap_percent = int(re.match('.* PROGRESS=([0-9]+).*', bootstrap_status).group(1))
                         bootstrap_start_time = time.time()
                         bootstrap_timeout = False
+                        previous_status = ''
                         while True:
                             time.sleep(0.1)
                             if bootstrap_percent == 100:
@@ -1210,6 +1211,10 @@ class WhonixSetupWizard(QtGui.QWizard):
                             self.tor_status_page.bootstrap_progress.setVisible(True)
                             self.tor_status_page.text.setText('<p><b>Bootstrapping Tor...</b></p>Bootstrap phase: %s' % bootstrap_phase)
                             self.tor_status_page.bootstrap_progress.setValue(bootstrap_percent)
+                            if bootstrap_status != previous_status:
+                                sys.stdout.write('%s\n' % bootstrap_status)
+                                sys.stdout.flush()
+                                previous_status = bootstrap_status
 
                         QApplication.restoreOverrideCursor()
 
