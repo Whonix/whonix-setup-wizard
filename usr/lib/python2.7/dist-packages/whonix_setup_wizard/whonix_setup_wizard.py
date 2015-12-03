@@ -723,11 +723,11 @@ def main():
 
     # root check.
     # locale_settings has to be run as user.
-    #if sys.argv[1] != 'locale_settings':
-        #if os.getuid() != 0:
-            #print 'ERROR: This must be run as root!\nUse "kdesudo".'
-            #not_root = gui_message(Common.translations_path, 'not_root')
-            #sys.exit(1)
+    if sys.argv[1] != 'locale_settings':
+        if os.getuid() != 0:
+            print 'ERROR: This must be run as root!\nUse "kdesudo".'
+            not_root = gui_message(Common.translations_path, 'not_root')
+            sys.exit(1)
 
     wizard = WhonixSetupWizard()
 
