@@ -480,14 +480,13 @@ class WhonixSetupWizard(QtGui.QWizard):
         self.setPalette(palette)
 
         try:
-            if not Common.run_whonixsetup:
+            if Common.argument == 'setup':
                 self.finish_page.icon.setPixmap(QtGui.QPixmap( \
                 '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
                 self.finish_page.text.setText(self._('finish_page_ok'))
                 Common.is_complete = True
 
-            else:
-                if Common.argument == 'setup':
+                if Common.run_whonixsetup:
                     self.disclaimer_1.text.setText(self._('disclaimer_1'))
                     self.disclaimer_1.yes_button.setText(self._('accept'))
                     self.disclaimer_1.no_button.setText(self._('reject'))
@@ -498,13 +497,17 @@ class WhonixSetupWizard(QtGui.QWizard):
 
                     self.first_use_notice.text.setText(self._('first_use_notice'))
 
-                if ((Common.argument == 'setup' or Common.argument == 'repository')
-                    and Common.run_whonixsetup):
                     self.repository_wizard_page_1.text.setText(self._('repo_page_1'))
                     self.repository_wizard_page_1.enable_repo.setText(self._('repo_enable'))
                     self.repository_wizard_page_1.disable_repo.setText(self._('repo_disable'))
-
                     self.repository_wizard_page_2.text.setText(self._('repo_page_2'))
+
+            elif Common.argument == 'repository':
+                self.repository_wizard_page_1.text.setText(self._('repo_page_1'))
+                self.repository_wizard_page_1.enable_repo.setText(self._('repo_enable'))
+                self.repository_wizard_page_1.disable_repo.setText(self._('repo_disable'))
+                self.repository_wizard_page_2.text.setText(self._('repo_page_2'))
+
 
         except (yaml.scanner.ScannerError, yaml.parser.ParserError):
             pass
