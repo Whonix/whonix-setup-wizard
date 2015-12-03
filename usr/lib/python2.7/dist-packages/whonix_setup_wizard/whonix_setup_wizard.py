@@ -69,54 +69,12 @@ class Common:
 
     argument = parse_command_line_parameter()
 
-    #if argument == 'quick':
-        #exit_after_tor_enabled = True
-        #argument = "setup"
-
-    #if os.path.isfile('/usr/share/anon-gw-base-files/gateway'):
-        #environment = 'gateway'
-
-    #elif os.path.isfile('/usr/share/anon-ws-base-files/workstation'):
-        #environment = 'workstation'
-
     run_whonixcheck_only = (argument == 'setup' and not run_repo and not show_disclaimer)
 
-    #if environment == 'gateway':
     first_use_notice = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/first_use_check.done') and
                         not os.path.exists('/var/cache/whonix-setup-wizard/status-files/first_use_check.skip'))
 
     if argument == 'setup':
-        #if environment == 'gateway' and show_disclaimer:
-            #wizard_steps = ['disclaimer_1',
-                            #'disclaimer_2',
-                            #'connection_main_page',
-                            #'bridge_wizard_page_1',
-                            #'bridge_wizard_page_2',
-                            #'proxy_wizard_page_1',
-                            #'proxy_wizard_page_2',
-                            #'tor_status_page',
-                            #'whonix_repo_page',
-                            #'repository_wizard_page_1',
-                            #'repository_wizard_page_2',
-                            #'repository_wizard_finish',
-                            #'finish_page',
-                            #'first_use_notice']
-
-        #elif environment == 'gateway' and not show_disclaimer:
-            #wizard_steps = ['connection_main_page',
-                            #'bridge_wizard_page_1',
-                            #'bridge_wizard_page_2',
-                            #'proxy_wizard_page_1',
-                            #'proxy_wizard_page_2',
-                            #'tor_status_page',
-                            #'whonix_repo_page',
-                            #'repository_wizard_page_1',
-                            #'repository_wizard_page_2',
-                            #'repository_wizard_finish',
-                            #'finish_page',
-                            #'first_use_notice']
-
-        #elif environment == 'workstation'and not run_whonixcheck_only:
         wizard_steps = ['disclaimer_1',
                         'disclaimer_2',
                         'whonix_repo_page',
@@ -124,9 +82,6 @@ class Common:
                         'repository_wizard_page_2',
                         'repository_wizard_finish',
                         'finish_page']
-
-        #elif environment == 'workstation'and run_whonixcheck_only:
-            #wizard_steps = ['finish_page']
 
     elif argument == 'repository':
         wizard_steps = ['repository_wizard_page_1',
@@ -979,25 +934,6 @@ class WhonixSetupWizard(QtGui.QWizard):
                 self.addPage(self.finish_page)
 
             else:
-                #if self.env == 'gateway':
-                    #self.connection_main_page = ConnectionMainPage()
-                    #self.addPage(self.connection_main_page)
-
-                    #self.bridge_wizard_page_1 = BridgesWizardPage1()
-                    #self.addPage(self.bridge_wizard_page_1)
-
-                    #self.bridge_wizard_page_2 = BridgesWizardPage2()
-                    #self.addPage(self.bridge_wizard_page_2)
-
-                    #self.proxy_wizard_page_1 = ProxyWizardPage1()
-                    #self.addPage(self.proxy_wizard_page_1)
-
-                    #self.proxy_wizard_page_2 = ProxyWizardPage2()
-                    #self.addPage(self.proxy_wizard_page_2)
-
-                    #self.tor_status_page = TorStatusPage()
-                    #self.addPage(self.tor_status_page)
-
                 self.whonix_repo_page = WhonixRepositoryPage()
                 self.addPage(self.whonix_repo_page)
 
@@ -1073,13 +1009,6 @@ class WhonixSetupWizard(QtGui.QWizard):
                     self.disclaimer_2.yes_button.setText(self._('accept'))
                     self.disclaimer_2.no_button.setText(self._('reject'))
 
-                #if Common.argument == 'setup'and self.env == 'gateway':
-                    #self.bridge_wizard_page_1.text.setText(self._('connection_text'))
-                    #self.bridge_wizard_page_1.enable.setText(self._('enable_tor'))
-                    #self.bridge_wizard_page_1.disable.setText(self._('disable_tor'))
-                    #self.bridge_wizard_page_1.censored.setText(self._('censored_tor'))
-                    #self.bridge_wizard_page_1.use_proxy.setText(self._('use_proxy'))
-
                     if Common.first_use_notice:
                         self.first_use_notice.text.setText(self._('first_use_notice'))
 
@@ -1153,126 +1082,6 @@ class WhonixSetupWizard(QtGui.QWizard):
                 self.resize(580, 400)
                 self.center()
 
-            #if self.env == 'gateway':
-                ## Set Next button state
-                #if self.currentId() == self.steps.index('connection_main_page'):
-                    #self.resize(580, 400)
-                    #self.center()
-
-                #if self.currentId() == self.steps.index('tor_status_page'):
-                    ### Get a fresh torrc
-                    #shutil.copy('/etc/tor/torrc.orig', '/etc/tor/torrc')
-
-                    #if Common.use_bridges:
-                        #bridges = json.loads(open(Common.bridges_default_path).read())
-                        #with open('/etc/tor/torrc', 'a') as f:
-                            #f.write('UseBridges 1\n')
-
-                            #if Common.bridge_type == 'obfs3':
-                                #f.write('ClientTransportPlugin obfs2,obfs3 exec /usr/bin/obfsproxy managed\n')
-                            #elif Common.bridge_type == 'scramblesuit':
-                                #f.write('ClientTransportPlugin obfs2,obfs3,scramblesuit exec /usr/bin/obfsproxy managed\n')
-                            #elif Common.bridge_type == 'obfs4':
-                                #f.write('ClientTransportPlugin obfs4 exec /usr/bin/obfs4proxy managed\n')
-
-                            #for bridge in bridges['bridges'][Common.bridge_type]:
-                                #f.write('Bridge %s\n' % bridge)
-
-                    #if Common.use_proxy:
-                        #pass
-
-                    #QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
-                    #Common.tor_status = tor_status.set_enabled()
-
-                    #if Common.tor_status == 'tor_enabled' or Common.tor_status == 'tor_already_enabled':
-                        #controller = connect()
-                        #bootstrap_status = controller.get_info("status/bootstrap-phase")
-                        #bootstrap_percent = int(re.match('.* PROGRESS=([0-9]+).*', bootstrap_status).group(1))
-                        #bootstrap_start_time = time.time()
-                        #bootstrap_timeout = False
-                        #previous_status = ''
-                        #while True:
-                            #time.sleep(0.1)
-                            #if bootstrap_percent == 100:
-                                #break
-                            #elapsed_time = time.time() - bootstrap_start_time
-                            #if elapsed_time >= 120:
-                                #bootstrap_timeout = True
-                                #break
-                            #bootstrap_status = controller.get_info("status/bootstrap-phase")
-                            #bootstrap_phase = re.search(r'SUMMARY=(.*)', bootstrap_status).group(1)
-                            #bootstrap_percent = int(re.match('.* PROGRESS=([0-9]+).*', bootstrap_status).group(1))
-                            #self.tor_status_page.bootstrap_progress.setVisible(True)
-                            #self.tor_status_page.text.setText('<p><b>Bootstrapping Tor...</b></p>Bootstrap phase: %s' % bootstrap_phase)
-                            #self.tor_status_page.bootstrap_progress.setValue(bootstrap_percent)
-                            #if bootstrap_status != previous_status:
-                                #sys.stdout.write('%s\n' % bootstrap_status)
-                                #sys.stdout.flush()
-                                #previous_status = bootstrap_status
-
-                        #QApplication.restoreOverrideCursor()
-
-                        #if Common.exit_after_tor_enabled:
-                            #if not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done'):
-                                #f = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
-                                #f.close()
-                            #sys.exit(0)
-
-                        #self.tor_status_page.icon.setVisible(True)
-                        #self.tor_status_page.bootstrap_progress.setVisible(False)
-
-                        #torrc_text = open('/etc/tor/torrc').read()
-                        #if not bootstrap_timeout:
-                            #self.tor_status_page.text.setText(self._('tor_enabled'))
-                            #self.tor_status_page.icon.setPixmap(QtGui.QPixmap( \
-                                #'/usr/share/icons/oxygen/48x48/status/task-complete.png'))
-                        #else:
-                            #self.tor_status_page.text.setText('Tor bootstrap result:<br><b>Whonix Connection Wizard \
-                                #gave up after %d seconds.</b><br>Possible issues:<blockquote>- Is the host internet connection working? \
-                                #<br>- Do you live in a censored area?</blockquote><p>If you are using a pluggable transport, \
-                                #please check "Bridge" lines in <i>/etc/tor/torrc:</i></p>' % elapsed_time)
-                            #self.tor_status_page.torrc.setMinimumSize(0, 175)
-                            #self.tor_status_page.icon.setPixmap(QtGui.QPixmap( \
-                                #'/usr/share/icons/oxygen/48x48/status/task-reject.png'))
-                        #self.tor_status_page.torrc.setVisible(True)
-                        #self.tor_status_page.torrc.setPlainText(torrc_text)
-
-                    #else:
-                        #QApplication.restoreOverrideCursor()
-                        ##self.tor_status_page.torrc.setFrameShape(QtGui.QFrame.NoFrame)
-                        #self.tor_status_page.text.setText(self._('something_wrong'))
-                        #self.tor_status_page.icon.setPixmap(QtGui.QPixmap( \
-                            #'/usr/share/icons/oxygen/48x48/status/task-reject.png'))
-                        #torrc_text = open('/etc/tor/torrc').read()
-                        #self.tor_status_page.torrc.setVisible(True)
-                        #self.tor_status_page.torrc.setPlainText(torrc_text)
-
-                    #elif self.bridge_wizard_page_1.disable.isChecked():
-
-                        #QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
-                        #Common.tor_status = tor_status.set_disabled()
-                        #QApplication.restoreOverrideCursor()
-
-                        #if Common.tor_status == 'tor_disabled':
-                            #self.bridge_wizard_page_2.text.setText(self._('tor_disabled'))
-                            #torrc_text = open('/etc/tor/torrc').read()
-                            #self.bridge_wizard_page_2.torrc.setPlainText(torrc_text)
-                            #self.bridge_wizard_page_2.icon.setPixmap(QtGui.QPixmap( \
-                                #'/usr/share/icons/oxygen/48x48/status/task-attention.png'))
-
-                        #elif Common.tor_status == 'tor_already_disabled':
-                            #self.bridge_wizard_page_2.text.setText(self._('tor_already_disabled'))
-                            #torrc_text = open('/etc/tor/torrc').read()
-                            #self.bridge_wizard_page_2.torrc.setPlainText(torrc_text)
-                            #self.bridge_wizard_page_2.icon.setPixmap(QtGui.QPixmap( \
-                                #'/usr/share/icons/oxygen/48x48/status/task-attention.png'))
-
-                        #else:
-                            #self.bridge_wizard_page_2.torrc.setFrameShape(QtGui.QFrame.NoFrame)
-                            #self.bridge_wizard_page_2.text.setText(self._('something_wrong'))
-                            #self.bridge_wizard_page_2.icon.setPixmap(QtGui.QPixmap( \
-                                #'/usr/share/icons/oxygen/48x48/status/task-reject.png'))
-
             if self.currentId() == self.steps.index('whonix_repo_page'):
                 self.whonix_repo_page.text.setText(self._('whonix_repository_page'))
 
@@ -1338,46 +1147,6 @@ class WhonixSetupWizard(QtGui.QWizard):
 
                 # for whonixcheck.
                 Common.is_complete = True
-
-                #if self.env == 'gateway':
-                    #if (Common.tor_status == 'tor_enabled' or
-                        #Common.tor_status == 'tor_already_enabled'):
-                            #self.finish_page.icon.setPixmap(QtGui.QPixmap( \
-                                #'/usr/share/icons/oxygen/48x48/status/task-complete.png'))
-                            #self.finish_page.text.setText(self._('finish_page_ok'))
-
-                    #else:
-                        #Common.is_complete = False
-
-                        #if (Common.tor_status == 'tor_disabled' or
-                            #Common.tor_status == 'tor_already_disabled'):
-                            #self.finish_page.icon.setPixmap(QtGui.QPixmap( \
-                                #'/usr/share/icons/oxygen/48x48/status/task-attention.png'))
-                            #self.finish_page.text.setText(self._('finish_disabled'))
-
-                        ## ERROR pages.
-                        #elif Common.tor_status == 'no_torrc':
-                            #self.finish_page.icon.setPixmap(QtGui.QPixmap( \
-                                #'/usr/share/icons/oxygen/48x48/status/task-reject.png'))
-                            #self.button(QtGui.QWizard.BackButton).setEnabled(False)
-                            #self.finish_page.text.setText(self._('no_torrc'))
-
-                        #elif Common.tor_status == 'bad_torrc':
-                            #self.finish_page.icon.setPixmap(QtGui.QPixmap( \
-                                #'/usr/share/icons/oxygen/48x48/status/task-reject.png'))
-                            #self.button(QtGui.QWizard.BackButton).setEnabled(False)
-                            #self.finish_page.text.setText(self._('bad_torrc'))
-
-                        #elif Common.tor_status == 'cannot_connect':
-                            ## #DisableNetwork 0 was uncommented. re-comment.
-                            #QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
-                            #Common.tor_status = tor_status.set_disabled()
-                            #QApplication.restoreOverrideCursor()
-
-                            #self.finish_page.icon.setPixmap(QtGui.QPixmap( \
-                                #'/usr/share/icons/oxygen/48x48/status/task-reject.png'))
-                            #self.button(QtGui.QWizard.BackButton).setEnabled(False)
-                            #self.finish_page.text.setText(self._('cannot_connect'))
 
                 if Common.show_disclaimer:
                     # Disclaimer page 1 not understood -> leave
