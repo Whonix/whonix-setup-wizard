@@ -55,25 +55,12 @@ class Common:
     proxy_type = ''
     tor_status = ''
 
-    if not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done'):
-        shutil.copy('/etc/tor/torrc', '/etc/tor/torrc.orig')
-
     if not os.path.exists('/var/cache/whonix-setup-wizard/status-files'):
         os.mkdir('/var/cache/whonix-setup-wizard/status-files')
 
-    run_repo = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonix_repository.done') and
-                not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonix_repository.skip'))
-
-    show_disclaimer = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer.done') and
-                       not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer.skip'))
+    run_whonixsetup = not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done')
 
     argument = parse_command_line_parameter()
-
-    run_whonixcheck_only = (argument == 'setup' and not run_repo and not show_disclaimer)
-
-    first_use_notice = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/first_use_check.done') and
-                        not os.path.exists('/var/cache/whonix-setup-wizard/status-files/first_use_check.skip'))
-
     if argument == 'setup':
         wizard_steps = ['disclaimer_1',
                         'disclaimer_2',
@@ -435,7 +422,7 @@ class WhonixSetupWizard(QtGui.QWizard):
             self.addPage(self.repository_wizard_finish)
 
         if Common.argument == 'setup':
-            if Common.show_disclaimer:
+            if Common.run_whonixsetup:
                 self.disclaimer_1 = DisclaimerPage1()
                 self.addPage(self.disclaimer_1)
 
@@ -445,11 +432,6 @@ class WhonixSetupWizard(QtGui.QWizard):
                 self.first_use_notice = FirstUseNotice()
                 self.addPage(self.first_use_notice)
 
-            if Common.run_whonixcheck_only:
-                self.finish_page = FinishPage()
-                self.addPage(self.finish_page)
-
-            else:
                 self.whonix_repo_page = WhonixRepositoryPage()
                 self.addPage(self.whonix_repo_page)
 
@@ -462,6 +444,10 @@ class WhonixSetupWizard(QtGui.QWizard):
                 self.repository_wizard_finish = RepositoryWizardfinish()
                 self.addPage(self.repository_wizard_finish)
 
+                self.finish_page = FinishPage()
+                self.addPage(self.finish_page)
+
+            else:
                 self.finish_page = FinishPage()
                 self.addPage(self.finish_page)
 
@@ -483,7 +469,7 @@ class WhonixSetupWizard(QtGui.QWizard):
         if available_height < self.disclaimer_height:
             self.disclaimer_height = available_height
 
-        if Common.argument == 'setup' and not Common.run_whonixcheck_only:
+        if Common.argument == 'setup' and Common.run_whonixsetup:
             self.resize(760, self.disclaimer_height)
         elif Common.argument == 'repository':
             self.resize(580, 400)
@@ -505,14 +491,14 @@ class WhonixSetupWizard(QtGui.QWizard):
         self.setPalette(palette)
 
         try:
-            if Common.run_whonixcheck_only:
+            if not Common.run_whonixsetup:
                 self.finish_page.icon.setPixmap(QtGui.QPixmap( \
                 '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
                 self.finish_page.text.setText(self._('finish_page_ok'))
                 Common.is_complete = True
 
             else:
-                if Common.argument == 'setup' and Common.show_disclaimer:
+                if Common.argument == 'setup':
                     self.disclaimer_1.text.setText(self._('disclaimer_1'))
                     self.disclaimer_1.yes_button.setText(self._('accept'))
                     self.disclaimer_1.no_button.setText(self._('reject'))
@@ -524,7 +510,7 @@ class WhonixSetupWizard(QtGui.QWizard):
                     self.first_use_notice.text.setText(self._('first_use_notice'))
 
                 if ((Common.argument == 'setup' or Common.argument == 'repository')
-                    and not Common.run_whonixcheck_only):
+                    and Common.run_whonixsetup):
                     self.repository_wizard_page_1.text.setText(self._('repo_page_1'))
                     self.repository_wizard_page_1.enable_repo.setText(self._('repo_enable'))
                     self.repository_wizard_page_1.disable_repo.setText(self._('repo_disable'))
@@ -552,9 +538,9 @@ class WhonixSetupWizard(QtGui.QWizard):
                 #self.bridge_wizard_page_1.censored.toggled.connect(self.set_next_button_state)
                 #self.bridge_wizard_page_1.use_proxy.toggled.connect(self.set_next_button_state)
 
-        if not Common.show_disclaimer and not Common.argument == 'locale_settings':
-            self.setMaximumSize(580, 400)
-            self.setMinimumSize(580, 400)
+        #if not Common.show_disclaimer and not Common.argument == 'locale_settings':
+            #self.setMaximumSize(580, 400)
+            #self.setMinimumSize(580, 400)
 
         self.exec_()
 
@@ -657,18 +643,18 @@ class WhonixSetupWizard(QtGui.QWizard):
                 # for whonixcheck.
                 Common.is_complete = True
 
-                if Common.show_disclaimer:
-                    # Disclaimer page 1 not understood -> leave
-                    if self.disclaimer_1.no_button.isChecked():
-                        self.hide()
-                        command = '/sbin/poweroff'
-                        call(command, shell=True)
+                #if Common.show_disclaimer:
+                # Disclaimer page 1 not understood -> leave
+                if self.disclaimer_1.no_button.isChecked():
+                    self.hide()
+                    command = '/sbin/poweroff'
+                    call(command, shell=True)
 
-                    # Disclaimer page 2 not understood -> leave
-                    if self.disclaimer_2.no_button.isChecked():
-                        self.hide()
-                        command = '/sbin/poweroff'
-                        call(command, shell=True)
+                # Disclaimer page 2 not understood -> leave
+                if self.disclaimer_2.no_button.isChecked():
+                    self.hide()
+                    command = '/sbin/poweroff'
+                    call(command, shell=True)
 
                 self.finish_page.icon.setPixmap(QtGui.QPixmap( \
                 '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
@@ -695,7 +681,7 @@ class WhonixSetupWizard(QtGui.QWizard):
     def back_button_clicked(self):
         Common.is_complete = False
 
-        if Common.argument == 'setup' and Common.show_disclaimer:
+        if Common.argument == 'setup':
             if self.currentId() == self.steps.index('disclaimer_2'):
                 # Back to disclaimer size.
                 self.resize(760, self.disclaimer_height)
@@ -725,16 +711,8 @@ def main():
 
     wizard = WhonixSetupWizard()
 
-    if Common.run_repo:
-        f = open('/var/cache/whonix-setup-wizard/status-files/whonix_repository.done', 'w')
-        f.close()
-
-    if Common.show_disclaimer:
-        f = open('/var/cache/whonix-setup-wizard/status-files/disclaimer.done', 'w')
-        f.close()
-
-    if Common.first_use_notice:
-        f = open('/var/cache/whonix-setup-wizard/status-files/first_use_check.done', 'w')
+    if Common.run_whonixsetup:
+        f = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
         f.close()
 
     if Common.is_complete:
