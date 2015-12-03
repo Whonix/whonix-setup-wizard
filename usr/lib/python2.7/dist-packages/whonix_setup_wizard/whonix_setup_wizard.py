@@ -77,6 +77,7 @@ class Common:
     if argument == 'setup':
         wizard_steps = ['disclaimer_1',
                         'disclaimer_2',
+                        'first_use_notice',
                         'whonix_repo_page',
                         'repository_wizard_page_1',
                         'repository_wizard_page_2',
@@ -252,10 +253,7 @@ class DisclaimerPage2(QtGui.QWizardPage):
 
     def nextId(self):
         if self.yes_button.isChecked():
-            if Common.run_repo:
-                return self.steps.index('whonix_repo_page')
-            else:
-                return self.steps.index('finish_page')
+            return self.steps.index('first_use_notice')
         # Not understood
         else:
             return self.steps.index('finish_page')
@@ -444,6 +442,9 @@ class WhonixSetupWizard(QtGui.QWizard):
                 self.disclaimer_2 = DisclaimerPage2()
                 self.addPage(self.disclaimer_2)
 
+                self.first_use_notice = FirstUseNotice()
+                self.addPage(self.first_use_notice)
+
             if Common.run_whonixcheck_only:
                 self.finish_page = FinishPage()
                 self.addPage(self.finish_page)
@@ -463,10 +464,6 @@ class WhonixSetupWizard(QtGui.QWizard):
 
                 self.finish_page = FinishPage()
                 self.addPage(self.finish_page)
-
-                if Common.first_use_notice:
-                    self.first_use_notice = FirstUseNotice()
-                    self.addPage(self.first_use_notice)
 
         if Common.argument == 'locale_settings':
             self.locale_settings = LocaleSettings()
@@ -524,9 +521,7 @@ class WhonixSetupWizard(QtGui.QWizard):
                     self.disclaimer_2.yes_button.setText(self._('accept'))
                     self.disclaimer_2.no_button.setText(self._('reject'))
 
-                    if Common.first_use_notice:
-                        self.first_use_notice.text.setText(self._('first_use_notice'))
-
+                    self.first_use_notice.text.setText(self._('first_use_notice'))
 
                 if ((Common.argument == 'setup' or Common.argument == 'repository')
                     and not Common.run_whonixcheck_only):
@@ -592,9 +587,8 @@ class WhonixSetupWizard(QtGui.QWizard):
         """
         if Common.argument == 'setup':
             #if self.env == 'workstation':
-            if (self.currentId() == self.steps.index('whonix_repo_page') or
-                self.currentId() == self.steps.index('finish_page')):
-                self.resize(580, 400)
+            if self.currentId() == self.steps.index('first_use_notice'):
+                self.resize(580, 430)
                 self.center()
 
             if self.currentId() == self.steps.index('whonix_repo_page'):
@@ -676,7 +670,6 @@ class WhonixSetupWizard(QtGui.QWizard):
                         command = '/sbin/poweroff'
                         call(command, shell=True)
 
-                #if self.env == 'workstation':
                 self.finish_page.icon.setPixmap(QtGui.QPixmap( \
                 '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
                 self.finish_page.text.setText(self._('finish_page_ok'))
@@ -707,6 +700,7 @@ class WhonixSetupWizard(QtGui.QWizard):
                 # Back to disclaimer size.
                 self.resize(760, self.disclaimer_height)
                 self.center()
+
 
 def main():
     #import sys
