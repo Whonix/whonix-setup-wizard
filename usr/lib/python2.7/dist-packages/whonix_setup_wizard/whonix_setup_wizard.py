@@ -681,10 +681,6 @@ def main():
 
     wizard = WhonixSetupWizard()
 
-    if Common.run_whonixsetup:
-        f = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
-        f.close()
-
     if Common.is_complete:
         if not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done'):
             f = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
