@@ -43,17 +43,8 @@ class Common:
     '''
     translations_path ='/usr/share/translations/whonix_setup.yaml'
 
-    first_use_notice = False
     is_complete = False
     disable_repo = False
-    exit_after_tor_enabled = False
-    use_bridges = False
-    use_proxy = False
-    bridge_type = ''
-    bridges = []
-    bridges_default_path = '/usr/share/whonix-setup-wizard/bridges_default'
-    proxy_type = ''
-    tor_status = ''
 
     if not os.path.exists('/var/cache/whonix-setup-wizard/status-files'):
         os.mkdir('/var/cache/whonix-setup-wizard/status-files')
@@ -214,7 +205,6 @@ class DisclaimerPage2(QtGui.QWizardPage):
         super(DisclaimerPage2, self).__init__()
 
         self.steps = Common.wizard_steps
-        #self.env = Common.environment
 
         self.text = QtGui.QTextBrowser(self)
         self.accept_group = QtGui.QGroupBox(self)
@@ -409,7 +399,6 @@ class WhonixSetupWizard(QtGui.QWizard):
         self._ = translation.gettext
 
         self.steps = Common.wizard_steps
-        #self.env = Common.environment
 
         if Common.argument == 'repository':
             self.repository_wizard_page_1 = RepositoryWizardPage1()
@@ -528,28 +517,7 @@ class WhonixSetupWizard(QtGui.QWizard):
         self.button(QtGui.QWizard.BackButton).clicked.connect(self.back_button_clicked)
         self.button(QtGui.QWizard.NextButton).clicked.connect(self.next_button_clicked)
 
-        # Temporary workaround.
-        # The pluggable transports are not implemented yet, but we want to
-        # be able to display the tooltips for censored and firewall. For this,
-        # the options must be enabled, but the slot will disable the Next
-        # button if either is checked.
-        #if Common.argument == 'setup':
-            #if self.env == 'gateway':
-                #self.bridge_wizard_page_1.censored.toggled.connect(self.set_next_button_state)
-                #self.bridge_wizard_page_1.use_proxy.toggled.connect(self.set_next_button_state)
-
-        #if not Common.show_disclaimer and not Common.argument == 'locale_settings':
-            #self.setMaximumSize(580, 400)
-            #self.setMinimumSize(580, 400)
-
         self.exec_()
-
-    # called by button toggled signal.
-    def set_next_button_state(self, state):
-        if state:
-            self.button(QtGui.QWizard.NextButton).setEnabled(False)
-        else:
-            self.button(QtGui.QWizard.NextButton).setEnabled(True)
 
     def center(self):
         """ After the window is resized, its origin point becomes the
@@ -643,7 +611,6 @@ class WhonixSetupWizard(QtGui.QWizard):
                 # for whonixcheck.
                 Common.is_complete = True
 
-                #if Common.show_disclaimer:
                 # Disclaimer page 1 not understood -> leave
                 if self.disclaimer_1.no_button.isChecked():
                     self.hide()
