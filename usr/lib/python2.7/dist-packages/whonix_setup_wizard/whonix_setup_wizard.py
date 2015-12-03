@@ -45,6 +45,8 @@ class Common:
 
     is_complete = False
     disable_repo = False
+    disclaimer_not_understood = False
+
 
     if not os.path.exists('/var/cache/whonix-setup-wizard/status-files'):
         os.mkdir('/var/cache/whonix-setup-wizard/status-files')
@@ -197,6 +199,7 @@ class DisclaimerPage1(QtGui.QWizardPage):
             return self.steps.index('disclaimer_2')
         # Not understood
         elif self.no_button.isChecked():
+            Common.disclaimer_not_understood = True
             return self.steps.index('finish_page')
 
 
@@ -233,6 +236,7 @@ class DisclaimerPage2(QtGui.QWizardPage):
             return self.steps.index('first_use_notice')
         # Not understood
         else:
+            Common.disclaimer_not_understood = True
             return self.steps.index('finish_page')
 
 
@@ -615,13 +619,13 @@ class WhonixSetupWizard(QtGui.QWizard):
                 Common.is_complete = True
 
                 # Disclaimer page 1 not understood -> leave
-                if self.disclaimer_1.no_button.isChecked():
+                if Common.disclaimer_not_understood:
                     self.hide()
                     command = '/sbin/poweroff'
                     call(command, shell=True)
 
                 # Disclaimer page 2 not understood -> leave
-                if self.disclaimer_2.no_button.isChecked():
+                if Common.disclaimer_not_understood:
                     self.hide()
                     command = '/sbin/poweroff'
                     call(command, shell=True)
