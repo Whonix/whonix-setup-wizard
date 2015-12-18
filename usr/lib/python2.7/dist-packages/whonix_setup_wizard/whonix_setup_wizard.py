@@ -20,8 +20,6 @@ from stem.connection import connect
 from guimessages.translations import _translations
 from guimessages.guimessage import gui_message
 
-import tor_status
-
 import distutils.spawn
 
 def parse_command_line_parameter():
@@ -31,7 +29,7 @@ def parse_command_line_parameter():
     import argparse
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('option', choices=['setup', 'quick', 'repository', 'locale_settings'])
+    parser.add_argument('option', choices=['setup', 'repository', 'locale_settings'])
     args, unknown_args = parser.parse_known_args()
 
     return args.option
