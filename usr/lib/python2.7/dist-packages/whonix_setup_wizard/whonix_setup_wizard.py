@@ -46,6 +46,9 @@ class Common:
     else:
         run_whonixsetup = not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done')
 
+    if not run_whonixsetup:
+        sys.exit(0)
+
     translations_path ='/usr/share/translations/whonix_setup.yaml'
 
     is_complete = False
@@ -361,23 +364,6 @@ class FinishPage(QtGui.QWizardPage):
     def __init__(self):
         super(FinishPage, self).__init__()
 
-        self.icon = QtGui.QLabel(self)
-        self.text = QtGui.QTextBrowser(self)
-
-        self.layout = QtGui.QGridLayout()
-        self.setupUi()
-
-    def setupUi(self):
-        self.icon.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-        self.icon.setMinimumSize(50, 0)
-
-        self.text.setFrameShape(QtGui.QFrame.NoFrame)
-        self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-
-        self.layout.addWidget(self.icon, 0, 0, 1, 1)
-        self.layout.addWidget(self.text, 0, 1, 1, 1)
-        self.setLayout(self.layout)
-
 
 class FirstUseNotice(QtGui.QWizardPage):
     def __init__(self):
@@ -487,26 +473,20 @@ class WhonixSetupWizard(QtGui.QWizard):
 
         try:
             if Common.argument == 'setup':
-                self.finish_page.icon.setPixmap(QtGui.QPixmap( \
-                '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
-                self.finish_page.text.setText(self._('finish_page_ok'))
-                Common.is_complete = True
+                self.disclaimer_1.text.setText(self._('disclaimer_1'))
+                self.disclaimer_1.yes_button.setText(self._('accept'))
+                self.disclaimer_1.no_button.setText(self._('reject'))
 
-                if Common.run_whonixsetup:
-                    self.disclaimer_1.text.setText(self._('disclaimer_1'))
-                    self.disclaimer_1.yes_button.setText(self._('accept'))
-                    self.disclaimer_1.no_button.setText(self._('reject'))
+                self.disclaimer_2.text.setText(self._('disclaimer_2'))
+                self.disclaimer_2.yes_button.setText(self._('accept'))
+                self.disclaimer_2.no_button.setText(self._('reject'))
 
-                    self.disclaimer_2.text.setText(self._('disclaimer_2'))
-                    self.disclaimer_2.yes_button.setText(self._('accept'))
-                    self.disclaimer_2.no_button.setText(self._('reject'))
+                self.first_use_notice.text.setText(self._('first_use_notice'))
 
-                    self.first_use_notice.text.setText(self._('first_use_notice'))
-
-                    self.repository_wizard_page_1.text.setText(self._('repo_page_1'))
-                    self.repository_wizard_page_1.enable_repo.setText(self._('repo_enable'))
-                    self.repository_wizard_page_1.disable_repo.setText(self._('repo_disable'))
-                    self.repository_wizard_page_2.text.setText(self._('repo_page_2'))
+                self.repository_wizard_page_1.text.setText(self._('repo_page_1'))
+                self.repository_wizard_page_1.enable_repo.setText(self._('repo_enable'))
+                self.repository_wizard_page_1.disable_repo.setText(self._('repo_disable'))
+                self.repository_wizard_page_2.text.setText(self._('repo_page_2'))
 
             elif Common.argument == 'repository':
                 self.repository_wizard_page_1.text.setText(self._('repo_page_1'))
@@ -616,17 +596,25 @@ class WhonixSetupWizard(QtGui.QWizard):
 
         if Common.argument == 'setup':
             if self.currentId() == self.steps.index('finish_page'):
-                # for whonixcheck.
-                Common.is_complete = True
-
                 if self.disclaimer_1.no_button.isChecked() or self.disclaimer_2.no_button.isChecked():
                     self.hide()
                     command = '/sbin/poweroff'
                     call(command, shell=True)
 
-                self.finish_page.icon.setPixmap(QtGui.QPixmap( \
-                '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
-                self.finish_page.text.setText(self._('finish_page_ok'))
+                if Common.run_whonixsetup and Common.environment == 'gateway':
+                    self.hide()
+                    cmd = 'sudo anon-connection-wizard'
+                    call(cmd, shell=True)
+
+                if not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done'):
+                    f = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
+                    f.close()
+
+                # run whonixcheck
+                command = '/usr/lib/whonixsetup_/ft_m_end'
+                call(command, shell=True)
+
+                sys.exit(0)
 
         if Common.argument == 'locale_settings':
             if self.currentId() == self.steps.index('locale_settings_finish'):
@@ -682,20 +670,6 @@ def main():
 
     wizard = WhonixSetupWizard()
 
-    if Common.run_whonixsetup and Common.environment == 'gateway':
-        wizard.hide()
-        cmd = 'sudo anon-connection-wizard'
-        call(cmd, shell=True)
-
-    if Common.is_complete:
-        if not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done'):
-            f = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
-            f.close()
-        # run whonixcheck
-        command = '/usr/lib/whonixsetup_/ft_m_end'
-        call(command, shell=True)
-
-    sys.exit()
 
 if __name__ == "__main__":
     main()
