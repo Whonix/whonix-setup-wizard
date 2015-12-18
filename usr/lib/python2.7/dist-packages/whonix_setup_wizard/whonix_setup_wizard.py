@@ -39,17 +39,21 @@ class Common:
     '''
     Variables and constants used through all the classes
     '''
+    argument = parse_command_line_parameter()
+
+    if argument == 'setup' and os.path.exists('/var/lib/qubes'):
+        sys.exit(0)
+    else:
+        run_whonixsetup = not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done')
+
     translations_path ='/usr/share/translations/whonix_setup.yaml'
 
     is_complete = False
     disable_repo = False
-
+    
     if not os.path.exists('/var/cache/whonix-setup-wizard/status-files'):
         os.mkdir('/var/cache/whonix-setup-wizard/status-files')
 
-    run_whonixsetup = not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done')
-
-    argument = parse_command_line_parameter()
     if argument == 'setup':
         wizard_steps = ['disclaimer_1',
                         'disclaimer_2',
@@ -652,6 +656,9 @@ def main():
     #import sys
     app = QtGui.QApplication(sys.argv)
     QtGui.QApplication.setStyle('cleanlooks')
+
+    #if Common.exit_early:
+        #sys.exit(0)
 
     # locale settings are implemented for KDE desktop only.
     # skip if other desktop.
