@@ -50,7 +50,11 @@ class Common:
 
     is_complete = False
     disable_repo = False
-    
+    environment = ''
+
+    if os.path.isfile('/usr/share/anon-gw-base-files/gateway'):
+        environment = 'gateway'
+
     if not os.path.exists('/var/cache/whonix-setup-wizard/status-files'):
         os.mkdir('/var/cache/whonix-setup-wizard/status-files')
 
@@ -677,6 +681,11 @@ def main():
             sys.exit(1)
 
     wizard = WhonixSetupWizard()
+
+    if Common.run_whonixsetup and Common.environment == 'gateway':
+        wizard.hide()
+        cmd = 'sudo anon-connection-wizard'
+        call(cmd, shell=True)
 
     if Common.is_complete:
         if not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done'):
