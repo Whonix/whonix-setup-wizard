@@ -597,7 +597,7 @@ class WhonixSetupWizard(QtGui.QWizard):
                 self.hide()
 
                 if Common.run_whonixsetup and Common.environment == 'gateway':
-                    cmd = 'sudo anon-connection-wizard'
+                    cmd = 'kdesudo anon-connection-wizard'
                     call(cmd, shell=True)
 
                 # run whonixcheck
