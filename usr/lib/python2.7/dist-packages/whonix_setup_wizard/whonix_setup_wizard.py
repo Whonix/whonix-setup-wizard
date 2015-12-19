@@ -8,19 +8,14 @@ from PyQt4.QtCore import *
 from PyQt4 import QtCore, QtGui
 from subprocess import call
 import os, yaml
-import json
 import inspect
 import sys
-import time
 import re
-import shutil
-
-from stem.connection import connect
+import distutils.spawn
 
 from guimessages.translations import _translations
 from guimessages.guimessage import gui_message
 
-import distutils.spawn
 
 def parse_command_line_parameter():
     '''
@@ -40,14 +35,10 @@ class Common:
     Variables and constants used through all the classes
     '''
     argument = parse_command_line_parameter()
-
-    if argument == 'setup' and os.path.exists('/var/lib/qubes'):
-        sys.exit(0)
-    else:
-        run_whonixsetup = not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done')
-
-    if not run_whonixsetup:
-        sys.exit(0)
+    run_whonixsetup = not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done')
+    #if argument == 'setup':
+        #if os.path.exists('/var/lib/qubes') or not run_whonixsetup:
+            #sys.exit(0)
 
     translations_path ='/usr/share/translations/whonix_setup.yaml'
 
@@ -239,7 +230,10 @@ class DisclaimerPage2(QtGui.QWizardPage):
 
     def nextId(self):
         if self.yes_button.isChecked():
-            return self.steps.index('first_use_notice')
+            if Common.environment == 'gateway':
+                return self.steps.index('first_use_notice')
+            else:
+                return self.steps.index('whonix_repo_page')
         # Not understood
         elif self.no_button.isChecked:
             return self.steps.index('finish_page')
@@ -403,34 +397,29 @@ class WhonixSetupWizard(QtGui.QWizard):
             self.addPage(self.repository_wizard_finish)
 
         if Common.argument == 'setup':
-            if Common.run_whonixsetup:
-                self.disclaimer_1 = DisclaimerPage1()
-                self.addPage(self.disclaimer_1)
+            self.disclaimer_1 = DisclaimerPage1()
+            self.addPage(self.disclaimer_1)
 
-                self.disclaimer_2 = DisclaimerPage2()
-                self.addPage(self.disclaimer_2)
+            self.disclaimer_2 = DisclaimerPage2()
+            self.addPage(self.disclaimer_2)
 
-                self.first_use_notice = FirstUseNotice()
-                self.addPage(self.first_use_notice)
+            self.first_use_notice = FirstUseNotice()
+            self.addPage(self.first_use_notice)
 
-                self.whonix_repo_page = WhonixRepositoryPage()
-                self.addPage(self.whonix_repo_page)
+            self.whonix_repo_page = WhonixRepositoryPage()
+            self.addPage(self.whonix_repo_page)
 
-                self.repository_wizard_page_1 = RepositoryWizardPage1()
-                self.addPage(self.repository_wizard_page_1)
+            self.repository_wizard_page_1 = RepositoryWizardPage1()
+            self.addPage(self.repository_wizard_page_1)
 
-                self.repository_wizard_page_2 = RepositoryWizardPage2()
-                self.addPage(self.repository_wizard_page_2)
+            self.repository_wizard_page_2 = RepositoryWizardPage2()
+            self.addPage(self.repository_wizard_page_2)
 
-                self.repository_wizard_finish = RepositoryWizardfinish()
-                self.addPage(self.repository_wizard_finish)
+            self.repository_wizard_finish = RepositoryWizardfinish()
+            self.addPage(self.repository_wizard_finish)
 
-                self.finish_page = FinishPage()
-                self.addPage(self.finish_page)
-
-            else:
-                self.finish_page = FinishPage()
-                self.addPage(self.finish_page)
+            self.finish_page = FinishPage()
+            self.addPage(self.finish_page)
 
         if Common.argument == 'locale_settings':
             self.locale_settings = LocaleSettings()
@@ -498,8 +487,7 @@ class WhonixSetupWizard(QtGui.QWizard):
         except (yaml.scanner.ScannerError, yaml.parser.ParserError):
             pass
 
-        #self.button(QtGui.QWizard.CancelButton).setVisible(False)
-        self.button(QtGui.QWizard.NextButton).hide()#setEnabled(False)
+        self.button(QtGui.QWizard.NextButton).hide()
         self.button(QtGui.QWizard.BackButton).setVisible(False)
         self.button(QtGui.QWizard.CancelButton).setVisible(False)
 
@@ -530,9 +518,10 @@ class WhonixSetupWizard(QtGui.QWizard):
         """
         if Common.argument == 'setup':
             #if self.env == 'workstation':
-            if self.currentId() == self.steps.index('first_use_notice'):
-                self.resize(580, 430)
-                self.center()
+            if (self.currentId() == self.steps.index('first_use_notice') or
+                self.currentId() == self.steps.index('whonix_repo_page')):
+                    self.resize(580, 430)
+                    self.center()
 
             if self.currentId() == self.steps.index('whonix_repo_page'):
                 self.whonix_repo_page.text.setText(self._('whonix_repository_page'))
@@ -601,14 +590,15 @@ class WhonixSetupWizard(QtGui.QWizard):
                     command = '/sbin/poweroff'
                     call(command, shell=True)
 
-                if Common.run_whonixsetup and Common.environment == 'gateway':
-                    self.hide()
-                    cmd = 'sudo anon-connection-wizard'
-                    call(cmd, shell=True)
-
                 if not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done'):
                     f = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
                     f.close()
+
+                self.hide()
+
+                if Common.run_whonixsetup and Common.environment == 'gateway':
+                    cmd = 'kdesudo anon-connection-wizard'
+                    call(cmd, shell=True)
 
                 # run whonixcheck
                 command = '/usr/lib/whonixsetup_/ft_m_end'
