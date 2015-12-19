@@ -40,14 +40,10 @@ class Common:
     Variables and constants used through all the classes
     '''
     argument = parse_command_line_parameter()
-
-    if argument == 'setup' and os.path.exists('/var/lib/qubes'):
-        sys.exit(0)
-    else:
-        run_whonixsetup = not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done')
-
-    if not run_whonixsetup:
-        sys.exit(0)
+    run_whonixsetup = not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done')
+    if argument == 'setup':
+        if os.path.exists('/var/lib/qubes') or not run_whonixsetup:
+            sys.exit(0)
 
     translations_path ='/usr/share/translations/whonix_setup.yaml'
 
