@@ -42,8 +42,7 @@ class Common:
     argument = parse_command_line_parameter()
     run_whonixsetup = not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done')
     if argument == 'setup':
-        #if os.path.exists('/var/lib/qubes') or not run_whonixsetup:
-        if not run_whonixsetup:
+        if os.path.exists('/var/lib/qubes') or not run_whonixsetup:
             sys.exit(0)
 
     translations_path ='/usr/share/translations/whonix_setup.yaml'
@@ -236,7 +235,10 @@ class DisclaimerPage2(QtGui.QWizardPage):
 
     def nextId(self):
         if self.yes_button.isChecked():
-            return self.steps.index('first_use_notice')
+            if Common.environment == 'gateway':
+                return self.steps.index('first_use_notice')
+            else:
+                return self.steps.index('whonix_repo_page')
         # Not understood
         elif self.no_button.isChecked:
             return self.steps.index('finish_page')
