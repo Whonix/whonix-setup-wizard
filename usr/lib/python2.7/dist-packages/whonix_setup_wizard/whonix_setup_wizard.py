@@ -399,34 +399,29 @@ class WhonixSetupWizard(QtGui.QWizard):
             self.addPage(self.repository_wizard_finish)
 
         if Common.argument == 'setup':
-            if Common.run_whonixsetup:
-                self.disclaimer_1 = DisclaimerPage1()
-                self.addPage(self.disclaimer_1)
+            self.disclaimer_1 = DisclaimerPage1()
+            self.addPage(self.disclaimer_1)
 
-                self.disclaimer_2 = DisclaimerPage2()
-                self.addPage(self.disclaimer_2)
+            self.disclaimer_2 = DisclaimerPage2()
+            self.addPage(self.disclaimer_2)
 
-                self.first_use_notice = FirstUseNotice()
-                self.addPage(self.first_use_notice)
+            self.first_use_notice = FirstUseNotice()
+            self.addPage(self.first_use_notice)
 
-                self.whonix_repo_page = WhonixRepositoryPage()
-                self.addPage(self.whonix_repo_page)
+            self.whonix_repo_page = WhonixRepositoryPage()
+            self.addPage(self.whonix_repo_page)
 
-                self.repository_wizard_page_1 = RepositoryWizardPage1()
-                self.addPage(self.repository_wizard_page_1)
+            self.repository_wizard_page_1 = RepositoryWizardPage1()
+            self.addPage(self.repository_wizard_page_1)
 
-                self.repository_wizard_page_2 = RepositoryWizardPage2()
-                self.addPage(self.repository_wizard_page_2)
+            self.repository_wizard_page_2 = RepositoryWizardPage2()
+            self.addPage(self.repository_wizard_page_2)
 
-                self.repository_wizard_finish = RepositoryWizardfinish()
-                self.addPage(self.repository_wizard_finish)
+            self.repository_wizard_finish = RepositoryWizardfinish()
+            self.addPage(self.repository_wizard_finish)
 
-                self.finish_page = FinishPage()
-                self.addPage(self.finish_page)
-
-            else:
-                self.finish_page = FinishPage()
-                self.addPage(self.finish_page)
+            self.finish_page = FinishPage()
+            self.addPage(self.finish_page)
 
         if Common.argument == 'locale_settings':
             self.locale_settings = LocaleSettings()
