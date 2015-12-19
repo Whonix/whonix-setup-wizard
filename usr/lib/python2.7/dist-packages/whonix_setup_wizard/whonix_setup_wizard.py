@@ -524,9 +524,10 @@ class WhonixSetupWizard(QtGui.QWizard):
         """
         if Common.argument == 'setup':
             #if self.env == 'workstation':
-            if self.currentId() == self.steps.index('first_use_notice'):
-                self.resize(580, 430)
-                self.center()
+            if (self.currentId() == self.steps.index('first_use_notice') or
+                self.currentId() == self.steps.index('whonix_repo_page')):
+                    self.resize(580, 430)
+                    self.center()
 
             if self.currentId() == self.steps.index('whonix_repo_page'):
                 self.whonix_repo_page.text.setText(self._('whonix_repository_page'))
