@@ -8,19 +8,14 @@ from PyQt4.QtCore import *
 from PyQt4 import QtCore, QtGui
 from subprocess import call
 import os, yaml
-import json
 import inspect
 import sys
-import time
 import re
-import shutil
-
-from stem.connection import connect
+import distutils.spawn
 
 from guimessages.translations import _translations
 from guimessages.guimessage import gui_message
 
-import distutils.spawn
 
 def parse_command_line_parameter():
     '''
@@ -41,9 +36,9 @@ class Common:
     '''
     argument = parse_command_line_parameter()
     run_whonixsetup = not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done')
-    if argument == 'setup':
-        if os.path.exists('/var/lib/qubes') or not run_whonixsetup:
-            sys.exit(0)
+    #if argument == 'setup':
+        #if os.path.exists('/var/lib/qubes') or not run_whonixsetup:
+            #sys.exit(0)
 
     translations_path ='/usr/share/translations/whonix_setup.yaml'
 
@@ -492,8 +487,7 @@ class WhonixSetupWizard(QtGui.QWizard):
         except (yaml.scanner.ScannerError, yaml.parser.ParserError):
             pass
 
-        #self.button(QtGui.QWizard.CancelButton).setVisible(False)
-        self.button(QtGui.QWizard.NextButton).hide()#setEnabled(False)
+        self.button(QtGui.QWizard.NextButton).hide()
         self.button(QtGui.QWizard.BackButton).setVisible(False)
         self.button(QtGui.QWizard.CancelButton).setVisible(False)
 
