@@ -30,7 +30,12 @@ if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
     if os.path.exists('/var/lib/qubes'):
         wizard = 'anon-connection-wizard'
     else:
-        wizard = 'whonix-setup-wizard'
+        if not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done'):
+            wizard = 'whonix-setup-wizard'
+        else:
+            ## In the case Tor was disabled with anon-connection-wizard,
+            ## we do not want to re-run the setup wizard.
+            wizard = 'anon-connection-wizard'
 
     wizard_found = distutils.spawn.find_executable(wizard)
     if not wizard_found == "":
