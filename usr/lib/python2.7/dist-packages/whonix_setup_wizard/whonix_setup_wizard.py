@@ -42,7 +42,8 @@ class Common:
     argument = parse_command_line_parameter()
     run_whonixsetup = not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done')
     if argument == 'setup':
-        if os.path.exists('/var/lib/qubes') or not run_whonixsetup:
+        #if os.path.exists('/var/lib/qubes') or not run_whonixsetup:
+        if not run_whonixsetup:
             sys.exit(0)
 
     translations_path ='/usr/share/translations/whonix_setup.yaml'
@@ -592,14 +593,15 @@ class WhonixSetupWizard(QtGui.QWizard):
                     command = '/sbin/poweroff'
                     call(command, shell=True)
 
-                if Common.run_whonixsetup and Common.environment == 'gateway':
-                    self.hide()
-                    cmd = 'sudo anon-connection-wizard'
-                    call(cmd, shell=True)
-
                 if not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done'):
                     f = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
                     f.close()
+
+                self.hide()
+
+                if Common.run_whonixsetup and Common.environment == 'gateway':
+                    cmd = 'sudo anon-connection-wizard'
+                    call(cmd, shell=True)
 
                 # run whonixcheck
                 command = '/usr/lib/whonixsetup_/ft_m_end'
