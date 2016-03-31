@@ -310,6 +310,7 @@ class RepositoryWizardPage2(QtGui.QWizardPage):
 
         self.repo_group = QtGui.QGroupBox(self)
         self.stable_repo = QtGui.QRadioButton(self.repo_group)
+        self.stable_proposed_updates_repo = QtGui.QRadioButton(self.repo_group)
         self.testers_repo = QtGui.QRadioButton(self.repo_group)
         self.devs_repo = QtGui.QRadioButton(self.repo_group)
 
@@ -321,12 +322,14 @@ class RepositoryWizardPage2(QtGui.QWizardPage):
         self.text.setFrameShape(QtGui.QFrame.NoFrame)
         self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
 
-        self.repo_group.setMinimumSize(0, 80)
+        self.repo_group.setMinimumSize(0, 100)
         self.stable_repo.setGeometry(QtCore.QRect(30, 10, 400, 21))
-        self.testers_repo.setGeometry(QtCore.QRect(30, 30, 400, 21))
-        self.devs_repo.setGeometry(QtCore.QRect(30, 50, 400, 21))
+        self.stable_proposed_updates_repo.setGeometry(QtCore.QRect(30, 30, 400, 21))
+        self.testers_repo.setGeometry(QtCore.QRect(30, 50, 400, 21))
+        self.devs_repo.setGeometry(QtCore.QRect(30, 70, 400, 21))
 
         self.stable_repo.setText("Whonix Stable Repository")
+        self.stable_proposed_updates_repo.setText("Whonix Stable Proposed Updates Repository")
         self.testers_repo.setText("Whonix Testers Repository")
         self.devs_repo.setText("Whonix Developers Repository")
 
@@ -554,6 +557,9 @@ class WhonixSetupWizard(QtGui.QWizard):
                 else:
                     if self.repository_wizard_page_2.stable_repo.isChecked():
                         codename = ' --repository stable'
+
+                    if self.repository_wizard_page_2.stable_proposed_updates_repo.isChecked():
+                        codename = ' --repository stable-proposed-updates'
 
                     elif self.repository_wizard_page_2.testers_repo.isChecked():
                         codename = ' --repository testers'
