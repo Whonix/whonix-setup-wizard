@@ -156,13 +156,13 @@ whonixsetup:
             and re-run Whonix Setup.</p>
 
         cannot_connect:
-            <p>"sudo service tor status" returned non-zero exit code , which means Tor does NOT work.</p>
+            <p>"sudo service tor@default status" returned non-zero exit code , which means Tor does NOT work.</p>
             <p>Maybe your Whonix-Gateway has only one network card attached? Most likely there
             is something wrong with your /etc/tor/torrc.</p>
             <p>You can try to manually edit /etc/tor/torrc&#58; </p>
             <blockquote>Start Menu -> Applications -> Torrc</blockquote>
             <p>Running&#58; </p>
-            <blockquote>sudo service tor restart</blockquote>
+            <blockquote>sudo service tor@default restart</blockquote>
             <p>might help with troubleshooting.</p>
 
         tooltip_1:
