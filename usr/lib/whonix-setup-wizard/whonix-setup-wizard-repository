@@ -14,5 +14,5 @@ call(command, shell = True)
 
 whonix_setup_wizard = distutils.spawn.find_executable("whonix-setup-wizard")
 if not whonix_setup_wizard == "":
-    command = 'sudo %s repository' % (whonix_setup_wizard)
+    command = 'kdesudo %s repository' % (whonix_setup_wizard)
     call(command, shell=True)

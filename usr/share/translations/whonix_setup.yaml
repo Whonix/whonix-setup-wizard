@@ -105,7 +105,13 @@ whonixsetup:
 
         tor_enabled:
             <p>Tor networking is enabled.</p>
-            <p>Tor is fully bootstrapped</p>
+            <p>(<i>line</i> "DisableNetwork 0" <i> in /etc/tor/torrc was uncommented.)<i/></p>
+            <hr></hr>
+            <p>File /etc/tor/torrc:</p>
+
+        tor_already_enabled:
+            <p>Tor networking is already enabled.</p>
+            <p>(<i>line</i> "DisableNetwork 0" <i> in /etc/tor/torrc uncommented.)<i/></p>
             <hr></hr>
             <p>File /etc/tor/torrc:</p>
 

@@ -27,26 +27,16 @@ def tor_status():
 
 if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
 
-    if os.path.exists('/var/lib/qubes'):
-        wizard = 'anon-connection-wizard'
-    else:
-        if not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done'):
-            wizard = 'whonix-setup-wizard'
-        else:
-            ## In the case Tor was disabled with anon-connection-wizard,
-            ## we do not want to re-run the setup wizard.
-            wizard = 'anon-connection-wizard'
-
-    wizard_found = distutils.spawn.find_executable(wizard)
-    if not wizard_found == "":
+    whonix_setup_wizard = distutils.spawn.find_executable("whonix-setup-wizard")
+    if not whonix_setup_wizard == "":
         tor_status = tor_status()
         if (tor_status == 'tor_disabled' or tor_status == 'no_torrc'
             or tor_status == 'bad_torrc'):
-                command = 'xhost +local:root'
-                call(command, shell = True)
+            command = 'xhost +local:root'
+            call(command, shell = True)
 
-                command = 'sudo %s setup' % (wizard)
-                call(command, shell=True)
+            command = 'kdesudo %s setup' % (whonix_setup_wizard)
+            call(command, shell=True)
 
     else:
         command = '/usr/lib/whonixsetup_cli_start_maybe'
@@ -54,10 +44,9 @@ if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
 
 elif os.path.exists('/usr/share/anon-ws-base-files/workstation'):
 
-    if os.path.exists('/var/lib/qubes'):
-        exit(0)
-
-    run_whonix_setup_wizard = not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done')
+    run_whonix_setup_wizard = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done') and
+                               not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.skip') and
+                               not os.path.exists('/var/lib/whonix/do_once/whonixsetup.done'))
 
     if run_whonix_setup_wizard:
         whonix_setup_wizard = distutils.spawn.find_executable("whonix-setup-wizard")
@@ -65,5 +54,5 @@ elif os.path.exists('/usr/share/anon-ws-base-files/workstation'):
             command = 'xhost +local:root'
             call(command, shell = True)
 
-            command = 'sudo %s setup' % (whonix_setup_wizard)
+            command = 'kdesudo %s setup' % (whonix_setup_wizard)
             call(command, shell=True)
