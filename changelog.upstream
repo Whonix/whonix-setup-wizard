@@ -1,3 +1,313 @@
+commit dee69afdf4101064b6d71dba9e238f562934927e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Apr 26 05:07:00 2016 +0000
+
+    reset master branch to stable branch
+
+commit 76d7feebde5c661fdf8372fe1d50c8c0497f041f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 7 22:55:00 2016 +0000
+
+    bumped changelog version
+
+commit 8a20a48799f66fa256033c24313cbd9675d59725
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Mar 31 01:29:06 2016 +0000
+
+    added stable-proposed-updates repository
+    
+    https://phabricator.whonix.org/T200
+
+commit 8df32c994d70a461b3f4d6754af45640c61e8b6e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 28 11:19:16 2016 +0100
+
+    tor -> tor@default
+
+commit 4c71c615b8b568a9e5598dc32ccdd51c2aee4541
+Merge: 391edfa 1aadd37
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Dec 20 15:16:49 2015 +0100
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 1aadd372d062de487eabce06d4b3efa79903199a
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Dec 19 22:34:50 2015 +0000
+
+    whonixsetup-check-for-start
+    Run anon-connection-wizard if Tor was disabled bu user.
+    Do not re-run whonix-setup-wizard.
+
+commit d4c87f20eb02c690d81e43cf65d106513179157f
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Dec 19 21:08:15 2015 +0000
+
+    whonixsetup_check_for_start
+    
+    - gateway
+    In Qubes-Whonix -> anon-connection-wizard
+    In non Qubes-Whonix -> whonix-setup-wizard
+    
+    - workstation
+    In Qubes-Whonix -> exit(0)
+    In non Qubes-Whonix -> whonix-setup-wizard
+    
+    Remove .skip files conditions.
+
+commit 391edfa4d321f27aa1f74a07b8c8704767aaee70
+Merge: 21881df 6c20611
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Dec 19 21:18:13 2015 +0100
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 6c2061165455e9b6f7a49f1729b97d14dff1d666
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Dec 19 19:51:39 2015 +0000
+
+    sudo -> kdesudo
+
+commit 65dd7a96842dae6168907ebecbf9e8bfc2eb9bee
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Dec 19 19:50:23 2015 +0000
+
+    remove unused imports
+
+commit f9074b7715d881d2cdce167be63d849cf08cb82e
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Dec 19 17:25:08 2015 +0000
+
+    resize whonix repo page when first run notice not shown
+
+commit b132a3eeeb75eb166e7e7d8679f455a1904eca0f
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Dec 19 16:56:37 2015 +0000
+
+    do not show first run notice in workstation / whonix vm
+    remove testing code
+
+commit 0e5a441fbf091d5d8dfd2a90334cb9f23bd8e102
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Dec 19 16:19:58 2015 +0000
+
+    improve logic in running decision and finish page
+
+commit 21881df28d2ba3b1017fc4324b44e1d1283f412c
+Merge: 47074cd 7cac2aa
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Dec 19 16:40:38 2015 +0100
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 1caa68ab4da53be68047b34e614e2a912dd1a797
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Dec 19 09:02:36 2015 +0000
+
+    logic cleaning
+
+commit 52af55c20317ae4046826f852efde3361b28ecf4
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Dec 19 08:59:28 2015 +0000
+
+    rewrite wizard running logic
+
+commit 7cac2aa31efd28c37b1c94c5f2edcc1ebe3a424d
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Dec 18 23:51:08 2015 +0000
+
+    deprecate finish page
+
+commit b5824d8615ea1e705a807a65d85bf8900e8aae19
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Dec 18 22:28:26 2015 +0000
+
+    run anon-connection-wizard if in gateway and if run_whonixcheck (first run)
+
+commit d0a5c35f62c83c2790157c51ccc64b6cc01ec011
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Dec 18 19:42:21 2015 +0000
+
+    Do not run "whonix-setup-wizard setup" in Qubes.
+    Related to https://www.whonix.org/wiki/Dev/whonixsetup#Where_to_show_which_page_-_Non-Qubes-Whonix_vs_Qubes-Whonix
+    "whonix-setup-wizard setup" is never used in Qubes.
+    
+    Add
+        if argument == 'setup' and os.path.exists('/var/lib/qubes'):
+            sys.exit(0)
+    
+    so that we do not need any longer the .skip files.
+
+commit d57e4e846da2343f5273ed9b8bb745153e3a547c
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Dec 18 17:30:35 2015 +0000
+
+    remove import tor_status
+    remove 'quick' argument
+
+commit 15313019a7f4e0d4a6c8cb8fba2447ca85fc5810
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Dec 4 22:35:45 2015 +0000
+
+    remove tor_status.py
+
+commit ae1b4e2b39343300826fd7480c3d747ab9f0f302
+Author: troubadoour <trobador@riseup.net>
+Date:   Fri Dec 4 22:23:42 2015 +0000
+
+    remove disclaimer_not_understood,
+    as it is set to true during the page loading.
+
+commit 08b5d2ee727f23920244ff81eb67e84302406b4d
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Dec 3 22:10:51 2015 +0000
+
+    + disclaimer_not_understood common variable
+
+commit 39f6c78e511b82948efbd6da70b3ad1de3716739
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Dec 3 21:59:29 2015 +0000
+
+    remove extraneous status file writing
+
+commit 68e6c8eddf4559ee56f0fcbba5a4c0c675149aa6
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Dec 3 21:40:41 2015 +0000
+
+    reorganize setupUi() in WhonixSetupWizard class
+
+commit 15734fd09e041b93a8a3804d47af55124d0f17f8
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Dec 3 21:26:38 2015 +0000
+
+    cleanup
+
+commit cdd98ba8e23863c0ac77166c177153f975333065
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Dec 3 21:05:35 2015 +0000
+
+    remove all status files except whonixsetup.done
+
+commit 6588d8b7f2804d2893ee92cae8125761ce3413b6
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Dec 3 20:18:50 2015 +0000
+
+    reoder pages: disclaime, first use, repository, finish
+
+commit 0da2db6474f22ebc276601bd7a233003a50e2af8
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Dec 3 19:26:36 2015 +0000
+
+    reinstate root-check
+
+commit 15617e3192e2a827522afbb9dc3eb2ba450f31b3
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Dec 3 19:23:38 2015 +0000
+
+    remove connection pages
+
+commit 65ae22a0cbf715dae7960cf99a8d568803ffad71
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Dec 3 19:19:38 2015 +0000
+
+    cleanup
+
+commit 27795095c9a4221cfa44381e650b78b20cb3f2c4
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Dec 3 08:01:49 2015 +0000
+
+    comment out environment, comment out "if gateway" code blocks
+
+commit 726a54cc68917651bacaacadb065d890c5e882c5
+Author: troubadoour <trobador@riseup.net>
+Date:   Wed Dec 2 19:51:52 2015 +0000
+
+    move python files in /usr/lib/python2.7/dist-packages/whonix_setup_wizard/
+
+commit c7baed877a8145635c27a9a8f8f3034506e016eb
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Nov 28 17:03:50 2015 +0000
+
+    Create /etc/tor/torrc.orig at first run of the wizard.
+    Used as a template to write a "fresh" torrc when running the wizard again.
+
+commit 33e6a8cd51cd6a95673ab7e5f15e117c05e6f244
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Nov 28 15:42:22 2015 +0000
+
+    Debugging: write bootstrap status to stdout in real time.
+
+commit ba7125d1fbdcfdd05e7f63e8c27fcd6db0d36229
+Author: troubadoour <trobador@riseup.net>
+Date:   Sat Nov 28 08:17:29 2015 +0000
+
+    remove unused transports from transports combobox
+
+commit 254174fd9b7d8329e800806e35320a941213d50a
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Nov 26 17:32:24 2015 +0000
+
+    "quick" argument
+    
+    sys.exit(0) moved after Tor bootstrap loop.
+    Write "whonixsetup.done" if file does not exist.
+
+commit d45ae3bd7d3131292b474b5f5638eb85f090579f
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Nov 26 15:10:04 2015 +0000
+
+    simplify tor bootstrap loop
+
+commit d7c8828ab76cbd0f0efe57e6ad6a659884c61056
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Nov 26 15:01:37 2015 +0000
+
+    use "stem.connection connect" instead of "stem.control controller"
+    more generic -> no socket information required
+
+commit ca9e0f977dd6ca5d8fd5d556cfb159e49db21b10
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Nov 26 14:06:11 2015 +0000
+
+    tor 0.2.7.5 -> use tor@default service in tor_status.py
+    tor service returns status 0 immediatly, regardless of tor status.
+
+commit 369b869a723370a67826f828cf533ae9423998ab
+Author: troubadoour <trobador@riseup.net>
+Date:   Mon Nov 23 16:42:53 2015 +0000
+
+    replace /etc/bridges/default.json with /usr/share/whonix-setup-wizard/bridges_default
+
+commit 7ef3bbc5f5b96662747c165dbf80becbe9438ce1
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Nov 15 17:03:57 2015 +0000
+
+    move additions in etc/apparmor.d/local/usr.bin.obfsproxy to anon-gw-anonymizer-config
+
+commit a22377074d602174a9f1761abf3ee7c3ba960270
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Nov 15 12:29:24 2015 +0000
+
+    + etc/apparmor.d/local/usr.bin.obfsproxy -> fix apparmor denied message when setting obfs3 and scramblesuit transports
+
+commit eee80dab842220ae6b2b7f1d1fcdcef64a3b93ca
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Nov 15 12:27:49 2015 +0000
+
+    default bridges -> etc/bridges/default.json
+
+commit 68b32eda04f77d9772641ff46f72738af5260bb4
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Nov 15 12:27:04 2015 +0000
+
+    tor-launcher initial commit
+
+commit 47074cd7951057a047c7cf7237845d7fbd9733f3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 26 23:32:02 2015 +0000
+
+    bumped changelog version
+
 commit 8b12599663348784893c94bdcc0ecf58b7fb3d05
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Aug 26 02:14:28 2015 +0000
