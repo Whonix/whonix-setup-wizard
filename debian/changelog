@@ -1,3 +1,9 @@
+whonix-setup-wizard (3:1.9-1) unstable; urgency=medium
+
+  * New upstream version (local package).
+
+ -- Patrick Schleizer <adrelanos@riseup.net>  Sun, 15 Jan 2017 15:39:48 +0000
+
 whonix-setup-wizard (3:1.8-1) unstable; urgency=medium
 
   * New upstream version (local package).
