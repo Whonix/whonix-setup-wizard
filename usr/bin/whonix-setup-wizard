@@ -1,4 +1,7 @@
-#!/usr/bin/python
+#! /usr/bin/python
 
 from whonix_setup_wizard import whonix_setup_wizard
+import signal
+signal.signal(signal.SIGINT, signal.SIG_DFL)
+
 whonix_setup_wizard.main()
