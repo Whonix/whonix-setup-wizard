@@ -39,7 +39,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Mar 31 01:29:06 2016 +0000
 
     added stable-proposed-updates repository
-    
+
     https://phabricator.whonix.org/T200
 
 commit 8df32c994d70a461b3f4d6754af45640c61e8b6e
@@ -68,15 +68,15 @@ Author: troubadoour <trobador@riseup.net>
 Date:   Sat Dec 19 21:08:15 2015 +0000
 
     whonixsetup_check_for_start
-    
+
     - gateway
     In Qubes-Whonix -> anon-connection-wizard
     In non Qubes-Whonix -> whonix-setup-wizard
-    
+
     - workstation
     In Qubes-Whonix -> exit(0)
     In non Qubes-Whonix -> whonix-setup-wizard
-    
+
     Remove .skip files conditions.
 
 commit 391edfa4d321f27aa1f74a07b8c8704767aaee70
@@ -155,11 +155,11 @@ Date:   Fri Dec 18 19:42:21 2015 +0000
     Do not run "whonix-setup-wizard setup" in Qubes.
     Related to https://www.whonix.org/wiki/Dev/whonixsetup#Where_to_show_which_page_-_Non-Qubes-Whonix_vs_Qubes-Whonix
     "whonix-setup-wizard setup" is never used in Qubes.
-    
+
     Add
         if argument == 'setup' and os.path.exists('/var/lib/qubes'):
             sys.exit(0)
-    
+
     so that we do not need any longer the .skip files.
 
 commit d57e4e846da2343f5273ed9b8bb745153e3a547c
@@ -272,7 +272,7 @@ Author: troubadoour <trobador@riseup.net>
 Date:   Thu Nov 26 17:32:24 2015 +0000
 
     "quick" argument
-    
+
     sys.exit(0) moved after Tor bootstrap loop.
     Write "whonixsetup.done" if file does not exist.
 
@@ -1320,7 +1320,7 @@ Author: troubadoour <trobador@riseup.net>
 Date:   Mon Dec 15 16:05:58 2014 +0000
 
     Revert "connection page: Next button state on load."
-    
+
     This reverts commit 128c18fdaf5f0caf286229301db883a04711962a.
 
 commit 128c18fdaf5f0caf286229301db883a04711962a
