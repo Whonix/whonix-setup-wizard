@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/python3 -u
+
 
 ## This file is part of Whonix.
 ## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
@@ -14,5 +15,5 @@ call(command, shell = True)
 
 whonix_setup_wizard = distutils.spawn.find_executable("whonix-setup-wizard")
 if not whonix_setup_wizard == "":
-    command = 'kdesudo %s setup' % (whonix_setup_wizard)
+    command = 'kdesudo {} setup'.format(whonix_setup_wizard)
     call(command, shell=True)

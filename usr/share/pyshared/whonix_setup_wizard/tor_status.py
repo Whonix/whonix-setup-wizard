@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3 -u
 
 import sys, fileinput
 from subprocess import call
