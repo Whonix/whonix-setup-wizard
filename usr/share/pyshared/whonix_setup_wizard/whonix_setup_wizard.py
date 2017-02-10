@@ -1,11 +1,12 @@
-#!/usr/bin/python
+#!/usr/bin/python3 -u
 # -*- coding: utf-8 -*-
 
 """ WHONIX SETUP WIZARD """
-from PyQt4.QtGui import *
-from PyQt4.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 from subprocess import call
 import os, yaml
 import inspect
@@ -116,21 +117,21 @@ class Common:
                         'locale_settings_finish']
 
 
-class LocaleSettings(QtGui.QWizardPage):
+class LocaleSettings(QtWidgets.QWizardPage):
     def __init__(self):
         super(LocaleSettings, self).__init__()
 
-        self.text = QtGui.QLabel(self)
+        self.text = QtWidgets.QLabel(self)
 
-        self.group = QtGui.QGroupBox(self)
+        self.group = QtWidgets.QGroupBox(self)
 
-        self.default_button = QtGui.QRadioButton(self.group)
-        self.other_button = QtGui.QRadioButton(self.group)
+        self.default_button = QtWidgets.QRadioButton(self.group)
+        self.other_button = QtWidgets.QRadioButton(self.group)
 
-        self.lang_checkbox = QtGui.QCheckBox(self.group)
-        self.kbd_checkbox = QtGui.QCheckBox(self.group)
+        self.lang_checkbox = QtWidgets.QCheckBox(self.group)
+        self.kbd_checkbox = QtWidgets.QCheckBox(self.group)
 
-        self.layout = QtGui.QVBoxLayout(self)
+        self.layout = QtWidgets.QVBoxLayout(self)
 
         self.setup_ui()
 
@@ -192,39 +193,39 @@ class LocaleSettings(QtGui.QWizardPage):
             self.other_button.setChecked(False)
 
 
-class LocaleSettingsFinish(QtGui.QWizardPage):
+class LocaleSettingsFinish(QtWidgets.QWizardPage):
     def __init__(self):
         super(LocaleSettingsFinish, self).__init__()
 
-        self.text = QtGui.QTextBrowser(self)
-        self.layout = QtGui.QVBoxLayout()
+        self.text = QtWidgets.QTextBrowser(self)
+        self.layout = QtWidgets.QVBoxLayout()
 
         self.setup_ui()
 
     def setup_ui(self):
-        self.text.setFrameShape(QtGui.QFrame.NoFrame)
+        self.text.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.layout.addWidget(self.text)
 
         self.setLayout(self.layout)
 
 
-class DisclaimerPage1(QtGui.QWizardPage):
+class DisclaimerPage1(QtWidgets.QWizardPage):
     def __init__(self):
         super(DisclaimerPage1, self).__init__()
 
         self.steps = Common.wizard_steps
 
-        self.text = QtGui.QTextBrowser(self)
-        self.accept_group = QtGui.QGroupBox(self)
-        self.yes_button = QtGui.QRadioButton(self.accept_group)
-        self.no_button = QtGui.QRadioButton(self.accept_group)
+        self.text = QtWidgets.QTextBrowser(self)
+        self.accept_group = QtWidgets.QGroupBox(self)
+        self.yes_button = QtWidgets.QRadioButton(self.accept_group)
+        self.no_button = QtWidgets.QRadioButton(self.accept_group)
 
-        self.layout = QtGui.QVBoxLayout()
+        self.layout = QtWidgets.QVBoxLayout()
 
         self.setupUi()
 
     def setupUi(self):
-        self.text.setFrameShape(QtGui.QFrame.Panel)
+        self.text.setFrameShape(QtWidgets.QFrame.Panel)
         self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
 
         self.accept_group.setMinimumSize(0, 60)
@@ -244,25 +245,25 @@ class DisclaimerPage1(QtGui.QWizardPage):
             return self.steps.index('finish_page')
 
 
-class DisclaimerPage2(QtGui.QWizardPage):
+class DisclaimerPage2(QtWidgets.QWizardPage):
     def __init__(self):
         super(DisclaimerPage2, self).__init__()
 
         self.steps = Common.wizard_steps
         self.env = Common.environment
 
-        self.text = QtGui.QTextBrowser(self)
-        self.accept_group = QtGui.QGroupBox(self)
-        self.yes_button = QtGui.QRadioButton(self.accept_group)
-        self.no_button = QtGui.QRadioButton(self.accept_group)
+        self.text = QtWidgets.QTextBrowser(self)
+        self.accept_group = QtWidgets.QGroupBox(self)
+        self.yes_button = QtWidgets.QRadioButton(self.accept_group)
+        self.no_button = QtWidgets.QRadioButton(self.accept_group)
 
-        self.layout = QtGui.QVBoxLayout()
+        self.layout = QtWidgets.QVBoxLayout()
 
         self.setupUi()
 
     def setupUi(self):
         self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-        self.text.setFrameShape(QtGui.QFrame.Panel)
+        self.text.setFrameShape(QtWidgets.QFrame.Panel)
 
         self.accept_group.setMinimumSize(0, 60)
         self.yes_button.setGeometry(QtCore.QRect(30, 10, 300, 21))
@@ -291,7 +292,7 @@ class DisclaimerPage2(QtGui.QWizardPage):
             return self.steps.index('finish_page')
 
 
-class ConnectionPage(QtGui.QWizardPage):
+class ConnectionPage(QtWidgets.QWizardPage):
     def __init__(self):
         super(ConnectionPage, self).__init__()
 
@@ -302,21 +303,21 @@ class ConnectionPage(QtGui.QWizardPage):
         self.steps = self.Common.wizard_steps
         self.env = self.Common.environment
 
-        self.text = QtGui.QTextBrowser(self)
-        self.layout = QtGui.QGridLayout()
+        self.text = QtWidgets.QTextBrowser(self)
+        self.layout = QtWidgets.QGridLayout()
 
-        self.connection_group = QtGui.QGroupBox(self)
-        self.enable = QtGui.QRadioButton(self.connection_group)
-        self.disable = QtGui.QRadioButton(self.connection_group)
-        self.censored = QtGui.QRadioButton(self.connection_group)
-        self.use_proxy = QtGui.QRadioButton(self.connection_group)
+        self.connection_group = QtWidgets.QGroupBox(self)
+        self.enable = QtWidgets.QRadioButton(self.connection_group)
+        self.disable = QtWidgets.QRadioButton(self.connection_group)
+        self.censored = QtWidgets.QRadioButton(self.connection_group)
+        self.use_proxy = QtWidgets.QRadioButton(self.connection_group)
 
-        self.layout = QtGui.QVBoxLayout()
+        self.layout = QtWidgets.QVBoxLayout()
 
         self.setupUi()
 
     def setupUi(self):
-        self.text.setFrameShape(QtGui.QFrame.NoFrame)
+        self.text.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
 
         self.connection_group.setMinimumSize(0, 100)
@@ -340,24 +341,24 @@ class ConnectionPage(QtGui.QWizardPage):
         self.setLayout(self.layout)
 
 
-class TorStatusPage(QtGui.QWizardPage):
+class TorStatusPage(QtWidgets.QWizardPage):
     def __init__(self):
         super(TorStatusPage, self).__init__()
 
         self.steps = Common.wizard_steps
 
-        self.icon = QtGui.QLabel(self)
-        self.text = QtGui.QTextBrowser(self)
-        self.torrc = QtGui.QPlainTextEdit(self)
+        self.icon = QtWidgets.QLabel(self)
+        self.text = QtWidgets.QTextBrowser(self)
+        self.torrc = QtWidgets.QPlainTextEdit(self)
 
-        self.layout = QtGui.QGridLayout()
+        self.layout = QtWidgets.QGridLayout()
         self.setupUi()
 
     def setupUi(self):
         self.icon.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.icon.setMinimumSize(50, 0)
 
-        self.text.setFrameShape(QtGui.QFrame.NoFrame)
+        self.text.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
 
         self.torrc.setMinimumSize(0, 185)
@@ -375,19 +376,19 @@ class TorStatusPage(QtGui.QWizardPage):
             return self.steps.index('finish_page')
 
 
-class WhonixRepositoryPage(QtGui.QWizardPage):
+class WhonixRepositoryPage(QtWidgets.QWizardPage):
     def __init__(self):
         super(WhonixRepositoryPage, self).__init__()
 
         self.steps = Common.wizard_steps
 
-        self.text = QtGui.QTextBrowser(self)
-        self.layout = QtGui.QGridLayout()
+        self.text = QtWidgets.QTextBrowser(self)
+        self.layout = QtWidgets.QGridLayout()
 
         self.setupUi()
 
     def setupUi(self):
-        self.text.setFrameShape(QtGui.QFrame.NoFrame)
+        self.text.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
 
         self.layout.addWidget(self.text)
@@ -398,24 +399,24 @@ class WhonixRepositoryPage(QtGui.QWizardPage):
         return self.steps.index('repository_wizard_page_1')
 
 
-class RepositoryWizardPage1(QtGui.QWizardPage):
+class RepositoryWizardPage1(QtWidgets.QWizardPage):
     def __init__(self):
         super(RepositoryWizardPage1, self).__init__()
 
         self.steps = Common.wizard_steps
 
-        self.text = QtGui.QTextBrowser(self)
+        self.text = QtWidgets.QTextBrowser(self)
 
-        self.enable_group = QtGui.QGroupBox(self)
-        self.enable_repo = QtGui.QRadioButton(self.enable_group)
-        self.disable_repo = QtGui.QRadioButton(self.enable_group)
+        self.enable_group = QtWidgets.QGroupBox(self)
+        self.enable_repo = QtWidgets.QRadioButton(self.enable_group)
+        self.disable_repo = QtWidgets.QRadioButton(self.enable_group)
 
-        self.layout = QtGui.QVBoxLayout()
+        self.layout = QtWidgets.QVBoxLayout()
 
         self.setupUi()
 
     def setupUi(self):
-        self.text.setFrameShape(QtGui.QFrame.NoFrame)
+        self.text.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.text.setOpenExternalLinks(True)
 
@@ -438,24 +439,24 @@ class RepositoryWizardPage1(QtGui.QWizardPage):
             return self.steps.index('repository_wizard_finish')
 
 
-class RepositoryWizardPage2(QtGui.QWizardPage):
+class RepositoryWizardPage2(QtWidgets.QWizardPage):
     def __init__(self):
         super(RepositoryWizardPage2, self).__init__()
 
-        self.text = QtGui.QTextBrowser(self)
+        self.text = QtWidgets.QTextBrowser(self)
 
-        self.repo_group = QtGui.QGroupBox(self)
-        self.stable_repo = QtGui.QRadioButton(self.repo_group)
-        self.stable_proposed_updates_repo = QtGui.QRadioButton(self.repo_group)
-        self.testers_repo = QtGui.QRadioButton(self.repo_group)
-        self.devs_repo = QtGui.QRadioButton(self.repo_group)
+        self.repo_group = QtWidgets.QGroupBox(self)
+        self.stable_repo = QtWidgets.QRadioButton(self.repo_group)
+        self.stable_proposed_updates_repo = QtWidgets.QRadioButton(self.repo_group)
+        self.testers_repo = QtWidgets.QRadioButton(self.repo_group)
+        self.devs_repo = QtWidgets.QRadioButton(self.repo_group)
 
-        self.layout = QtGui.QVBoxLayout()
+        self.layout = QtWidgets.QVBoxLayout()
 
         self.setupUi()
 
     def setupUi(self):
-        self.text.setFrameShape(QtGui.QFrame.NoFrame)
+        self.text.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
 
         self.repo_group.setMinimumSize(0, 100)
@@ -476,38 +477,38 @@ class RepositoryWizardPage2(QtGui.QWizardPage):
         self.setLayout(self.layout)
 
 
-class RepositoryWizardfinish(QtGui.QWizardPage):
+class RepositoryWizardfinish(QtWidgets.QWizardPage):
     def __init__(self):
         super(RepositoryWizardfinish, self).__init__()
 
-        self.text = QtGui.QTextBrowser(self)
-        self.layout = QtGui.QVBoxLayout()
+        self.text = QtWidgets.QTextBrowser(self)
+        self.layout = QtWidgets.QVBoxLayout()
 
         self.setupUi()
 
     def setupUi(self):
-        self.text.setFrameShape(QtGui.QFrame.NoFrame)
+        self.text.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
 
         self.layout.addWidget(self.text)
         self.setLayout(self.layout)
 
 
-class FinishPage(QtGui.QWizardPage):
+class FinishPage(QtWidgets.QWizardPage):
     def __init__(self):
         super(FinishPage, self).__init__()
 
-        self.icon = QtGui.QLabel(self)
-        self.text = QtGui.QTextBrowser(self)
+        self.icon = QtWidgets.QLabel(self)
+        self.text = QtWidgets.QTextBrowser(self)
 
-        self.layout = QtGui.QGridLayout()
+        self.layout = QtWidgets.QGridLayout()
         self.setupUi()
 
     def setupUi(self):
         self.icon.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.icon.setMinimumSize(50, 0)
 
-        self.text.setFrameShape(QtGui.QFrame.NoFrame)
+        self.text.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
 
         self.layout.addWidget(self.icon, 0, 0, 1, 1)
@@ -515,17 +516,17 @@ class FinishPage(QtGui.QWizardPage):
         self.setLayout(self.layout)
 
 
-class FirstUseNotice(QtGui.QWizardPage):
+class FirstUseNotice(QtWidgets.QWizardPage):
     def __init__(self):
         super(FirstUseNotice, self).__init__()
 
-        self.text = QtGui.QTextBrowser(self)
+        self.text = QtWidgets.QTextBrowser(self)
 
-        self.layout = QtGui.QVBoxLayout()
+        self.layout = QtWidgets.QVBoxLayout()
         self.setupUi()
 
     def setupUi(self):
-        self.text.setFrameShape(QtGui.QFrame.NoFrame)
+        self.text.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.text.setOpenExternalLinks(True)
 
@@ -533,7 +534,7 @@ class FirstUseNotice(QtGui.QWizardPage):
         self.setLayout(self.layout)
 
 
-class WhonixSetupWizard(QtGui.QWizard):
+class WhonixSetupWizard(QtWidgets.QWizard):
     def __init__(self):
         super(WhonixSetupWizard, self).__init__()
 
@@ -605,7 +606,7 @@ class WhonixSetupWizard(QtGui.QWizard):
         self.setWindowIcon(QtGui.QIcon("/usr/share/icons/anon-icon-pack/whonix.ico"))
         self.setWindowTitle('Whonix Setup Wizard')
 
-        available_height = QtGui.QDesktopWidget().availableGeometry().height() - 60
+        available_height = QtWidgets.QDesktopWidget().availableGeometry().height() - 60
         self.disclaimer_height = 750
         if available_height < self.disclaimer_height:
             self.disclaimer_height = available_height
@@ -670,10 +671,10 @@ class WhonixSetupWizard(QtGui.QWizard):
         except (yaml.scanner.ScannerError, yaml.parser.ParserError):
             pass
 
-        self.button(QtGui.QWizard.CancelButton).setVisible(False)
+        self.button(QtWidgets.QWizard.CancelButton).setVisible(False)
 
-        self.button(QtGui.QWizard.BackButton).clicked.connect(self.back_button_clicked)
-        self.button(QtGui.QWizard.NextButton).clicked.connect(self.next_button_clicked)
+        self.button(QtWidgets.QWizard.BackButton).clicked.connect(self.back_button_clicked)
+        self.button(QtWidgets.QWizard.NextButton).clicked.connect(self.next_button_clicked)
 
         # Temporary workaround.
         # The pluggable transports are not implemented yet, but we want to
@@ -693,9 +694,9 @@ class WhonixSetupWizard(QtGui.QWizard):
     # called by button toggled signal.
     def set_next_button_state(self, state):
         if state:
-            self.button(QtGui.QWizard.NextButton).setEnabled(False)
+            self.button(QtWidgets.QWizard.NextButton).setEnabled(False)
         else:
-            self.button(QtGui.QWizard.NextButton).setEnabled(True)
+            self.button(QtWidgets.QWizard.NextButton).setEnabled(True)
 
     def center(self):
         """ After the window is resized, its origin point becomes the
@@ -703,7 +704,7 @@ class WhonixSetupWizard(QtGui.QWizard):
         Re-center the window on the screen.
         """
         frame_gm = self.frameGeometry()
-        center_point = QtGui.QDesktopWidget().availableGeometry().center()
+        center_point = QtWidgets.QDesktopWidget().availableGeometry().center()
         frame_gm.moveCenter(center_point)
         self.move(frame_gm.topLeft())
 
@@ -731,9 +732,9 @@ class WhonixSetupWizard(QtGui.QWizard):
                     self.center()
                     if (self.connection_page.censored.isChecked() or
                         self.connection_page.use_proxy.isChecked()):
-                            self.button(QtGui.QWizard.NextButton).setEnabled(False)
+                            self.button(QtWidgets.QWizard.NextButton).setEnabled(False)
                     else:
-                            self.button(QtGui.QWizard.NextButton).setEnabled(True)
+                            self.button(QtWidgets.QWizard.NextButton).setEnabled(True)
 
                 if self.currentId() == self.steps.index('tor_status_page'):
                     if self.connection_page.enable.isChecked():
@@ -759,7 +760,7 @@ class WhonixSetupWizard(QtGui.QWizard):
                                 '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
 
                         else:
-                            self.tor_status_page.torrc.setFrameShape(QtGui.QFrame.NoFrame)
+                            self.tor_status_page.torrc.setFrameShape(QtWidgets.QFrame.NoFrame)
                             self.tor_status_page.text.setText(self._('something_wrong'))
                             self.tor_status_page.icon.setPixmap(QtGui.QPixmap( \
                                 '/usr/share/icons/oxygen/48x48/status/task-reject.png'))
@@ -785,7 +786,7 @@ class WhonixSetupWizard(QtGui.QWizard):
                                 '/usr/share/icons/oxygen/48x48/status/task-attention.png'))
 
                         else:
-                            self.tor_status_page.torrc.setFrameShape(QtGui.QFrame.NoFrame)
+                            self.tor_status_page.torrc.setFrameShape(QtWidgets.QFrame.NoFrame)
                             self.tor_status_page.text.setText(self._('something_wrong'))
                             self.tor_status_page.icon.setPixmap(QtGui.QPixmap( \
                                 '/usr/share/icons/oxygen/48x48/status/task-reject.png'))
@@ -879,13 +880,13 @@ class WhonixSetupWizard(QtGui.QWizard):
                         elif Common.tor_status == 'no_torrc':
                             self.finish_page.icon.setPixmap(QtGui.QPixmap( \
                                 '/usr/share/icons/oxygen/48x48/status/task-reject.png'))
-                            self.button(QtGui.QWizard.BackButton).setEnabled(False)
+                            self.button(QtWidgets.QWizard.BackButton).setEnabled(False)
                             self.finish_page.text.setText(self._('no_torrc'))
 
                         elif Common.tor_status == 'bad_torrc':
                             self.finish_page.icon.setPixmap(QtGui.QPixmap( \
                                 '/usr/share/icons/oxygen/48x48/status/task-reject.png'))
-                            self.button(QtGui.QWizard.BackButton).setEnabled(False)
+                            self.button(QtWidgets.QWizard.BackButton).setEnabled(False)
                             self.finish_page.text.setText(self._('bad_torrc'))
 
                         elif Common.tor_status == 'cannot_connect':
@@ -896,7 +897,7 @@ class WhonixSetupWizard(QtGui.QWizard):
 
                             self.finish_page.icon.setPixmap(QtGui.QPixmap( \
                                 '/usr/share/icons/oxygen/48x48/status/task-reject.png'))
-                            self.button(QtGui.QWizard.BackButton).setEnabled(False)
+                            self.button(QtWidgets.QWizard.BackButton).setEnabled(False)
                             self.finish_page.text.setText(self._('cannot_connect'))
 
                 if Common.show_disclaimer:
@@ -931,7 +932,7 @@ class WhonixSetupWizard(QtGui.QWizard):
                         command = command = '%s kcm_keyboard' % (kcmshell)
                         call(command, shell=True)
 
-                    self.button(QtGui.QWizard.BackButton).setEnabled(False)
+                    self.button(QtWidgets.QWizard.BackButton).setEnabled(False)
 
                 self.locale_settings_finish.text.setText(self._('locale_finish'))
 
@@ -947,21 +948,21 @@ class WhonixSetupWizard(QtGui.QWizard):
 
 def main():
     #import sys
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
 
     # locale settings are implemented for KDE desktop only.
     # skip if other desktop.
     if sys.argv[1] == 'locale_settings':
         kcmshell = distutils.spawn.find_executable("kcmshell4")
         if kcmshell == None:
-            print 'kcmshell4 not found. Exiting'
+            print('kcmshell4 not found. Exiting')
             sys.exit()
 
     # root check.
     # locale_settings has to be run as user.
     if sys.argv[1] != 'locale_settings':
         if os.getuid() != 0:
-            print 'ERROR: This must be run as root!\nUse "kdesudo".'
+            print('ERROR: This must be run as root!\nUse "kdesudo".')
             not_root = gui_message(Common.translations_path, 'not_root')
             sys.exit(1)
 
