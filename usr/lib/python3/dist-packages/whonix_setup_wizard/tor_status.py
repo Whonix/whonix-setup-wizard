@@ -4,6 +4,24 @@ import sys, fileinput
 from subprocess import call
 import os, time
 
+def tor_status():
+    if not os.path.exists('/etc/tor/torrc'):
+        return 'no_torrc'
+
+    fh = open('/etc/tor/torrc','r')
+    lines = fh.readlines()
+    fh.close()
+
+    line_exists = False
+    for line in lines:
+        if line.strip() == '#DisableNetwork 0':
+            line_exists = True
+            return 'tor_disabled'
+        elif line.strip() == 'DisableNetwork 0':
+            line_exists = True
+
+    if not line_exists:
+        return 'bad_torrc'
 
 def set_enabled():
     if not os.path.exists('/etc/tor/torrc'):
