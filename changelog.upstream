@@ -1,3 +1,100 @@
+commit dcdecbe7caed01f47cdf2d3fa723ac3afcacc464
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Feb 11 14:28:57 2017 +0000
+
+    python-guimessages -> python3-guimessages
+
+commit 241c615f7c92762e690c1aa0bb7e9d994d4a5c87
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Feb 10 15:47:56 2017 +0000
+
+    remove faketime from Build-Depends:
+    
+    since no longer used for reproducible builds
+
+commit 5e7ac3d25de08304697e67c75da6f2a49c0da7b3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Feb 10 15:35:34 2017 +0000
+
+    remove debian/gain-root-command workaround
+
+commit 065d2b9bcf8060c704d8886b034412d206750f43
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Feb 10 15:27:10 2017 +0000
+
+    packaging simplification ruby-ronn (>= 0.7.3) -> ruby-ronn
+
+commit 26b5491354863d11db097fde728efd1e330f9961
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Feb 10 14:56:13 2017 +0000
+
+    update build dependencies for python3
+
+commit 94def7237da900405bfbfcc3a94758f8dc457c2f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Feb 10 14:50:53 2017 +0000
+
+    add missing Depends: whonix-repository
+    
+    otherwhonix whonix-setup-wizard repository would fail
+
+commit 18732accb21ae6003b690cdd1e6dbbc3b8906a9e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Feb 10 14:46:02 2017 +0000
+
+    move tor_status for python3 support
+
+commit 4beda7ce4f2402573c13efd9e6ac0f7469061635
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Feb 10 14:38:24 2017 +0000
+
+    update packaging for python3
+
+commit 40bc88e44f7f97954c6ff066c45b6ecd177d3561
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Feb 10 14:37:54 2017 +0000
+
+    move from usr/share/pyshared/whonix_setup_wizard to usr/lib/python3/dist-packages/whonix_setup_wizard
+
+commit 90e818689f1b2b410aae84a9f484e3978d63ae03
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Feb 10 14:19:00 2017 +0000
+
+    add python3 to Depends:
+
+commit 3f27e6ce11d5c7d0a6299ac8d97a423b738d70e8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Feb 10 14:17:02 2017 +0000
+
+    update dependencies to python3
+
+commit 39196936088f03719dfb33e0d3001438d27b3c3d
+Merge: 1709d0e 2b0949b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Feb 10 14:16:08 2017 +0000
+
+    Merge remote-tracking branch 'joysn/master'
+
+commit 2b0949b850c16bc18c74d8128622ac3adc139027
+Author: joysn <joysn1980@yahoo.com>
+Date:   Fri Feb 10 05:54:40 2017 +0000
+
+    port whonix-setup-wizard to python3
+    https://phabricator.whonix.org/T628
+
+commit 855e836f80712a6dae078d52862ef2529752b4a1
+Author: joysn <joysn1980@yahoo.com>
+Date:   Fri Feb 10 05:51:14 2017 +0000
+
+    port whonix-setup-wizard to python3
+    https://phabricator.whonix.org/T628
+
+commit 1709d0e6fe7d1510856ab0713fdee2c9e7e49f00
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 18 14:36:13 2017 +0000
+
+    bumped changelog version
+
 commit 6f93aa87653ac50864669bb95656df33ce0bf9c8
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Jan 18 14:36:08 2017 +0000
