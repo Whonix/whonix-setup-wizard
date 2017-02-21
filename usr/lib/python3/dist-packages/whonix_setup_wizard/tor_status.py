@@ -37,13 +37,13 @@ def set_enabled():
         if line.strip() == 'DisableNetwork 0':
             line_exists = True
 
-            command = 'systemctl --no-pager tor@default restart'
+            command = 'systemctl --no-pager restart tor@default'
             tor_status = call(command, shell=True)
 
             if tor_status != 0:
                 return 'cannot_connect'
 
-            command = 'systemctl --no-pager tor@default status'
+            command = 'systemctl --no-pager status tor@default'
             tor_status = call(command, shell=True)
 
             if tor_status != 0:
@@ -57,13 +57,13 @@ def set_enabled():
             for i, line in enumerate(fileinput.input('/etc/tor/torrc', inplace=1)):
                 sys.stdout.write(line.replace('#DisableNetwork 0', 'DisableNetwork 0'))
 
-            command = 'systemctl --no-pager tor@default restart'
+            command = 'systemctl --no-pager restart tor@default'
             tor_status = call(command, shell=True)
 
             if tor_status != 0:
                 return 'cannot_connect'
 
-            command = 'systemctl --no-pager tor@default status'
+            command = 'systemctl --no-pager status tor@default'
             tor_status = call(command, shell=True)
 
             if tor_status != 0:
@@ -96,7 +96,7 @@ def set_disabled():
             for i, line in enumerate(fileinput.input('/etc/tor/torrc', inplace=1)):
                 sys.stdout.write(line.replace('DisableNetwork 0', '#DisableNetwork 0'))
 
-            command = 'systemctl --no-pager tor stop'
+            command = 'systemctl --no-pager stop tor'
             call(command, shell=True)
 
             return 'tor_disabled'
