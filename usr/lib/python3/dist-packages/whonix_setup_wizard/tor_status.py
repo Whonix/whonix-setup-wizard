@@ -96,7 +96,7 @@ def set_disabled():
             for i, line in enumerate(fileinput.input('/etc/tor/torrc', inplace=1)):
                 sys.stdout.write(line.replace('DisableNetwork 0', '#DisableNetwork 0'))
 
-            command = 'systemctl --no-pager stop tor'
+            command = 'systemctl --no-pager stop tor@default'
             call(command, shell=True)
 
             return 'tor_disabled'
