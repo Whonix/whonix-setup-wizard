@@ -4,7 +4,7 @@ from subprocess import call
 import sys, os
 import time
 import distutils.spawn
-from whonix_setup_wizard import tor_status
+from whonix_setup_wizard.tor_status import tor_status
 
 
 
