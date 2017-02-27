@@ -1,3 +1,9 @@
+commit 14981a944f8102f41cd1a4ef815d19fd0066d813
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Feb 27 02:07:58 2017 +0000
+
+    add signed commit
+
 commit 52f8760f2a2d5ffda2a38f2d907097e7cf07e6bc
 Merge: 998aad0 4864784
 Author: Patrick Schleizer <adrelanos@riseup.net>
