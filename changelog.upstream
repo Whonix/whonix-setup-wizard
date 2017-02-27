@@ -1,3 +1,45 @@
+commit 52f8760f2a2d5ffda2a38f2d907097e7cf07e6bc
+Merge: 998aad0 4864784
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Feb 26 19:14:31 2017 +0000
+
+    Merge remote-tracking branch 'joysn/master'
+
+commit 4864784435e5da96369167ed7e8f214ceceb3fc3
+Author: JoySN <joysn1980@yahoo.com>
+Date:   Sun Feb 26 09:03:37 2017 +0000
+
+    Minor import issue
+    https://phabricator.whonix.org/T640
+
+commit 998aad0f0b60937c5ec74ccb4646abe39a8a294e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 21 22:37:04 2017 +0000
+
+    fix Tor stop action
+
+commit fb8886781ebb1e8565b4038758659cdc6b33817a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 21 22:36:33 2017 +0000
+
+    fix
+    
+    https://phabricator.whonix.org/T637
+
+commit 91f9882b5f38522da27b4a1051dab99d3520821b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 21 22:21:49 2017 +0000
+
+    use systemctl --no-pager to prevent blocking due to systemctl interactivity
+    
+    https://phabricator.whonix.org/T637
+
+commit 125bbda619ff24d9c2cca3bbf9b3aa5375c2abaa
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Feb 17 14:18:45 2017 +0000
+
+    bumped changelog version
+
 commit dcdecbe7caed01f47cdf2d3fa723ac3afcacc464
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Feb 11 14:28:57 2017 +0000
