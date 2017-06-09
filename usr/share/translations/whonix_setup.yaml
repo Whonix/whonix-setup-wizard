@@ -190,7 +190,7 @@ whonixsetup:
             You must manually find and add the bridges to /etc/tor/torrc.<br></br>
             <blockquote>Start Menu -> Applications -> System -> Torrc</blockquote>
             <p>After you have finished, run whonixsetup again.</p>
-            <p>A detailed instructions on how to add bridges can be found in /etc/tor/torrc.example file's Bridges section.</p>
+            <p>More detailed instructions on how to add bridges can be found in /etc/tor/torrc.example file's Bridges section.</p>
             <blockquote>Start Menu -> Applications -> System -> Torrc.example</blockquote>
 
             <p><i><b>Configure Whonix to Use a VPN.</b></i><br></br>
