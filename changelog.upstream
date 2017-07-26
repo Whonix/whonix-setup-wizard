@@ -1,3 +1,65 @@
+commit 0a383c0ea26300c75714d4af994de76d34df6cd0
+Merge: 70ced07 07cba3a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 9 11:00:53 2017 +0000
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 07cba3ab93a457274473008e1241c1c25892ac65
+Merge: 70ced07 48f868f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jun 9 11:00:46 2017 +0000
+
+    Merge pull request #2 from irykoon/master
+    
+    detailed instructions on bridges
+
+commit 48f868f4a9b1da1a675b8ff88a220615dc0b72cf
+Author: irykoon <irykoon@gmail.com>
+Date:   Fri Jun 9 03:07:58 2017 +0000
+
+    typo fixed
+
+commit 65502348fce6142f1b1974d066a8417a7e047e5e
+Author: irykoon <irykoon@gmail.com>
+Date:   Fri Jun 9 03:03:23 2017 +0000
+
+    add more instructions on configuring bridges
+
+commit 70ced0721166eae19da79a11eaabd77bbf305fcb
+Merge: 7e3b439 5be18a5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jun 5 14:36:28 2017 +0200
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 5be18a5c47d8eb5a86ac40264274cd30f7abfaad
+Merge: 7e3b439 6f9436d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jun 5 14:35:22 2017 +0200
+
+    Merge pull request #1 from irykoon/master
+    
+    update the path to torrc
+
+commit 6f9436d98a5127a3ba28a80ca322919f5e1dca33
+Author: irykoon <irykoon@gmail.com>
+Date:   Sun Jun 4 02:45:57 2017 +0000
+
+    update the path to torrc
+
+commit 7e3b43926bc4e50b977eb1ada4c496186108df85
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Mar 13 17:29:39 2017 +0000
+
+    update maintainer
+
+commit c78ec4983ffe11d0c14a9f62dd7699364a8e1e38
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Mar 6 16:21:33 2017 +0000
+
+    bumped changelog version
+
 commit 80f7f46b6b01b0ea64487ce83c259c0d6994d478
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Mar 6 14:51:47 2017 +0000
