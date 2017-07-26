@@ -250,10 +250,10 @@ whonixsetup:
             for any purpose other than configuring Tor and Whonix.</p>
             <p>The more you learn about Whonix and anonymity, the safer you can become. Reading Whonix documentation
             is recommended.</p>
-            <p>If your host has little RAM, you are advised to reduce Whonix-Gateway RAM to 128 MB. No graphical desktop environment
+            <p>If your host has little RAM, you are advised to reduce Whonix-Gateway RAM to 256 MB. No graphical desktop environment
             will be started in that case. A Whonix-Gateway without graphical desktop environment works as good as one with,
-            it is just not that convenient. If you want, you can sometimes start a graphical desktop environment and sometimes
-            only a terminal by toggling how much RAM is available to Whonix-Gateway.</p><p>Documentation about this feature can be found in
+            but it is not as convenient. If you want, you can start a graphical desktop environment
+            by toggling how much RAM is available to Whonix-Gateway.</p><p>Documentation about this feature can be found in
             <a href=https://www.whonix.org/wiki/Desktop>https://www.whonix.org/wiki/Desktop</a>.</p>
             <p>If you want to change the keyboard layout from the default "us" to something else&#58;
             <blockquote>Start menu button -> Applications -> Settings -> System Settings -> input devices -> layout ->
