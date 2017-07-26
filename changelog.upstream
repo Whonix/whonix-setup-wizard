@@ -1,3 +1,22 @@
+commit 5e0bfd1df899998c99d81111b9abda59d77b5a21
+Merge: dcdea7f 0d28399
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 26 15:27:27 2017 +0000
+
+    Merge remote-tracking branch 'origin/master'
+
+commit dcdea7f80477d01a84b7ddfdec21c8682a561a91
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 26 14:45:16 2017 +0000
+
+    bumped changelog version
+
+commit 0d2839908bfe86892e627987b034765cb02c17c0
+Author: Jason J. Ayala P <JasonJAyalaP+Github@Gmail.com>
+Date:   Fri Jun 16 10:58:10 2017 -0500
+
+    256mb gateway ram documentation change.
+
 commit 0a383c0ea26300c75714d4af994de76d34df6cd0
 Merge: 70ced07 07cba3a
 Author: Patrick Schleizer <adrelanos@riseup.net>
