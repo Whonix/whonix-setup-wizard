@@ -1,3 +1,23 @@
+commit 8349df230e237706d17f0b74d79a674968b850ed
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 6 15:10:05 2018 +0100
+
+    Revert "add missing dependency lsb-release"
+    
+    This reverts commit f967b0e7a87475f760316a2d8a6cd1342e6db776.
+
+commit f967b0e7a87475f760316a2d8a6cd1342e6db776
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 6 14:44:49 2018 +0100
+
+    add missing dependency lsb-release
+
+commit 397a71b49db3a49efa667bf306f2e7f7777580f3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 26 15:35:28 2017 +0000
+
+    bumped changelog version
+
 commit 5e0bfd1df899998c99d81111b9abda59d77b5a21
 Merge: dcdea7f 0d28399
 Author: Patrick Schleizer <adrelanos@riseup.net>
