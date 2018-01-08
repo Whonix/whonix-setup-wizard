@@ -27,7 +27,7 @@ def parse_command_line_parameter():
     import argparse
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('option', choices=['setup', 'quick', 'repository', 'locale_settings'])
+    parser.add_argument('option', choices=['setup', 'repository', 'locale_settings'])
     args, unknown_args = parser.parse_known_args()
 
     return args.option
@@ -42,7 +42,6 @@ class Common:
     first_use_notice = False
     is_complete = False
     disable_repo = False
-    exit_after_tor_enabled = False
 
     if not os.path.exists('/var/cache/whonix-setup-wizard/status-files'):
         os.mkdir('/var/cache/whonix-setup-wizard/status-files')
@@ -51,10 +50,6 @@ class Common:
                 not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonix_repository.skip'))
 
     argument = parse_command_line_parameter()
-
-    if argument == 'quick':
-        exit_after_tor_enabled = True
-        argument = "setup"
 
     if os.path.isfile('/usr/share/anon-gw-base-files/gateway'):
         environment = 'gateway'
