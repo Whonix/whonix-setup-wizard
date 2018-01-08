@@ -15,8 +15,7 @@ import sys
 from guimessages.translations import _translations
 from guimessages.guimessage import gui_message
 
-from whonix_setup_wizard import tor_status
-
+from anon_connection_wizard import tor_status
 from anon_connection_wizard import anon_connection_wizard
 
 import distutils.spawn
