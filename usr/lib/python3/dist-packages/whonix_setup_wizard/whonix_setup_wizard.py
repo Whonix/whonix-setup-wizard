@@ -51,9 +51,6 @@ class Common:
     run_repo = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonix_repository.done') and
                 not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonix_repository.skip'))
 
-    show_disclaimer = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer.done') and
-                       not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer.skip'))
-
     argument = parse_command_line_parameter()
 
     if argument == 'quick':
@@ -67,25 +64,14 @@ class Common:
         environment = 'workstation'
 
     run_whonixcheck_only = (argument == 'setup' and environment == 'workstation'
-                            and not run_repo and not show_disclaimer)
+                            and not run_repo)
 
     if environment == 'gateway':
         first_use_notice = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/first_use_check.done') and
                             not os.path.exists('/var/cache/whonix-setup-wizard/status-files/first_use_check.skip'))
 
     if argument == 'setup':
-        if environment == 'gateway' and show_disclaimer:
-            wizard_steps = ['disclaimer_1',
-                            'disclaimer_2',
-                            'connection_page',
-                            'whonix_repo_page',
-                            'repository_wizard_page_1',
-                            'repository_wizard_page_2',
-                            'repository_wizard_finish',
-                            'finish_page',
-                            'first_use_notice']
-
-        elif environment == 'gateway' and not show_disclaimer:
+        if environment == 'gateway':
             wizard_steps = ['connection_page',
                             'whonix_repo_page',
                             'repository_wizard_page_1',
@@ -94,10 +80,8 @@ class Common:
                             'finish_page',
                             'first_use_notice']
 
-        elif environment == 'workstation'and not run_whonixcheck_only:
-            wizard_steps = ['disclaimer_1',
-                            'disclaimer_2',
-                            'whonix_repo_page',
+        elif environment == 'workstation' and not run_whonixcheck_only:
+            wizard_steps = ['whonix_repo_page',
                             'repository_wizard_page_1',
                             'repository_wizard_page_2',
                             'repository_wizard_finish',
@@ -206,90 +190,6 @@ class LocaleSettingsFinish(QtWidgets.QWizardPage):
         self.layout.addWidget(self.text)
 
         self.setLayout(self.layout)
-
-
-class DisclaimerPage1(QtWidgets.QWizardPage):
-    def __init__(self):
-        super(DisclaimerPage1, self).__init__()
-
-        self.steps = Common.wizard_steps
-
-        self.text = QtWidgets.QTextBrowser(self)
-        self.accept_group = QtWidgets.QGroupBox(self)
-        self.yes_button = QtWidgets.QRadioButton(self.accept_group)
-        self.no_button = QtWidgets.QRadioButton(self.accept_group)
-
-        self.layout = QtWidgets.QVBoxLayout()
-
-        self.setupUi()
-
-    def setupUi(self):
-        self.text.setFrameShape(QtWidgets.QFrame.Panel)
-        self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-
-        self.accept_group.setMinimumSize(0, 60)
-        self.yes_button.setGeometry(QtCore.QRect(30, 10, 300, 21))
-        self.no_button.setGeometry(QtCore.QRect(30, 30, 300, 21))
-        self.no_button.setChecked(True)
-
-        self.layout.addWidget(self.text)
-        self.layout.addWidget(self.accept_group)
-        self.setLayout(self.layout)
-
-    def nextId(self):
-        if self.yes_button.isChecked():
-            return self.steps.index('disclaimer_2')
-        # Not understood
-        elif self.no_button.isChecked():
-            return self.steps.index('finish_page')
-
-
-class DisclaimerPage2(QtWidgets.QWizardPage):
-    def __init__(self):
-        super(DisclaimerPage2, self).__init__()
-
-        self.steps = Common.wizard_steps
-        self.env = Common.environment
-
-        self.text = QtWidgets.QTextBrowser(self)
-        self.accept_group = QtWidgets.QGroupBox(self)
-        self.yes_button = QtWidgets.QRadioButton(self.accept_group)
-        self.no_button = QtWidgets.QRadioButton(self.accept_group)
-
-        self.layout = QtWidgets.QVBoxLayout()
-
-        self.setupUi()
-
-    def setupUi(self):
-        self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-        self.text.setFrameShape(QtWidgets.QFrame.Panel)
-
-        self.accept_group.setMinimumSize(0, 60)
-        self.yes_button.setGeometry(QtCore.QRect(30, 10, 300, 21))
-        self.no_button.setGeometry(QtCore.QRect(30, 30, 300, 21))
-        self.no_button.setChecked(True)
-
-        self.layout.addWidget(self.text)
-        self.layout.addWidget(self.accept_group)
-        self.setLayout(self.layout)
-
-    def nextId(self):
-        if self.yes_button.isChecked():
-            if Common.run_repo:
-                if self.env == 'gateway':
-                    return self.steps.index('connection_page')
-                elif self.env == 'workstation':
-                # run whonix_repository_wizard
-                    return self.steps.index('whonix_repo_page')
-            else:
-                if self.env == 'gateway':
-                    return self.steps.index('connection_page')
-                elif self.env == 'workstation':
-                    return self.steps.index('finish_page')
-        # Not understood
-        else:
-            return self.steps.index('finish_page')
-
 
 class ConnectionPage(QtWidgets.QWizardPage):
     def __init__(self):
@@ -525,13 +425,6 @@ class WhonixSetupWizard(QtWidgets.QWizard):
             self.addPage(self.repository_wizard_finish)
 
         if Common.argument == 'setup':
-            if Common.show_disclaimer:
-                self.disclaimer_1 = DisclaimerPage1()
-                self.addPage(self.disclaimer_1)
-
-                self.disclaimer_2 = DisclaimerPage2()
-                self.addPage(self.disclaimer_2)
-
             if Common.run_whonixcheck_only:
                 self.finish_page = FinishPage()
                 self.addPage(self.finish_page)
@@ -607,15 +500,6 @@ class WhonixSetupWizard(QtWidgets.QWizard):
                 Common.is_complete = True
 
             else:
-                if Common.argument == 'setup' and Common.show_disclaimer:
-                    self.disclaimer_1.text.setText(self._('disclaimer_1'))
-                    self.disclaimer_1.yes_button.setText(self._('accept'))
-                    self.disclaimer_1.no_button.setText(self._('reject'))
-
-                    self.disclaimer_2.text.setText(self._('disclaimer_2'))
-                    self.disclaimer_2.yes_button.setText(self._('accept'))
-                    self.disclaimer_2.no_button.setText(self._('reject'))
-
                 if Common.argument == 'setup'and self.env == 'gateway':
                     self.connection_page.text.setText(self._('connection_text'))
 
@@ -648,7 +532,7 @@ class WhonixSetupWizard(QtWidgets.QWizard):
             if self.env == 'gateway':
                 pass
 
-        if not Common.show_disclaimer and not Common.argument == 'locale_settings':
+        if not Common.argument == 'locale_settings':
             self.resize(580, 390)
 
         self.exec_()
@@ -762,19 +646,6 @@ class WhonixSetupWizard(QtWidgets.QWizard):
                 # for whonixcheck.
                 Common.is_complete = True
 
-                if Common.show_disclaimer:
-                    # Disclaimer page 1 not understood -> leave
-                    if self.disclaimer_1.no_button.isChecked():
-                        self.hide()
-                        command = '/sbin/poweroff'
-                        call(command, shell=True)
-
-                    # Disclaimer page 2 not understood -> leave
-                    if self.disclaimer_2.no_button.isChecked():
-                        self.hide()
-                        command = '/sbin/poweroff'
-                        call(command, shell=True)
-
                 if self.env == 'workstation':
                     self.finish_page.icon.setPixmap(QtGui.QPixmap( \
                     '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
@@ -801,13 +672,6 @@ class WhonixSetupWizard(QtWidgets.QWizard):
     def back_button_clicked(self):
         Common.is_complete = False
 
-        if Common.argument == 'setup' and Common.show_disclaimer:
-            if self.currentId() == self.steps.index('disclaimer_2'):
-                # Back to disclaimer size.
-                self.resize(760, self.disclaimer_height)
-                self.center()
-
-
 def main():
     #import sys
     app = QtWidgets.QApplication(sys.argv)
@@ -832,10 +696,6 @@ def main():
 
     if Common.run_repo:
         f = open('/var/cache/whonix-setup-wizard/status-files/whonix_repository.done', 'w')
-        f.close()
-
-    if Common.show_disclaimer:
-        f = open('/var/cache/whonix-setup-wizard/status-files/disclaimer.done', 'w')
         f.close()
 
     if Common.first_use_notice:
