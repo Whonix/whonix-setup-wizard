@@ -74,31 +74,6 @@ whonixsetup:
             <p>Press "Next" and try and fix the problem as per the instructions, or as a last resort,
             report a bug.</p>
 
-        no_torrc:
-            <p>The file "/etc/tor/torrc" does not exist.</p>
-            <p>You can try to manually create /etc/tor/torrc. Open it&#58;
-            <blockquote>Start Menu -> Applications -> System -> Torrc</blockquote>
-            And add.
-            <blockquote>#DisableNetwork 0</blockquote>
-            Save. Then re-run Whonix Setup.</p>
-
-        bad_torrc:
-            <p>The line "DisableNetwork 0" does not exist in "/etc/tor/torrc".</p>
-            <p>You can try to manually edit /etc/tor/torrc&#58;
-            <blockquote>Start Menu -> Applications -> System -> Torrc</blockquote>
-            <p>Add line containing only "DisableNetwork 0" (without the quotes),
-            and re-run Whonix Setup.</p>
-
-        cannot_connect:
-            <p>"sudo service tor@default status" returned non-zero exit code , which means Tor does NOT work.</p>
-            <p>Maybe your Whonix-Gateway has only one network card attached? Most likely there
-            is something wrong with your /etc/tor/torrc.</p>
-            <p>You can try to manually edit /etc/tor/torrc&#58; </p>
-            <blockquote>Start Menu -> Applications -> System -> Torrc</blockquote>
-            <p>Running&#58; </p>
-            <blockquote>sudo service tor@default restart</blockquote>
-            <p>might help with troubleshooting.</p>
-
         tooltip_1:
             <p>This option lets you connect to the public Tor network now.</p>
             <p></p>
