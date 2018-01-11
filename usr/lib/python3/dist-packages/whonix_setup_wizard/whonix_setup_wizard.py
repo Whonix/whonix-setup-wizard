@@ -26,7 +26,7 @@ def parse_command_line_parameter():
     import argparse
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('option', choices=['setup', 'repository', 'locale_settings'])
+    parser.add_argument('option', choices=['setup', 'locale_settings'])
     args, unknown_args = parser.parse_known_args()
 
     return args.option
@@ -40,13 +40,9 @@ class Common:
 
     first_use_notice = False
     is_complete = False
-    disable_repo = False
 
     if not os.path.exists('/var/cache/whonix-setup-wizard/status-files'):
         os.mkdir('/var/cache/whonix-setup-wizard/status-files')
-
-    run_repo = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonix_repository.done') and
-                not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonix_repository.skip'))
 
     argument = parse_command_line_parameter()
 
@@ -56,8 +52,7 @@ class Common:
     elif os.path.isfile('/usr/share/anon-ws-base-files/workstation'):
         environment = 'workstation'
 
-    run_whonixcheck_only = (argument == 'setup' and environment == 'workstation'
-                            and not run_repo)
+    run_whonixcheck_only = (argument == 'setup' and environment == 'workstation')
 
     if environment == 'gateway':
         first_use_notice = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/first_use_check.done') and
@@ -66,27 +61,14 @@ class Common:
     if argument == 'setup':
         if environment == 'gateway':
             wizard_steps = ['connection_page',
-                            'whonix_repo_page',
-                            'repository_wizard_page_1',
-                            'repository_wizard_page_2',
-                            'repository_wizard_finish',
                             'finish_page',
                             'first_use_notice']
 
         elif environment == 'workstation' and not run_whonixcheck_only:
-            wizard_steps = ['whonix_repo_page',
-                            'repository_wizard_page_1',
-                            'repository_wizard_page_2',
-                            'repository_wizard_finish',
-                            'finish_page']
+            wizard_steps = ['finish_page']
 
         elif environment == 'workstation'and run_whonixcheck_only:
             wizard_steps = ['finish_page']
-
-    elif argument == 'repository':
-        wizard_steps = ['repository_wizard_page_1',
-                        'repository_wizard_page_2',
-                        'repository_wizard_finish']
 
     elif argument == 'locale_settings':
         wizard_steps = ['locale_settings',
@@ -239,124 +221,6 @@ class ConnectionPage(QtWidgets.QWizardPage):
             
             #QtWidgets.QWizard.NextButton.setEnabled(True)
 
-class WhonixRepositoryPage(QtWidgets.QWizardPage):
-    def __init__(self):
-        super(WhonixRepositoryPage, self).__init__()
-
-        self.steps = Common.wizard_steps
-
-        self.text = QtWidgets.QTextBrowser(self)
-        self.layout = QtWidgets.QGridLayout()
-
-        self.setupUi()
-
-    def setupUi(self):
-        self.text.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-
-        self.layout.addWidget(self.text)
-        self.setLayout(self.layout)
-
-    def nextId(self):
-        Common.run_repo = True
-        return self.steps.index('repository_wizard_page_1')
-
-
-class RepositoryWizardPage1(QtWidgets.QWizardPage):
-    def __init__(self):
-        super(RepositoryWizardPage1, self).__init__()
-
-        self.steps = Common.wizard_steps
-
-        self.text = QtWidgets.QTextBrowser(self)
-
-        self.enable_group = QtWidgets.QGroupBox(self)
-        self.enable_repo = QtWidgets.QRadioButton(self.enable_group)
-        self.disable_repo = QtWidgets.QRadioButton(self.enable_group)
-
-        self.layout = QtWidgets.QVBoxLayout()
-
-        self.setupUi()
-
-    def setupUi(self):
-        self.text.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-        self.text.setOpenExternalLinks(True)
-
-        self.enable_group.setMinimumSize(0, 60)
-        self.enable_repo.setGeometry(QtCore.QRect(30, 10, 400, 21))
-        self.disable_repo.setGeometry(QtCore.QRect(30, 30, 400, 21))
-
-        self.enable_repo.setChecked(True)
-
-        self.layout.addWidget(self.text)
-        self.layout.addWidget(self.enable_group)
-        self.setLayout(self.layout)
-
-    def nextId(self):
-        if self.enable_repo.isChecked():
-            return self.steps.index('repository_wizard_page_2')
-
-        elif self.disable_repo.isChecked():
-            Common.disable_repo = True
-            return self.steps.index('repository_wizard_finish')
-
-
-class RepositoryWizardPage2(QtWidgets.QWizardPage):
-    def __init__(self):
-        super(RepositoryWizardPage2, self).__init__()
-
-        self.text = QtWidgets.QTextBrowser(self)
-
-        self.repo_group = QtWidgets.QGroupBox(self)
-        self.stable_repo = QtWidgets.QRadioButton(self.repo_group)
-        self.stable_proposed_updates_repo = QtWidgets.QRadioButton(self.repo_group)
-        self.testers_repo = QtWidgets.QRadioButton(self.repo_group)
-        self.devs_repo = QtWidgets.QRadioButton(self.repo_group)
-
-        self.layout = QtWidgets.QVBoxLayout()
-
-        self.setupUi()
-
-    def setupUi(self):
-        self.text.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-
-        self.repo_group.setMinimumSize(0, 100)
-        self.stable_repo.setGeometry(QtCore.QRect(30, 10, 400, 21))
-        self.stable_proposed_updates_repo.setGeometry(QtCore.QRect(30, 30, 400, 21))
-        self.testers_repo.setGeometry(QtCore.QRect(30, 50, 400, 21))
-        self.devs_repo.setGeometry(QtCore.QRect(30, 70, 400, 21))
-
-        self.stable_repo.setText("Whonix Stable Repository")
-        self.stable_proposed_updates_repo.setText("Whonix Stable Proposed Updates Repository")
-        self.testers_repo.setText("Whonix Testers Repository")
-        self.devs_repo.setText("Whonix Developers Repository")
-
-        self.stable_repo.setChecked(True)
-
-        self.layout.addWidget(self.text)
-        self.layout.addWidget(self.repo_group)
-        self.setLayout(self.layout)
-
-
-class RepositoryWizardfinish(QtWidgets.QWizardPage):
-    def __init__(self):
-        super(RepositoryWizardfinish, self).__init__()
-
-        self.text = QtWidgets.QTextBrowser(self)
-        self.layout = QtWidgets.QVBoxLayout()
-
-        self.setupUi()
-
-    def setupUi(self):
-        self.text.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-
-        self.layout.addWidget(self.text)
-        self.setLayout(self.layout)
-
-
 class FinishPage(QtWidgets.QWizardPage):
     def __init__(self):
         super(FinishPage, self).__init__()
@@ -407,16 +271,6 @@ class WhonixSetupWizard(QtWidgets.QWizard):
         self.steps = Common.wizard_steps
         self.env = Common.environment
 
-        if Common.argument == 'repository':
-            self.repository_wizard_page_1 = RepositoryWizardPage1()
-            self.addPage(self.repository_wizard_page_1)
-
-            self.repository_wizard_page_2 = RepositoryWizardPage2()
-            self.addPage(self.repository_wizard_page_2)
-
-            self.repository_wizard_finish = RepositoryWizardfinish()
-            self.addPage(self.repository_wizard_finish)
-
         if Common.argument == 'setup':
             if Common.run_whonixcheck_only:
                 self.finish_page = FinishPage()
@@ -426,18 +280,6 @@ class WhonixSetupWizard(QtWidgets.QWizard):
                 if self.env == 'gateway':
                     self.connection_page = ConnectionPage()
                     self.addPage(self.connection_page)
-
-                self.whonix_repo_page = WhonixRepositoryPage()
-                self.addPage(self.whonix_repo_page)
-
-                self.repository_wizard_page_1 = RepositoryWizardPage1()
-                self.addPage(self.repository_wizard_page_1)
-
-                self.repository_wizard_page_2 = RepositoryWizardPage2()
-                self.addPage(self.repository_wizard_page_2)
-
-                self.repository_wizard_finish = RepositoryWizardfinish()
-                self.addPage(self.repository_wizard_finish)
 
                 self.finish_page = FinishPage()
                 self.addPage(self.finish_page)
@@ -466,8 +308,6 @@ class WhonixSetupWizard(QtWidgets.QWizard):
 
         if Common.argument == 'setup' and not Common.run_whonixcheck_only:
             self.resize(760, self.disclaimer_height)
-        elif Common.argument == 'repository':
-            self.resize(580, 390)
         elif Common.argument == 'locale_settings':
             self.resize(440, 168)
 
@@ -498,15 +338,6 @@ class WhonixSetupWizard(QtWidgets.QWizard):
 
                     if Common.first_use_notice:
                         self.first_use_notice.text.setText(self._('first_use_notice'))
-
-
-                if ((Common.argument == 'setup' or Common.argument == 'repository')
-                    and not Common.run_whonixcheck_only):
-                    self.repository_wizard_page_1.text.setText(self._('repo_page_1'))
-                    self.repository_wizard_page_1.enable_repo.setText(self._('repo_enable'))
-                    self.repository_wizard_page_1.disable_repo.setText(self._('repo_disable'))
-
-                    self.repository_wizard_page_2.text.setText(self._('repo_page_2'))
 
         except (yaml.scanner.ScannerError, yaml.parser.ParserError):
             pass
@@ -559,8 +390,7 @@ class WhonixSetupWizard(QtWidgets.QWizard):
         """
         if Common.argument == 'setup':
             if self.env == 'workstation':
-                if (self.currentId() == self.steps.index('whonix_repo_page') or
-                    self.currentId() == self.steps.index('finish_page')):
+                if (self.currentId() == self.steps.index('finish_page')):
                     self.resize(470, 310)
                     self.center()
 
@@ -569,69 +399,6 @@ class WhonixSetupWizard(QtWidgets.QWizard):
                 if self.currentId() == self.steps.index('connection_page'):
                     self.resize(580, 390)
                     self.center()
-
-            if self.currentId() == self.steps.index('whonix_repo_page'):
-                self.whonix_repo_page.text.setText(self._('whonix_repository_page'))
-
-        if Common.argument == 'setup' or Common.argument == 'repository':
-            if self.currentId() == self.steps.index('repository_wizard_finish'):
-                if Common.disable_repo:
-                    command = 'whonix_repository --disable'
-
-                    QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
-                    exit_code = call(command, shell=True)
-                    QApplication.restoreOverrideCursor()
-
-                    mypath = inspect.getfile(inspect.currentframe())
-
-                    if exit_code == 0:
-                        self.repository_wizard_finish.text.setText(self._('repo_finish_disabled'))
-                        message = 'INFO %s: Ok, exit code of "%s" was %s.' % ( mypath, command, exit_code )
-
-                    else:
-                        error = '<p>ERROR %s: exit code of \"%s\" was %s.</p>' % ( mypath, command, exit_code )
-                        finish_text_failed =  error + self.finish_text_failed
-                        self.repository_wizard_finish.text.setText(self._('repo_finish_failed'))
-                        message = error
-
-                    command = 'echo ' + message
-                    call(command, shell=True)
-                    self.one_shot = False
-
-                else:
-                    if self.repository_wizard_page_2.stable_repo.isChecked():
-                        codename = ' --repository stable'
-
-                    if self.repository_wizard_page_2.stable_proposed_updates_repo.isChecked():
-                        codename = ' --repository stable-proposed-updates'
-
-                    elif self.repository_wizard_page_2.testers_repo.isChecked():
-                        codename = ' --repository testers'
-
-                    elif self.repository_wizard_page_2.devs_repo.isChecked():
-                        codename = ' --repository developers'
-
-                    command = 'whonix_repository --enable' + codename
-
-                    QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
-                    exit_code = call(command, shell=True)
-                    QApplication.restoreOverrideCursor()
-
-                    mypath = inspect.getfile(inspect.currentframe())
-
-                    if exit_code == 0:
-                        self.repository_wizard_finish.text.setText(self._('repo_finish_enabled'))
-                        message = 'INFO %s: Ok, exit code of "%s" was %s.' % ( mypath, command, exit_code )
-
-                    else:
-                        error = '<p>ERROR %s: exit code of \"%s\" was %s.</p>' % ( mypath, command, exit_code )
-                        finish_text_failed =  error + self.finish_text_failed
-                        self.repository_wizard_finish.text.setText(self._('repo_finish_failed'))
-                        message = error
-
-                    command = 'echo ' + message
-                    call(command, shell=True)
-                    self.one_shot = False
 
         if Common.argument == 'setup':
             if self.currentId() == self.steps.index('finish_page'):
@@ -686,10 +453,6 @@ def main():
             sys.exit(1)
 
     wizard = WhonixSetupWizard()
-
-    if Common.run_repo:
-        f = open('/var/cache/whonix-setup-wizard/status-files/whonix_repository.done', 'w')
-        f.close()
 
     if Common.first_use_notice:
         f = open('/var/cache/whonix-setup-wizard/status-files/first_use_check.done', 'w')
