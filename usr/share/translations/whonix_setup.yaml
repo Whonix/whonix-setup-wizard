@@ -12,15 +12,6 @@ whonixsetup:
             Please check that it exists in your system.</p>
             <p>Click "Finish" to start the deskop environment.</p>
 
-        whonix_repository_page:
-            <p>First boot!  Whonix Setup will run Whonix Repository Wizard.</p>
-            <p>Click "Next" to start the wizard and finish Whonix Setup.</p>
-
-        repository_wizard_not_found:
-            <p>First boot! Whonix Repository Wizard should be run, but is not installed. It looks like
-            Whonix Gateway is not fully installed!</p>
-            <p>Click "Next" to finish Whonix Setup.</p>
-
         connection_text:
             <p>Click "Launch Anon Connection Wizard" to configure the Tor connection settings</p>
             <p>After using Anon Connection Wizard, you can either go to the next page by clicking "Next", or reconfigure the network setting by clicking "Relaunch Anon Connection Wizard"</p>
