@@ -7,8 +7,14 @@ import distutils.spawn
 from whonix_setup_wizard.tor_status import tor_status
 
 
-
 if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
+   ## Qubes-Whonix only.
+   ## Display alert that 'whonix-tor-disable' service flag is set and it will need to
+   ## to manually unset if user wants to be able to boot with Tor enabled.
+   if os.path.exists('/var/run/qubes-service/whonix-tor-disable'):
+        command = '/usr/lib/qubes-whonix/alert tor-disabled /usr/lib/qubes-whonix/messages.yaml'
+        call(command, shell = True)
+        sys.exit()
 
     whonix_setup_wizard = distutils.spawn.find_executable("whonix-setup-wizard")
     if not whonix_setup_wizard == "":

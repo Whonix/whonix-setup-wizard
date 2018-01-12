@@ -2,10 +2,11 @@
 ## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
-## whonix-setup-wizard edits /etc/tor/torrc, therefore needs root.
+## anon-connection-wizard (started by whonix-setup-wizard) edits Tor config
+## files, therefore needs root.
+## For better usability, because otherwise the autostart of whonix-setup-wizard
+## at first boot would require password entry.
 ## Feel free to disable it.
-## For better usability, because otherwise the autostart of
-## whonix-setup-wizard
 %sudo ALL=NOPASSWD: /usr/bin/whonix-setup-wizard setup
 %sudo ALL=NOPASSWD: /usr/bin/whonix-setup-wizard locale_settings
 %sudo ALL=NOPASSWD: /usr/lib/whonix-setup-wizard/whonix-setup-wizard-setup
