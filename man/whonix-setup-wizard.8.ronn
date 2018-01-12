@@ -16,7 +16,7 @@ whonix-setup-wizard(8) -- Whonix Settings Wizard
 
 ## SYNOPSIS
 
-`whonix-setup-wizard` {setup,repository,locale_settings}
+`whonix-setup-wizard` {setup,locale_settings}
 
 ## DESCRIPTION
 
@@ -27,8 +27,6 @@ using Whonix, informs about various situations, helps to enable Tor in
 ## EXAMPLES
 
 `whonix-setup-wizard setup`
-
-`whonix-setup-wizard repository`
 
 `whonix-setup-wizard locale_settings`
 
