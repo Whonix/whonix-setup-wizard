@@ -1,3 +1,131 @@
+commit 4dc88058b0bac48ce4b977468d8b638d23586f63
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 12 17:55:08 2018 +0000
+
+    whonix-setup-wizard autostart also in Qubes
+
+commit b605585bee724a7bdaa827410ede79bb315ea1b5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 12 17:50:17 2018 +0000
+
+    fix
+
+commit 18d799bc823ef0cf279ae6d1bb73e870fa599174
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 12 17:39:24 2018 +0000
+
+    sudoers hardening
+
+commit 0ccb02ef6ca6da99dbff67f64845915a6e3b2875
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 12 17:38:29 2018 +0000
+
+    update comment
+
+commit d6c42297c90d9a8f92104183d5b22bb190f2d26a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 12 17:36:21 2018 +0000
+
+    sudoers asterix hardening
+
+commit 48348405a818a714fcddd0b8e838aea8d02708c9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 12 15:59:14 2018 +0000
+
+    remove whonix repository leftovers
+
+commit 347330500d0931f11fd8d50e6a86bbf5309dcec9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 12 15:56:02 2018 +0000
+
+    add "whonix-setup-wizard repository" compatibility
+    
+    (run whonix-repository-wizard then)
+
+commit 6793d6733e79db6e52fcaf1f475970bcc6d33b07
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 12 15:49:49 2018 +0000
+
+    remove whonix repository leftovers
+
+commit 3c5858554218fc62398a4a4daa320a9ff64fbcca
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 12 15:47:33 2018 +0000
+
+    move to whonix-repository
+
+commit 61be73d72b49eb3ed328b14022c7a7e5a8262b0b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 12 15:16:03 2018 +0000
+
+    removed whonix repository setup desktop file since merged into whonix-repository
+
+commit a5fa2031f46d18b19fd7246c5831c38188c7853e
+Merge: 5b8b4a3 a6674a1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 12 14:45:31 2018 +0000
+
+    Merge remote-tracking branch 'irykoon/master'
+
+commit a6674a13f7c826e1672e42340f032696d288a7a5
+Author: irykoon <irykoon@gmail.com>
+Date:   Thu Jan 11 01:00:56 2018 +0000
+
+    Remove whonix_repo pages along with its text in yaml file
+
+commit 87fd8b070d38bc38d127461a0bbf016685a1b794
+Author: irykoon <irykoon@gmail.com>
+Date:   Thu Jan 11 00:30:28 2018 +0000
+
+    Remove unused messages
+
+commit b71a8276cfa4bd6ed90a42f746ce13728543f4c5
+Author: irykoon <irykoon@gmail.com>
+Date:   Mon Jan 8 05:44:05 2018 +0000
+
+    Remove import tor_status from anon-connection-wizard
+    
+    Still we need the anon-connection-wizard as a dependecy because we really use it to do the network connection.
+
+commit 4404d990a2806e55d0dea06dcccb0ff254b1c8ed
+Author: irykoon <irykoon@gmail.com>
+Date:   Mon Jan 8 05:37:57 2018 +0000
+
+    Add anon-connection-wizard as a dependency
+
+commit 6d3331b15bdfe3f8e96823a4d317315bde7c169a
+Author: irykoon <irykoon@gmail.com>
+Date:   Mon Jan 8 05:37:03 2018 +0000
+
+    Remove the "quick" option from whonix-setup-wizard
+
+commit cc00c8b5a83560407737a74746de6d16493fa336
+Author: irykoon <irykoon@gmail.com>
+Date:   Mon Jan 8 05:28:01 2018 +0000
+
+    Use tor_status.py in anon_connection_wizard module instead
+    
+    This will create an dependency on anon-connection-wizard, which means anon-connection-wizard should be installed by default in Whonix.
+
+commit 06af6ccc34f99119173245bb6ec3f329457ba8c7
+Author: irykoon <irykoon@gmail.com>
+Date:   Mon Jan 8 05:22:19 2018 +0000
+
+    Remove disclaimer since we do not need it anymore
+
+commit 57f69206f9a258659bde05f8f4fee496b0dcdd4e
+Merge: 047e91d 5b8b4a3
+Author: irykoon <irykoon@gmail.com>
+Date:   Mon Jan 8 05:00:54 2018 +0000
+
+    Merge remote-tracking branch 'upstream/master'
+
+commit 5b8b4a33b96ccab81b867431484ba9439e089f50
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 6 15:09:02 2018 +0000
+
+    bumped changelog version
+
 commit 8349df230e237706d17f0b74d79a674968b850ed
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Jan 6 15:10:05 2018 +0100
@@ -11,6 +139,25 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Jan 6 14:44:49 2018 +0100
 
     add missing dependency lsb-release
+
+commit 047e91d9e3b78356f739ff565b3090a8bbaf704a
+Author: irykoon <irykoon@gmail.com>
+Date:   Sun Dec 3 07:16:18 2017 +0000
+
+    Remove `tor_status.py`
+    
+    Remove `tor_status.py` from `whonix-setup-wizard` package since an extended version of it is available in `anon-connection-wizard` package.
+
+commit eaf739ba5888db1a92f3518b3d3ae70d217203f3
+Author: irykoon <irykoon@gmail.com>
+Date:   Sun Dec 3 04:57:09 2017 +0000
+
+    Minor commenting
+    
+    Integrate Anon-Connection-Wizard into whonix-setup-wizard
+    
+    1. Remove torrc status page
+    2. Change the connection page to a big button which will launch anon-connection-wizard
 
 commit 397a71b49db3a49efa667bf306f2e7f7777580f3
 Author: Patrick Schleizer <adrelanos@riseup.net>
