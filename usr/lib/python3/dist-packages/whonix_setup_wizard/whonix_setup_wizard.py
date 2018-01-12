@@ -26,7 +26,7 @@ def parse_command_line_parameter():
     import argparse
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('option', choices=['setup', 'locale_settings'])
+    parser.add_argument('option', choices=['setup', 'repository', 'locale_settings'])
     args, unknown_args = parser.parse_known_args()
 
     return args.option
@@ -45,6 +45,13 @@ class Common:
         os.mkdir('/var/cache/whonix-setup-wizard/status-files')
 
     argument = parse_command_line_parameter()
+
+   ## For legacy syntax compatibility.
+    if argument == 'repository':
+      whonix_repository_wizard = distutils.spawn.find_executable("whonix-repository-wizard")
+      command = 'kdesudo {}'.format(whonix_repository_wizard)
+      call(command, shell=True)
+      sys.exit()
 
     if os.path.isfile('/usr/share/anon-gw-base-files/gateway'):
         environment = 'gateway'
@@ -183,7 +190,7 @@ class ConnectionPage(QtWidgets.QWizardPage):
         self.layout = QtWidgets.QVBoxLayout()
 
         self.pushButton_acw = QtWidgets.QPushButton(self)
-        self.pushButton_acw.setChecked(True)        
+        self.pushButton_acw.setChecked(True)
 
         self.pushButton_acw.setSizePolicy(
             QtWidgets.QSizePolicy.Preferred,
@@ -206,7 +213,7 @@ class ConnectionPage(QtWidgets.QWizardPage):
 
         self.pushButton_acw.setEnabled(True)
         self.pushButton_acw.setText('Launch Anon Connection Wizard')
-        self.pushButton_acw.setFont(self.font_big)        
+        self.pushButton_acw.setFont(self.font_big)
         self.pushButton_acw.clicked.connect(self.acw)
 
         self.setLayout(self.layout)
@@ -218,7 +225,7 @@ class ConnectionPage(QtWidgets.QWizardPage):
     def acw(self):
         if(anon_connection_wizard.main()):
             self.pushButton_acw.setText('Relaunch Anon Connection Wizard')
-            
+
             #QtWidgets.QWizard.NextButton.setEnabled(True)
 
 class FinishPage(QtWidgets.QWizardPage):
