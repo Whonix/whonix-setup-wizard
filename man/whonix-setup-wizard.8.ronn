@@ -22,7 +22,7 @@ whonix-setup-wizard(8) -- Whonix Settings Wizard
 
 Graphical version of `whonixsetup`, that asks in which environment you are
 using Whonix, informs about various situations, helps to enable Tor in
-/etc/tor/torrc.
+Tor config.
 
 ## EXAMPLES
 
