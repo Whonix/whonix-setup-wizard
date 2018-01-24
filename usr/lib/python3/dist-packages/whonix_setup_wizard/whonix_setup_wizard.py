@@ -15,7 +15,6 @@ import sys
 from guimessages.translations import _translations
 from guimessages.guimessage import gui_message
 
-from anon_connection_wizard import anon_connection_wizard
 
 import distutils.spawn
 
@@ -31,56 +30,55 @@ def parse_command_line_parameter():
 
     return args.option
 
-
 class Common:
     '''
     Variables and constants used through all the classes
     '''
     translations_path ='/usr/share/translations/whonix_setup.yaml'
-
-    first_use_notice = False
     is_complete = False
+    first_use_notice = (\
+        not os.path.exists('/var/cache/whonix-setup-wizard/status-files/first_use_check.done') and\
+        not os.path.exists('/var/cache/whonix-setup-wizard/status-files/first_use_check.skip'))
 
     if not os.path.exists('/var/cache/whonix-setup-wizard/status-files'):
         os.mkdir('/var/cache/whonix-setup-wizard/status-files')
 
     argument = parse_command_line_parameter()
 
-   ## For legacy syntax compatibility.
-    if argument == 'repository':
-      whonix_repository_wizard = distutils.spawn.find_executable("whonix-repository-wizard")
-      command = 'kdesudo {}'.format(whonix_repository_wizard)
-      call(command, shell=True)
-      sys.exit()
-
+    ## Determine environment
     if os.path.isfile('/usr/share/anon-gw-base-files/gateway'):
         environment = 'gateway'
-
     elif os.path.isfile('/usr/share/anon-ws-base-files/workstation'):
         environment = 'workstation'
+    else:
+        print("Whonix-Setup-Wizard cannot decide environment: marker file in /usr/share/anon-ws-base-files/workstation is missing.")
 
-    run_whonixcheck_only = (argument == 'setup' and environment == 'workstation')
-
-    if environment == 'gateway':
-        first_use_notice = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/first_use_check.done') and
-                            not os.path.exists('/var/cache/whonix-setup-wizard/status-files/first_use_check.skip'))
-
-    if argument == 'setup':
+    ## For legacy syntax compatibility.
+    if argument == 'repository':
+        whonix_repository_wizard = distutils.spawn.find_executable("whonix-repository-wizard")
+        command = 'kdesudo {}'.format(whonix_repository_wizard)
+        call(command, shell=True)
+        sys.exit()
+    elif argument == 'setup':
         if environment == 'gateway':
-            wizard_steps = ['connection_page',
-                            'finish_page',
-                            'first_use_notice']
-
-        elif environment == 'workstation' and not run_whonixcheck_only:
-            wizard_steps = ['finish_page']
-
-        elif environment == 'workstation'and run_whonixcheck_only:
-            wizard_steps = ['finish_page']
-
+            '''
+            anon_connection_wizard is only installed in whonix-gw.
+            ConnectionPage is only called in whonix-gw, too.
+            Therefore, it is reasonable to move the import here to prevent
+            missing dependency that happpen when import anon_connection_wizard in whonix-ws.
+            '''
+            from anon_connection_wizard import anon_connection_wizard
+            anon_connection_wizard = anon_connection_wizard.main()
+            wizard_steps = []
+            if(first_use_notice):
+                wizard_steps.append('first_use_notice')
+        elif environment == 'workstation':
+            wizard_steps = []
     elif argument == 'locale_settings':
         wizard_steps = ['locale_settings',
                         'locale_settings_finish']
-
+    else:
+        print("Unexpected command line argument: {}".format(argument))
 
 class LocaleSettings(QtWidgets.QWizardPage):
     def __init__(self):
@@ -223,8 +221,8 @@ class ConnectionPage(QtWidgets.QWizardPage):
         #QtWidgets.QWizard.NextButton.setEnabled(True)
 
     def acw(self):
-        if(anon_connection_wizard.main()):
-            self.pushButton_acw.setText('Relaunch Anon Connection Wizard')
+        anon_connection_wizard.main()
+        self.pushButton_acw.setText('Relaunch Anon Connection Wizard')
 
             #QtWidgets.QWizard.NextButton.setEnabled(True)
 
@@ -278,29 +276,16 @@ class WhonixSetupWizard(QtWidgets.QWizard):
         self.steps = Common.wizard_steps
         self.env = Common.environment
 
-        if Common.argument == 'setup':
-            if Common.run_whonixcheck_only:
-                self.finish_page = FinishPage()
-                self.addPage(self.finish_page)
-
-            else:
-                if self.env == 'gateway':
-                    self.connection_page = ConnectionPage()
-                    self.addPage(self.connection_page)
-
-                self.finish_page = FinishPage()
-                self.addPage(self.finish_page)
-
-                if self.env == 'gateway'and Common.first_use_notice:
-                    self.first_use_notice = FirstUseNotice()
-                    self.addPage(self.first_use_notice)
-
-        if Common.argument == 'locale_settings':
-            self.locale_settings = LocaleSettings()
-            self.addPage(self.locale_settings)
-
-            self.locale_settings_finish = LocaleSettingsFinish()
-            self.addPage(self.locale_settings_finish)
+        for step in self.steps:
+            if step == 'first_use_notice':
+                self.first_use_notice = FirstUseNotice()
+                self.addPage(self.first_use_notice)
+            elif step == 'locale_settings':
+                self.locale_settings = LocaleSettings()
+                self.addPage(self.locale_settings)
+            elif step == 'locale_settings_finish':
+                self.locale_settings_finish = LocaleSettingsFinish()
+                self.addPage(self.locale_settings_finish)
 
         self.setupUi()
 
@@ -313,7 +298,7 @@ class WhonixSetupWizard(QtWidgets.QWizard):
         if available_height < self.disclaimer_height:
             self.disclaimer_height = available_height
 
-        if Common.argument == 'setup' and not Common.run_whonixcheck_only:
+        if Common.argument == 'setup':
             self.resize(760, self.disclaimer_height)
         elif Common.argument == 'locale_settings':
             self.resize(440, 168)
@@ -333,19 +318,8 @@ class WhonixSetupWizard(QtWidgets.QWizard):
         self.setPalette(palette)
 
         try:
-            if Common.run_whonixcheck_only:
-                self.finish_page.icon.setPixmap(QtGui.QPixmap( \
-                '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
-                self.finish_page.text.setText(self._('finish_page_ok'))
-                Common.is_complete = True
-
-            else:
-                if Common.argument == 'setup'and self.env == 'gateway':
-                    self.connection_page.text.setText(self._('connection_text'))
-
-                    if Common.first_use_notice:
-                        self.first_use_notice.text.setText(self._('first_use_notice'))
-
+            if Common.first_use_notice:
+                self.first_use_notice.text.setText(self._('first_use_notice'))
         except (yaml.scanner.ScannerError, yaml.parser.ParserError):
             pass
 
@@ -459,19 +433,21 @@ def main():
             not_root = gui_message(Common.translations_path, 'not_root')
             sys.exit(1)
 
-    wizard = WhonixSetupWizard()
+    # when there is no page need showing, we simply do not start GUI to
+    # avoid an empty page
+    if len(Common.wizard_steps) != 0:
+        wizard = WhonixSetupWizard()
 
     if Common.first_use_notice:
         f = open('/var/cache/whonix-setup-wizard/status-files/first_use_check.done', 'w')
         f.close()
 
-    if Common.is_complete:
-        if not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done'):
-            f = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
-            f.close()
-        # run whonixcheck
-        command = '/usr/lib/whonixsetup_/ft_m_end'
-        call(command, shell=True)
+    if not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done'):
+        f = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
+        f.close()
+    # run whonixcheck
+    command = '/usr/lib/whonixsetup_/ft_m_end'
+    call(command, shell=True)
 
     sys.exit()
 
