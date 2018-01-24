@@ -20,6 +20,7 @@ if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
 
     whonix_setup_wizard = distutils.spawn.find_executable("whonix-setup-wizard")
     if not whonix_setup_wizard == "":
+        ## TODO: What if whonix-setup-wizard is installed but anon-connection-wizard not?
         from anon_connection_wizard import tor_status
         tor_status = tor_status()
         if (tor_status == 'tor_disabled' or tor_status == 'no_torrc'
