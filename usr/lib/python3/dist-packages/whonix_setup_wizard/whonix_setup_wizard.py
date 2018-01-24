@@ -46,12 +46,12 @@ class Common:
 
     argument = parse_command_line_parameter()
 
-   ## For legacy syntax compatibility.
+    ## For legacy syntax compatibility.
     if argument == 'repository':
-      whonix_repository_wizard = distutils.spawn.find_executable("whonix-repository-wizard")
-      command = 'kdesudo {}'.format(whonix_repository_wizard)
-      call(command, shell=True)
-      sys.exit()
+        whonix_repository_wizard = distutils.spawn.find_executable("whonix-repository-wizard")
+        command = 'kdesudo {}'.format(whonix_repository_wizard)
+        call(command, shell=True)
+        sys.exit()
 
     if os.path.isfile('/usr/share/anon-gw-base-files/gateway'):
         environment = 'gateway'
