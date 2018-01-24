@@ -52,7 +52,7 @@ class Common:
     elif os.path.isfile('/usr/share/anon-ws-base-files/workstation'):
         environment = 'workstation'
     else:
-        print("Whonix-Setup-Wizard cannot decided environment: marker file in /usr/share/anon-ws-base-files/workstation is missing.")
+        print("Whonix-Setup-Wizard cannot decide environment: marker file in /usr/share/anon-ws-base-files/workstation is missing.")
 
     ## For legacy syntax compatibility.
     if argument == 'repository':
