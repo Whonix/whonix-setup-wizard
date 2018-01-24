@@ -4,7 +4,6 @@ from subprocess import call
 import sys, os
 import time
 import distutils.spawn
-from whonix_setup_wizard.tor_status import tor_status
 
 
 if os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.skip')
@@ -21,6 +20,7 @@ if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
 
     whonix_setup_wizard = distutils.spawn.find_executable("whonix-setup-wizard")
     if not whonix_setup_wizard == "":
+        from anon_connection_wizard import tor_status
         tor_status = tor_status()
         if (tor_status == 'tor_disabled' or tor_status == 'no_torrc'
             or tor_status == 'bad_torrc'):
