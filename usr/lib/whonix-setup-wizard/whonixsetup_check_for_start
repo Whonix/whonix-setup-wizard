@@ -13,6 +13,9 @@ if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
    ## Qubes-Whonix only.
    ## Display alert that 'whonix-tor-disable' service flag is set and it will need to
    ## to manually unset if user wants to be able to boot with Tor enabled.
+   ## TODO: Don't depend on qubes-whonix package / 'alert' script by qubes-whonix package.
+   ##       Abolish 'alert' script. Merge into whonixcheck and/or anon-connection-wizard.
+   ##       https://phabricator.whonix.org/T656
    if os.path.exists('/var/run/qubes-service/whonix-tor-disable'):
         command = '/usr/lib/qubes-whonix/alert tor-disabled /usr/lib/qubes-whonix/messages.yaml'
         call(command, shell = True)
