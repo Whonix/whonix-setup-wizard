@@ -15,7 +15,6 @@ import sys
 from guimessages.translations import _translations
 from guimessages.guimessage import gui_message
 
-from anon_connection_wizard import anon_connection_wizard
 
 import distutils.spawn
 
@@ -62,12 +61,19 @@ class Common:
         sys.exit()
     elif argument == 'setup':
         if environment == 'gateway':
-            wizard_steps = ['connection_page',
-                            'finish_page']
+            '''
+            anon_connection_wizard is only installed in whonix-gw.
+            ConnectionPage is only called in whonix-gw, too.
+            Therefore, it is reasonable to move the import here to prevent
+            missing dependency that happpen when import anon_connection_wizard in whonix-ws.
+            '''
+            from anon_connection_wizard import anon_connection_wizard
+            anon_connection_wizard = anon_connection_wizard.main()
+            wizard_steps = []
             if(first_use_notice):
                 wizard_steps.append('first_use_notice')
         elif environment == 'workstation':
-            wizard_steps = ['finish_page']
+            wizard_steps = []
     elif argument == 'locale_settings':
         wizard_steps = ['locale_settings',
                         'locale_settings_finish']
@@ -277,7 +283,7 @@ class WhonixSetupWizard(QtWidgets.QWizard):
 
             else:
                 if self.env == 'gateway':
-                    self.connection_page = ConnectionPage()
+                    self.connection_page = anon_connection_wizard.mainConnectionPage()
                     self.addPage(self.connection_page)
 
                 self.finish_page = FinishPage()
