@@ -31,20 +31,28 @@ def parse_command_line_parameter():
 
     return args.option
 
-
 class Common:
     '''
     Variables and constants used through all the classes
     '''
     translations_path ='/usr/share/translations/whonix_setup.yaml'
-
-    first_use_notice = False
     is_complete = False
+    first_use_notice = (\
+        not os.path.exists('/var/cache/whonix-setup-wizard/status-files/first_use_check.done') and\
+        not os.path.exists('/var/cache/whonix-setup-wizard/status-files/first_use_check.skip'))
 
     if not os.path.exists('/var/cache/whonix-setup-wizard/status-files'):
         os.mkdir('/var/cache/whonix-setup-wizard/status-files')
 
     argument = parse_command_line_parameter()
+
+    ## Determine environment
+    if os.path.isfile('/usr/share/anon-gw-base-files/gateway'):
+        environment = 'gateway'
+    elif os.path.isfile('/usr/share/anon-ws-base-files/workstation'):
+        environment = 'workstation'
+    else:
+        print("Whonix-Setup-Wizard cannot decided environment: marker file in /usr/share/anon-ws-base-files/workstation is missing.")
 
     ## For legacy syntax compatibility.
     if argument == 'repository':
@@ -52,35 +60,19 @@ class Common:
         command = 'kdesudo {}'.format(whonix_repository_wizard)
         call(command, shell=True)
         sys.exit()
-
-    if os.path.isfile('/usr/share/anon-gw-base-files/gateway'):
-        environment = 'gateway'
-
-    elif os.path.isfile('/usr/share/anon-ws-base-files/workstation'):
-        environment = 'workstation'
-
-    run_whonixcheck_only = (argument == 'setup' and environment == 'workstation')
-
-    if environment == 'gateway':
-        first_use_notice = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/first_use_check.done') and
-                            not os.path.exists('/var/cache/whonix-setup-wizard/status-files/first_use_check.skip'))
-
-    if argument == 'setup':
+    elif argument == 'setup':
         if environment == 'gateway':
             wizard_steps = ['connection_page',
-                            'finish_page',
-                            'first_use_notice']
-
-        elif environment == 'workstation' and not run_whonixcheck_only:
+                            'finish_page']
+            if(first_use_notice):
+                wizard_steps.append('first_use_notice')
+        elif environment == 'workstation':
             wizard_steps = ['finish_page']
-
-        elif environment == 'workstation'and run_whonixcheck_only:
-            wizard_steps = ['finish_page']
-
     elif argument == 'locale_settings':
         wizard_steps = ['locale_settings',
                         'locale_settings_finish']
-
+    else:
+        print("Unexpected command line argument: {}".format(argument))
 
 class LocaleSettings(QtWidgets.QWizardPage):
     def __init__(self):
