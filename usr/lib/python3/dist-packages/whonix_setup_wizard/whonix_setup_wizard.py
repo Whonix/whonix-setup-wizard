@@ -276,29 +276,16 @@ class WhonixSetupWizard(QtWidgets.QWizard):
         self.steps = Common.wizard_steps
         self.env = Common.environment
 
-        if Common.argument == 'setup':
-            if Common.run_whonixcheck_only:
-                self.finish_page = FinishPage()
-                self.addPage(self.finish_page)
-
-            else:
-                if self.env == 'gateway':
-                    self.connection_page = anon_connection_wizard.mainConnectionPage()
-                    self.addPage(self.connection_page)
-
-                self.finish_page = FinishPage()
-                self.addPage(self.finish_page)
-
-                if self.env == 'gateway'and Common.first_use_notice:
-                    self.first_use_notice = FirstUseNotice()
-                    self.addPage(self.first_use_notice)
-
-        if Common.argument == 'locale_settings':
-            self.locale_settings = LocaleSettings()
-            self.addPage(self.locale_settings)
-
-            self.locale_settings_finish = LocaleSettingsFinish()
-            self.addPage(self.locale_settings_finish)
+        for step in self.steps:
+            if step == 'first_use_notice':
+                self.first_use_notice = FirstUseNotice()
+                self.addPage(self.first_use_notice)
+            elif step == 'locale_settings':
+                self.locale_settings = LocaleSettings()
+                self.addPage(self.locale_settings)
+            elif step == 'locale_settings_finish':
+                self.locale_settings_finish = LocaleSettingsFinish()
+                self.addPage(self.locale_settings_finish)
 
         self.setupUi()
 
