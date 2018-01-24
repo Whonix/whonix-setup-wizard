@@ -433,7 +433,8 @@ def main():
             not_root = gui_message(Common.translations_path, 'not_root')
             sys.exit(1)
 
-    wizard = WhonixSetupWizard()
+    if len(Common.wizard_steps) != 0:
+        wizard = WhonixSetupWizard()
 
     if Common.first_use_notice:
         f = open('/var/cache/whonix-setup-wizard/status-files/first_use_check.done', 'w')
