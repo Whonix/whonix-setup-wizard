@@ -7,6 +7,9 @@ import distutils.spawn
 from whonix_setup_wizard.tor_status import tor_status
 
 
+if os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.skip')
+   sys.exit()
+
 if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
    ## Qubes-Whonix only.
    ## Display alert that 'whonix-tor-disable' service flag is set and it will need to
