@@ -433,6 +433,8 @@ def main():
             not_root = gui_message(Common.translations_path, 'not_root')
             sys.exit(1)
 
+    # when there is no page need showing, we simply do not start GUI to
+    # avoid an empty page
     if len(Common.wizard_steps) != 0:
         wizard = WhonixSetupWizard()
 
