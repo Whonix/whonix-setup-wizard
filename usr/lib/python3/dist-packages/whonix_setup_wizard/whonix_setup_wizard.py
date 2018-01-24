@@ -223,8 +223,8 @@ class ConnectionPage(QtWidgets.QWizardPage):
         #QtWidgets.QWizard.NextButton.setEnabled(True)
 
     def acw(self):
-        if(anon_connection_wizard.main()):
-            self.pushButton_acw.setText('Relaunch Anon Connection Wizard')
+        anon_connection_wizard.main()
+        self.pushButton_acw.setText('Relaunch Anon Connection Wizard')
 
             #QtWidgets.QWizard.NextButton.setEnabled(True)
 
