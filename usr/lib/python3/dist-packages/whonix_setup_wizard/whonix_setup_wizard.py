@@ -298,7 +298,7 @@ class WhonixSetupWizard(QtWidgets.QWizard):
         if available_height < self.disclaimer_height:
             self.disclaimer_height = available_height
 
-        if Common.argument == 'setup' and not Common.run_whonixcheck_only:
+        if Common.argument == 'setup':
             self.resize(760, self.disclaimer_height)
         elif Common.argument == 'locale_settings':
             self.resize(440, 168)
@@ -318,19 +318,8 @@ class WhonixSetupWizard(QtWidgets.QWizard):
         self.setPalette(palette)
 
         try:
-            if Common.run_whonixcheck_only:
-                self.finish_page.icon.setPixmap(QtGui.QPixmap( \
-                '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
-                self.finish_page.text.setText(self._('finish_page_ok'))
-                Common.is_complete = True
-
-            else:
-                if Common.argument == 'setup'and self.env == 'gateway':
-                    self.connection_page.text.setText(self._('connection_text'))
-
-                    if Common.first_use_notice:
-                        self.first_use_notice.text.setText(self._('first_use_notice'))
-
+            if Common.first_use_notice:
+                self.first_use_notice.text.setText(self._('first_use_notice'))
         except (yaml.scanner.ScannerError, yaml.parser.ParserError):
             pass
 
@@ -450,13 +439,12 @@ def main():
         f = open('/var/cache/whonix-setup-wizard/status-files/first_use_check.done', 'w')
         f.close()
 
-    if Common.is_complete:
-        if not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done'):
-            f = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
-            f.close()
-        # run whonixcheck
-        command = '/usr/lib/whonixsetup_/ft_m_end'
-        call(command, shell=True)
+    if not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done'):
+        f = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
+        f.close()
+    # run whonixcheck
+    command = '/usr/lib/whonixsetup_/ft_m_end'
+    call(command, shell=True)
 
     sys.exit()
 
