@@ -41,7 +41,6 @@ if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
 elif os.path.exists('/usr/share/anon-ws-base-files/workstation'):
 
     run_whonix_setup_wizard = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done') and
-                               not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.skip') and
                                not os.path.exists('/var/lib/whonix/do_once/whonixsetup.done'))
 
     if run_whonix_setup_wizard:
