@@ -7,8 +7,13 @@ import distutils.spawn
 
 
 if os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.skip'):
-   print('/var/cache/whonix-setup-wizard/status-files/whonixsetup.skip exists. Exiting')
+   print('/var/cache/whonix-setup-wizard/status-files/whonixsetup.skip exists. Exiting.')
    sys.exit()
+
+whonix_setup_wizard = distutils.spawn.find_executable("whonix-setup-wizard")
+if whonix_setup_wizard == None:
+   print('whonix-setup-wizard not found! Exiting.')
+   sys.exit(1)
 
 if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
    ## Qubes-Whonix only.
@@ -21,8 +26,6 @@ if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
         command = '/usr/lib/qubes-whonix/alert tor-disabled /usr/lib/qubes-whonix/messages.yaml'
         call(command, shell = True)
         sys.exit()
-
-    whonix_setup_wizard = distutils.spawn.find_executable("whonix-setup-wizard")
 
     ## TODO: What if whonix-setup-wizard is installed but anon-connection-wizard not?
     from anon_connection_wizard import tor_status
@@ -43,10 +46,8 @@ elif os.path.exists('/usr/share/anon-ws-base-files/workstation'):
 
     if (os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done') or
                                os.path.exists('/var/lib/whonix/do_once/whonixsetup.done')):
-       print('whonix-setup-wizard done file exists. Exiting')
+       print('whonix-setup-wizard done file exists. Exiting.')
        sys.exit()
-
-    whonix_setup_wizard = distutils.spawn.find_executable("whonix-setup-wizard")
 
     command = 'xhost +local:root'
     call(command, shell = True)
