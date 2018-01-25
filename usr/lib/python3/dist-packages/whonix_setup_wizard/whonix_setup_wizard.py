@@ -58,6 +58,11 @@ class Common:
         whonix_repository_wizard = distutils.spawn.find_executable("whonix-repository-wizard")
         command = 'kdesudo {}'.format(whonix_repository_wizard)
         call(command, shell=True)
+        # run whonixcheck only when setup or repository option is selected.
+        # note that the case for setup will be handled at the end, not here.
+        command = '/usr/lib/whonixsetup_/ft_m_end'
+        call(command, shell=True)
+
         sys.exit()
     elif argument == 'setup':
         if environment == 'gateway':
@@ -445,9 +450,12 @@ def main():
     if not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done'):
         f = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
         f.close()
-    # run whonixcheck
-    command = '/usr/lib/whonixsetup_/ft_m_end'
-    call(command, shell=True)
+
+    # run whonixcheck only when setup or repository option is selected.
+    # note that the case for repository has been handled before.
+    if Common.argument == 'setup':
+        command = '/usr/lib/whonixsetup_/ft_m_end'
+        call(command, shell=True)
 
     sys.exit()
 
