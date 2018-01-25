@@ -4,44 +4,75 @@ from subprocess import call
 import sys, os
 import time
 import distutils.spawn
-from whonix_setup_wizard.tor_status import tor_status
+
+
+def whonix_setup_wizard_start():
+   whonix_setup_wizard = distutils.spawn.find_executable("whonix-setup-wizard")
+   if whonix_setup_wizard == None:
+      print('whonix-setup-wizard not found! Exiting.')
+      sys.exit(1)
+
+   command = 'xhost +local:root'
+   call(command, shell = True)
+
+   command = 'kdesudo %s setup' % (whonix_setup_wizard)
+   call(command, shell=True)
+
+
+if os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.skip'):
+   print('/var/cache/whonix-setup-wizard/status-files/whonixsetup.skip exists. Exiting.')
+   sys.exit()
 
 
 if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
-   ## Qubes-Whonix only.
-   ## Display alert that 'whonix-tor-disable' service flag is set and it will need to
-   ## to manually unset if user wants to be able to boot with Tor enabled.
-   if os.path.exists('/var/run/qubes-service/whonix-tor-disable'):
+    ## Qubes-Whonix only.
+    ## Display alert that 'whonix-tor-disable' service flag is set and it will need to
+    ## to manually unset if user wants to be able to boot with Tor enabled.
+    ## TODO: Don't depend on qubes-whonix package / 'alert' script by qubes-whonix package.
+    ##       Abolish 'alert' script. Merge into whonixcheck and/or anon-connection-wizard.
+    ##       https://phabricator.whonix.org/T656
+    if os.path.exists('/var/run/qubes-service/whonix-tor-disable'):
         command = '/usr/lib/qubes-whonix/alert tor-disabled /usr/lib/qubes-whonix/messages.yaml'
         call(command, shell = True)
         sys.exit()
 
-    whonix_setup_wizard = distutils.spawn.find_executable("whonix-setup-wizard")
-    if not whonix_setup_wizard == "":
-        tor_status = tor_status()
-        if (tor_status == 'tor_disabled' or tor_status == 'no_torrc'
-            or tor_status == 'bad_torrc'):
-            command = 'xhost +local:root'
-            call(command, shell = True)
+    ## TODO: Make sure systemd unit tor@default starts before /etc/xdg/autostart/whonix-setup-wizard.desktop
+    #command = 'systemctl --no-pager status tor@default'
+    #tor_status_code = call(command, shell=True)
+    #if tor_status_code != 0:
+       #print('Starting whonix-setup-wizard because Tor systemd unit is not running. \
+#This could be because of a Tor configuration issue.')
+       #whonix_setup_wizard_start()
+       #sys.exit()
 
-            command = 'kdesudo %s setup' % (whonix_setup_wizard)
-            call(command, shell=True)
+    ## We cannot depend on anon-connection-wizard because it would be confusing to have
+    ## it installed on Whonix-Workstation.
+    ## What if whonix-setup-wizard is installed but anon-connection-wizard not? Well, in that
+    ## case the user should be knowing what the user is doing. Happens only in cases where
+    ## the user does not use Whonix's default anon-meta-packages. In that case just error out.
+    from anon_connection_wizard import tor_status
+    tor_status = tor_status.tor_status()
 
-    else:
-        command = '/usr/lib/whonixsetup_cli_start_maybe'
-        call(command, shell = True)
+    if tor_status == 'tor_enabled':
+       print('Tor already enabled. Exiting.')
+       sys.exit()
+
+    print(tor_status)
+
+    whonix_setup_wizard_start()
+
 
 elif os.path.exists('/usr/share/anon-ws-base-files/workstation'):
 
-    run_whonix_setup_wizard = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done') and
-                               not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.skip') and
-                               not os.path.exists('/var/lib/whonix/do_once/whonixsetup.done'))
+    if (os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done') or
+                               os.path.exists('/var/lib/whonix/do_once/whonixsetup.done')):
+       print('whonix-setup-wizard done file exists. Exiting.')
+       sys.exit()
 
-    if run_whonix_setup_wizard:
-        whonix_setup_wizard = distutils.spawn.find_executable("whonix-setup-wizard")
-        if not whonix_setup_wizard == "":
-            command = 'xhost +local:root'
-            call(command, shell = True)
+    whonix_setup_wizard_start()
 
-            command = 'kdesudo %s setup' % (whonix_setup_wizard)
-            call(command, shell=True)
+
+else:
+
+    print('Neither Whonix-Gateway nor Whonix-Workstation detected. Exiting.')
+    sys.exit(1)
