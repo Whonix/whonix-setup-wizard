@@ -51,3 +51,9 @@ elif os.path.exists('/usr/share/anon-ws-base-files/workstation'):
 
     command = 'kdesudo %s setup' % (whonix_setup_wizard)
     call(command, shell=True)
+
+
+else:
+
+    print('Neither Whonix-Gateway nor Whonix-Workstation detected. Exiting.')
+    sys.exit(1)
