@@ -32,13 +32,12 @@ if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
     ## TODO: What if whonix-setup-wizard is installed but anon-connection-wizard not?
     from anon_connection_wizard import tor_status
     tor_status = tor_status.tor_status()
-    if (tor_status == 'tor_disabled' or tor_status == 'no_torrc'
-        or tor_status == 'bad_torrc'):
-           command = 'xhost +local:root'
-           call(command, shell = True)
+    if not tor_status == 'tor_enabled':
+        command = 'xhost +local:root'
+        call(command, shell = True)
 
-           command = 'kdesudo %s setup' % (whonix_setup_wizard)
-           call(command, shell=True)
+        command = 'kdesudo %s setup' % (whonix_setup_wizard)
+        call(command, shell=True)
 
 
 elif os.path.exists('/usr/share/anon-ws-base-files/workstation'):
