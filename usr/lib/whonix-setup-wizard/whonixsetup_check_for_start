@@ -6,14 +6,23 @@ import time
 import distutils.spawn
 
 
+def whonix_setup_wizard_start():
+   whonix_setup_wizard = distutils.spawn.find_executable("whonix-setup-wizard")
+   if whonix_setup_wizard == None:
+      print('whonix-setup-wizard not found! Exiting.')
+      sys.exit(1)
+
+   command = 'xhost +local:root'
+   call(command, shell = True)
+
+   command = 'kdesudo %s setup' % (whonix_setup_wizard)
+   call(command, shell=True)
+
+
 if os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.skip'):
    print('/var/cache/whonix-setup-wizard/status-files/whonixsetup.skip exists. Exiting.')
    sys.exit()
 
-whonix_setup_wizard = distutils.spawn.find_executable("whonix-setup-wizard")
-if whonix_setup_wizard == None:
-   print('whonix-setup-wizard not found! Exiting.')
-   sys.exit(1)
 
 if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
     ## Qubes-Whonix only.
@@ -41,11 +50,7 @@ if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
 
     print(tor_status)
 
-    command = 'xhost +local:root'
-    call(command, shell = True)
-
-    command = 'kdesudo %s setup' % (whonix_setup_wizard)
-    call(command, shell=True)
+    whonix_setup_wizard_start()
 
 
 elif os.path.exists('/usr/share/anon-ws-base-files/workstation'):
@@ -55,11 +60,7 @@ elif os.path.exists('/usr/share/anon-ws-base-files/workstation'):
        print('whonix-setup-wizard done file exists. Exiting.')
        sys.exit()
 
-    command = 'xhost +local:root'
-    call(command, shell = True)
-
-    command = 'kdesudo %s setup' % (whonix_setup_wizard)
-    call(command, shell=True)
+    whonix_setup_wizard_start()
 
 
 else:
