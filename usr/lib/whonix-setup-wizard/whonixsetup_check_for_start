@@ -38,9 +38,6 @@ if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
            command = 'kdesudo %s setup' % (whonix_setup_wizard)
            call(command, shell=True)
 
-    else:
-        command = '/usr/lib/whonixsetup_cli_start_maybe'
-        call(command, shell = True)
 
 elif os.path.exists('/usr/share/anon-ws-base-files/workstation'):
 
