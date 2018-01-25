@@ -34,6 +34,7 @@ if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
     ## the user does not use Whonix's default anon-meta-packages. In that case just error out.
     from anon_connection_wizard import tor_status
     tor_status = tor_status.tor_status()
+    print(tor_status)
     if not tor_status == 'tor_enabled':
         command = 'xhost +local:root'
         call(command, shell = True)
