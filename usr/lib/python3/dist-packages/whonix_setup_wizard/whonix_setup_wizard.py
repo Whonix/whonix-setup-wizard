@@ -440,8 +440,10 @@ def main():
 
     # when there is no page need showing, we simply do not start GUI to
     # avoid an empty page
-    if len(Common.wizard_steps) != 0:
-        wizard = WhonixSetupWizard()
+    if len(Common.wizard_steps) == 0:
+       sys.exit()
+
+    wizard = WhonixSetupWizard()
 
     if Common.first_use_notice:
         f = open('/var/cache/whonix-setup-wizard/status-files/first_use_check.done', 'w')
