@@ -1,3 +1,252 @@
+commit a269bbc616487e57e2ad092f517c0ccc7aa3fed0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 29 16:01:09 2018 +0000
+
+    exit if there is no page to show
+
+commit 239cfe38c8bed22811b7b1efdf08b6e97d7dfe2d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 29 15:50:58 2018 +0000
+
+    readme
+
+commit bc5e6dff4d83f54c3db229771ece17eb4f6b50eb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 29 15:39:07 2018 +0000
+
+    update copyright
+
+commit 9dd820c8c2315ce629d84d4a003f38db81dbb8b7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 29 15:22:16 2018 +0000
+
+    update copyright
+
+commit 0b382baf38822d33d4feb9d581367155cd77bd65
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 29 15:15:28 2018 +0000
+
+    update copyright
+
+commit 85414c5a65664f11c3af0b613aa43c251a33459d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 29 15:09:53 2018 +0000
+
+    update copyright
+
+commit a4d8b04a995971980af5fb356fc5fa7e463ca92d
+Merge: cf1d3db 5f0b7fa
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 25 21:16:51 2018 +0100
+
+    Merge remote-tracking branch 'irykoon/master'
+
+commit 5f0b7fa9b12eadb61858c422a265e5a51afa5d22
+Merge: f8ad8ac cf1d3db
+Author: irykoon <irykoon@gmail.com>
+Date:   Thu Jan 25 05:14:20 2018 +0000
+
+    Merge remote-tracking branch 'origin/master'
+
+commit f8ad8ac24acc748a8a2669fa18c2fba8e3cbf26c
+Author: irykoon <irykoon@gmail.com>
+Date:   Thu Jan 25 05:10:47 2018 +0000
+
+    run whonixcheck only when setup or repository option is selected
+
+commit cf1d3dbd16767e8d4fb5531b5f525099491fd9e2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 25 01:18:07 2018 +0000
+
+    add disabled code for starting whonix-setup-wizard on Whonix-Gateway if Tor is not running
+    
+    TODO: Make sure systemd unit tor@default starts before /etc/xdg/autostart/whonix-setup-wizard.desktop
+
+commit 4e96593f5b4deaae564c0d64423c9bfe1d88eb56
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 25 01:11:13 2018 +0000
+
+    refactoring
+
+commit 4914069f35acfe316e4889962a1526d558d1bc20
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 25 00:54:39 2018 +0000
+
+    echo to console if Tor is already enabled
+
+commit 14d75944a7c9ad39ee99a77707e03ba0bfe62dee
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 25 00:50:57 2018 +0000
+
+    print(tor_status)
+
+commit 3fcbde2a5b0a29d66b615e0ef7fa1eea688924c4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 25 00:48:46 2018 +0000
+
+    comment
+
+commit c5c52fb91ddb3098828127d69fe48eed12f1a284
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 25 00:45:17 2018 +0000
+
+    intent
+
+commit 295fe3fd0427c9123e4c16e176c8d3cc1023e74a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 25 00:41:22 2018 +0000
+
+    code simplification
+
+commit 43fdf001a1ea02a1e33c06830cce9088ce899eda
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 25 00:39:20 2018 +0000
+
+    fix
+
+commit 603c5962b1331b2cd46dda138bc731e361104365
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 25 00:34:54 2018 +0000
+
+    comment
+
+commit 1039070aa136bf7fcd659588e06ec033aca8efea
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 25 00:29:00 2018 +0000
+
+    error out if neither gateway nor workstation detected
+
+commit beee1a8904c7441b723c0c12eb450dcedf85475a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 25 00:25:11 2018 +0000
+
+    no need to start /usr/lib/whonixsetup_cli_start_maybe from here
+
+commit 923deb1f2d4f8327fa4480d02879c5371dd80bfd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 25 00:20:46 2018 +0000
+
+    fix
+
+commit 9f897a781fd20c0d6a08121ac2fa8d2bd0f82a8c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 25 00:13:46 2018 +0000
+
+    code simplification
+    
+    fix intend
+    
+    error out if whonix-setup-wizard is not found
+    
+    print to console if doing nothing
+
+commit a9d2fdaa19439e3dbb55b80db4e9a1d3676b5b4a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 24 23:53:05 2018 +0000
+
+    cleanup
+
+commit fb14293775ff5909079c7a07fb5d39bbbd2f6c3a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 24 23:42:58 2018 +0000
+
+    todo
+
+commit e82731e0ac5ecdb1351adf2a1e8d4dcd7cdf66a9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 24 23:41:04 2018 +0000
+
+    todo
+
+commit d61cbd76eb17c74011e41d24608ca09a2b5543dd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 25 00:35:42 2018 +0100
+
+    fix import of tor_status
+    
+    from whonix-setup-wizard to anon-connection-wizard
+    
+    do `from whonix_setup_wizard.tor_status import tor_status` conditionally only on Whonix-Gateway,
+    because anon-connection-wizard is not installed on Whonix-Workstation
+
+commit 497c4aaa3f438fedf1778e10aa70a4fc4c5f75b3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 25 00:22:15 2018 +0100
+
+    skip file should always be honored
+    
+    /var/cache/whonix-setup-wizard/status-files/whonixsetup.skip
+
+commit 6097babd1b6284588fa1147265e807f27c1e05d5
+Merge: f625378 f210003
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jan 24 23:27:22 2018 +0100
+
+    Merge remote-tracking branch 'irykoon/master'
+
+commit f210003b8ab13f405d780deb9287e70813d24d28
+Author: irykoon <irykoon@gmail.com>
+Date:   Wed Jan 24 22:02:20 2018 +0000
+
+    Comments
+
+commit 8a74f75d51cb6d98a897a188966ba96380c4d198
+Author: irykoon <irykoon@gmail.com>
+Date:   Wed Jan 24 21:45:23 2018 +0000
+
+    Avoid showing up empty page
+
+commit c1ba193ef5159bb9249e860a33dad808580d5574
+Author: irykoon <irykoon@gmail.com>
+Date:   Wed Jan 24 21:44:42 2018 +0000
+
+    Remove unused variables and logics
+
+commit 31aa29a1eee16b0b786105e5b825804d6fb31390
+Author: irykoon <irykoon@gmail.com>
+Date:   Wed Jan 24 20:55:16 2018 +0000
+
+    Simplify page adding logic
+
+commit 00184f31dc6c9df88f5738dec34733b4a4b68071
+Author: irykoon <irykoon@gmail.com>
+Date:   Wed Jan 24 20:37:41 2018 +0000
+
+    Simplify Pages Steps
+    
+    1. Replace ConnectionPage with anon-connection-wizard
+    2. Remove FinishPage
+
+commit 14320f92c034c660eddf3616b875d5725c44151d
+Author: irykoon <irykoon@gmail.com>
+Date:   Wed Jan 24 20:21:33 2018 +0000
+
+    Fix typo
+
+commit e2bc69a855bc04383b40bfa74d7fb408beecb8b3
+Author: irykoon <irykoon@gmail.com>
+Date:   Wed Jan 24 20:18:34 2018 +0000
+
+    Optimize page adding logic
+
+commit a686ffcd9b2ba530a106a3b9004a87730c06a262
+Author: irykoon <irykoon@gmail.com>
+Date:   Wed Jan 24 19:34:15 2018 +0000
+
+    Relauncher anon-connectino-wizard will guarantee to show up
+
+commit 0f4c749ddb4b0a5dd3ca229b9817f018f3d2a92e
+Author: irykoon <irykoon@gmail.com>
+Date:   Wed Jan 24 19:33:41 2018 +0000
+
+    Better code format
+
+commit f6253781a440ab466332c610cb17b79ca9bf45ee
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 21 13:37:06 2018 +0000
+
+    bumped changelog version
+
 commit 8e3b89d6835d13a5f952630d0ad4594245c10326
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Jan 21 13:34:52 2018 +0100
