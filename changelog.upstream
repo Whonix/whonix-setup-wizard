@@ -1,3 +1,15 @@
+commit b7280386985fed56d0a561d00306c4edd1c82581
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 6 00:52:51 2018 +0000
+
+    fix, don't autorun whonix-setup-wizard in Qubes TemplateVM
+
+commit ed5efe6a30cd95e61be7f3708cb7e2f31c761c4c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 1 15:38:49 2018 +0000
+
+    bumped changelog version
+
 commit a269bbc616487e57e2ad092f517c0ccc7aa3fed0
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Jan 29 16:01:09 2018 +0000
