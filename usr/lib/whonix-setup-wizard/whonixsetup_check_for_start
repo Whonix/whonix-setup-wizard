@@ -19,6 +19,10 @@ def whonix_setup_wizard_start():
    call(command, shell=True)
 
 
+if os.path.exists('/var/run/qubes/this-is-templatevm'):
+   print('/var/run/qubes/this-is-templatevm exists. Exiting.')
+   sys.exit()
+
 if os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.skip'):
    print('/var/cache/whonix-setup-wizard/status-files/whonixsetup.skip exists. Exiting.')
    sys.exit()
