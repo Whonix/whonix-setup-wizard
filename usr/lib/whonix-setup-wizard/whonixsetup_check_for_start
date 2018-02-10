@@ -15,7 +15,7 @@ def whonix_setup_wizard_start():
    command = 'xhost +local:root'
    call(command, shell = True)
 
-   command = 'kdesudo %s setup' % (whonix_setup_wizard)
+   command = 'kdesudo {} setup'.format(whonix_setup_wizard)
    call(command, shell=True)
 
 

@@ -441,6 +441,7 @@ def main():
     # when there is no page need showing, we simply do not start GUI to
     # avoid an empty page
     if len(Common.wizard_steps) == 0:
+       print('INFO: No page needs showing. Exiting.')
        sys.exit()
 
     wizard = WhonixSetupWizard()
