@@ -56,7 +56,8 @@ class Common:
     ## For legacy syntax compatibility.
     if argument == 'repository':
         whonix_repository_wizard = distutils.spawn.find_executable("whonix-repository-wizard")
-        command = 'kdesudo {}'.format(whonix_repository_wizard)
+        ## Already running under kdesudo as tested in main().
+        command = '{}'.format(whonix_repository_wizard)
         call(command, shell=True)
         # run whonixcheck only when setup or repository option is selected.
         # note that the case for setup will be handled at the end, not here.
