@@ -56,6 +56,9 @@ class Common:
     ## For legacy syntax compatibility.
     if argument == 'repository':
         whonix_repository_wizard = distutils.spawn.find_executable("whonix-repository-wizard")
+        if whonix_repository_wizard == None:
+            print('ERROR: whonix_repository_wizard not found! Exiting.')
+            sys.exit(1)
         ## Already running under kdesudo as tested in main().
         command = '{}'.format(whonix_repository_wizard)
         call(command, shell=True)
