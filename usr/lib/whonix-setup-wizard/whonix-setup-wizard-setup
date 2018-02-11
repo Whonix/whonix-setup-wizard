@@ -6,9 +6,9 @@
 from subprocess import call
 import sys, os
 import time
-import distutils.spawn
+import shutil
 
-whonix_setup_wizard = distutils.spawn.find_executable("whonix-setup-wizard")
+whonix_setup_wizard = shutil.which("whonix-setup-wizard")
 if whonix_setup_wizard == None:
    print('ERROR: whonix-setup-wizard not found! Exiting.')
    sys.exit(1)
