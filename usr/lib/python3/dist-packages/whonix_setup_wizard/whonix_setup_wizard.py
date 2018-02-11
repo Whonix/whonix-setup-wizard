@@ -15,8 +15,7 @@ import sys
 from guimessages.translations import _translations
 from guimessages.guimessage import gui_message
 
-
-import distutils.spawn
+import shutil
 
 def parse_command_line_parameter():
     '''
@@ -55,7 +54,7 @@ class Common:
 
     ## For legacy syntax compatibility.
     if argument == 'repository':
-        whonix_repository_wizard = distutils.spawn.find_executable("whonix-repository-wizard")
+        whonix_repository_wizard = shutil.which("whonix-repository-wizard")
         if whonix_repository_wizard == None:
             print('ERROR: whonix_repository_wizard not found! Exiting.')
             sys.exit(1)
@@ -405,7 +404,7 @@ class WhonixSetupWizard(QtWidgets.QWizard):
             if self.currentId() == self.steps.index('locale_settings_finish'):
 
                 if self.locale_settings.other_button.isChecked():
-                    kcmshell = distutils.spawn.find_executable("kcmshell4")
+                    kcmshell = shutil.which("kcmshell4")
 
                     if self.locale_settings.lang_checkbox.isChecked():
                         command = command = '%s language' % (kcmshell)
@@ -429,7 +428,7 @@ def main():
     # locale settings are implemented for KDE desktop only.
     # skip if other desktop.
     if sys.argv[1] == 'locale_settings':
-        kcmshell = distutils.spawn.find_executable("kcmshell4")
+        kcmshell = shutil.which("kcmshell4")
         if kcmshell == None:
             print('kcmshell4 not found. Exiting')
             sys.exit()
