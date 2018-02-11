@@ -9,7 +9,7 @@ import shutil
 def whonix_setup_wizard_start():
    whonix_setup_wizard = shutil.which("whonix-setup-wizard")
    if whonix_setup_wizard == None:
-      print('Error: whonix-setup-wizard not found! Exiting.')
+      print('ERROR: whonix-setup-wizard not found! Exiting.')
       sys.exit(1)
 
    command = 'xhost +local:root'
