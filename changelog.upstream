@@ -1,3 +1,54 @@
+commit ecc06e00aeba1f2931b020b66526cb8f23d38763
+Merge: 7696f01 b89292f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Feb 11 21:10:23 2018 +0000
+
+    Merge remote-tracking branch 'irykoon/master'
+
+commit b89292fab5f26efdc5c9505a6a6c779590156674
+Merge: c1b0689 7696f01
+Author: irykoon <irykoon@gmail.com>
+Date:   Sun Feb 11 19:53:52 2018 +0000
+
+    l Merge branch 'master' of https://github.com/Whonix/whonix-setup-wizard
+
+commit c1b0689ecc93bf31448b12e7b85aaa05b81016c3
+Author: irykoon <irykoon@gmail.com>
+Date:   Sun Feb 11 19:52:42 2018 +0000
+
+    Consistent fomatting
+
+commit dffe81e69e61be69489595662c12d401de1ddce3
+Author: irykoon <irykoon@gmail.com>
+Date:   Sun Feb 11 19:51:37 2018 +0000
+
+    Switch from distutils.spawn.find_executable to shutil.which
+
+commit e8725695cf0bfac168fdbfdae908643884c70c55
+Author: irykoon <irykoon@gmail.com>
+Date:   Sun Feb 11 19:49:09 2018 +0000
+
+    Switch from distutils.spawn.find_executable to shutil.which
+
+commit 7696f01ddd7ff8443f878d0a06fafefdf2ddb0db
+Merge: 463ea11 0fa65ea
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Feb 11 20:22:22 2018 +0100
+
+    Merge remote-tracking branch 'irykoon/master'
+
+commit 0fa65eaa52467ebc6222773351dbbd8d0f1243e7
+Author: irykoon <irykoon@gmail.com>
+Date:   Sun Feb 11 18:22:34 2018 +0000
+
+    Which from distutils.spawn.find_executable to shutil.which
+
+commit 463ea11eabea75038cbade233bfc241173eb328d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Feb 10 15:11:29 2018 +0000
+
+    bumped changelog version
+
 commit a1c859ea30d1cc2f0d16795fa183b4b3c5a31f37
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Feb 10 14:58:47 2018 +0000
