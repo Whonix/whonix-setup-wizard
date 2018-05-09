@@ -1,3 +1,17 @@
+commit 3ef22611875a09b4f3a3e24831fab72b1877b6f9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Apr 7 10:03:04 2018 +0200
+
+    remove connection wizard shortcut since this is now done by anon-connection-wizard
+    
+    https://forums.whonix.org/t/qubes-whonix-14-0-0-6-9-templatevms-for-r3-2-and-r4-testers-wanted/4988/95
+
+commit f87749a43fb1bbea03ddc861a158c2c75f21395d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Feb 18 14:10:01 2018 +0000
+
+    bumped changelog version
+
 commit ecc06e00aeba1f2931b020b66526cb8f23d38763
 Merge: 7696f01 b89292f
 Author: Patrick Schleizer <adrelanos@riseup.net>
