@@ -407,7 +407,7 @@ class WhonixSetupWizard(QtWidgets.QWizard):
                     kcmshell = shutil.which("kcmshell4")
 
                     if self.locale_settings.lang_checkbox.isChecked():
-                        command = command = '%s language' % (kcmshell)
+                        command = command = '{} language'.format(kcmshell)
                         call(command, shell=True)
 
                     if self.locale_settings.kbd_checkbox.isChecked():
