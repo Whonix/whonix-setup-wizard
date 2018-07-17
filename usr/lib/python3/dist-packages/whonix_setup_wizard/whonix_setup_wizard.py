@@ -405,13 +405,14 @@ class WhonixSetupWizard(QtWidgets.QWizard):
 
                 if self.locale_settings.other_button.isChecked():
                     kcmshell = shutil.which("kcmshell4")
+                    ibus =  shutil.which("ibus-setup")
 
                     if self.locale_settings.lang_checkbox.isChecked():
                         command = command = '{} language'.format(kcmshell)
                         call(command, shell=True)
 
                     if self.locale_settings.kbd_checkbox.isChecked():
-                        command = command = '%s kcm_keyboard' % (kcmshell)
+                        command = command = '{}'.format(ibus)
                         call(command, shell=True)
 
                     self.button(QtWidgets.QWizard.BackButton).setEnabled(False)
