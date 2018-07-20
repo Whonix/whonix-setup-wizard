@@ -100,7 +100,7 @@ class LocaleSettings(QtWidgets.QWizardPage):
         self.other_button = QtWidgets.QRadioButton(self.group)
 
         self.lang_checkbox = QtWidgets.QCheckBox(self.group)
-        self.kbd_checkbox = QtWidgets.QCheckBox(self.group)
+        self.im_checkbox = QtWidgets.QCheckBox(self.group)
 
         self.layout = QtWidgets.QVBoxLayout(self)
 
@@ -127,11 +127,11 @@ class LocaleSettings(QtWidgets.QWizardPage):
         self.lang_checkbox.setText('Change country and language')
         self.lang_checkbox.toggled.connect(self.lang_checkbox_toggled)
 
-        self.kbd_checkbox.setEnabled(False)
-        self.kbd_checkbox.setChecked(True)
-        self.kbd_checkbox.setGeometry(QtCore.QRect(40, 78, 483, 21))
-        self.kbd_checkbox.setText('Change keyboard layout')
-        self.kbd_checkbox.toggled.connect(self.kbd_checkbox_toggled)
+        self.im_checkbox.setEnabled(False)
+        self.im_checkbox.setChecked(True)
+        self.im_checkbox.setGeometry(QtCore.QRect(40, 78, 483, 21))
+        self.im_checkbox.setText('Choose Input Method')
+        self.im_checkbox.toggled.connect(self.im_checkbox_toggled)
 
         self.layout.addWidget(self.text)
         self.layout.addWidget(self.group)
@@ -141,25 +141,25 @@ class LocaleSettings(QtWidgets.QWizardPage):
     def other_button_toggled(self, state):
         if state:
             self.lang_checkbox.setEnabled(True)
-            self.kbd_checkbox.setEnabled(True)
+            self.im_checkbox.setEnabled(True)
 
         else:
             self.lang_checkbox.setEnabled(False)
-            self.kbd_checkbox.setEnabled(False)
+            self.im_checkbox.setEnabled(False)
 
     def lang_checkbox_toggled(self, state):
         if (not self.lang_checkbox.isChecked() and
-            not self.kbd_checkbox.isChecked()):
+            not self.im_checkbox.isChecked()):
             self.lang_checkbox.setChecked(True)
-            self.kbd_checkbox.setChecked(True)
+            self.im_checkbox.setChecked(True)
             self.default_button.setChecked(True)
             self.other_button.setChecked(False)
 
-    def kbd_checkbox_toggled(self, state):
+    def im_checkbox_toggled(self, state):
         if (not self.lang_checkbox.isChecked() and
-            not self.kbd_checkbox.isChecked()):
+            not self.im_checkbox.isChecked()):
             self.lang_checkbox.setChecked(True)
-            self.kbd_checkbox.setChecked(True)
+            self.im_checkbox.setChecked(True)
             self.default_button.setChecked(True)
             self.other_button.setChecked(False)
 
@@ -405,13 +405,14 @@ class WhonixSetupWizard(QtWidgets.QWizard):
 
                 if self.locale_settings.other_button.isChecked():
                     kcmshell = shutil.which("kcmshell4")
+                    ibus =  shutil.which("ibus-setup")
 
                     if self.locale_settings.lang_checkbox.isChecked():
-                        command = command = '%s language' % (kcmshell)
+                        command = command = '{} language'.format(kcmshell)
                         call(command, shell=True)
 
-                    if self.locale_settings.kbd_checkbox.isChecked():
-                        command = command = '%s kcm_keyboard' % (kcmshell)
+                    if self.locale_settings.im_checkbox.isChecked():
+                        command = command = '{}'.format(ibus)
                         call(command, shell=True)
 
                     self.button(QtWidgets.QWizard.BackButton).setEnabled(False)
