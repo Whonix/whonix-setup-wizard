@@ -1,3 +1,47 @@
+commit 93ad14a3a940df7b5118fc1073cf871188b3b10f
+Merge: f209901 301b6cf
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 20 23:52:15 2018 +0800
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 301b6cf148dc1ce1b4f250c83a0bd8392c313efc
+Merge: f209901 7a36f4f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jul 20 15:46:42 2018 +0000
+
+    Merge pull request #8 from irykoon/master
+    
+     Replace choosing keyboard layout with choosing input method
+
+commit 7a36f4f77d24e22dd051322d316e7d23ed93a2b2
+Author: irykoon <irykoon@gmail.com>
+Date:   Tue Jul 17 15:08:49 2018 +0000
+
+    Replace choosing keyboard layout with choosing input method
+
+commit 3870e37961380a3aa03460442a79ee8f017cd02c
+Author: irykoon <irykoon@gmail.com>
+Date:   Tue Jul 17 15:03:10 2018 +0000
+
+    Replace kcmshell kcm_keyboard with ibus-setup
+    
+    kcm_keyboard is no longer available as a module in kcmshell4. See
+    kcmshell4 --list for all the modules. Instead, we use ibus-setup to
+    set input methods.
+
+commit b46b50732458a1ddbbfd72aa9b00a79facf82cb8
+Author: irykoon <irykoon@gmail.com>
+Date:   Tue Jul 17 14:59:08 2018 +0000
+
+    Use python3 style string format
+
+commit f209901a23a8e830ce3ff72f26f57e50f317a55e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed May 9 12:32:28 2018 +0000
+
+    bumped changelog version
+
 commit 3ef22611875a09b4f3a3e24831fab72b1877b6f9
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Apr 7 10:03:04 2018 +0200
