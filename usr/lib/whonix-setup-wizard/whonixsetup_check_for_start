@@ -54,7 +54,7 @@ if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
     ## What if whonix-setup-wizard is installed but anon-connection-wizard not? Well, in that
     ## case the user should be knowing what the user is doing. Happens only in cases where
     ## the user does not use Whonix's default anon-meta-packages. In that case just error out.
-    from anon_connection_wizard import tor_status
+    from tor_control_panel import tor_status
     tor_status = tor_status.tor_status()
 
     if tor_status == 'tor_enabled':
