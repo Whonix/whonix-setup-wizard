@@ -75,11 +75,8 @@ class Common:
             Therefore, it is reasonable to move the import here to prevent
             missing dependency that happpen when import anon_connection_wizard in whonix-ws.
             '''
-            #from anon_connection_wizard import anon_connection_wizard
-            #anon_connection_wizard = anon_connection_wizard.main()
-
-            from tor_control_panel import tor_control_panel
-            tor_control_panel = tor_control_panel.main()
+            from anon_connection_wizard import anon_connection_wizard
+            anon_connection_wizard = anon_connection_wizard.main()
 
             wizard_steps = []
             if(first_use_notice):
