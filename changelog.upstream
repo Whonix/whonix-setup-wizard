@@ -1,3 +1,43 @@
+commit 26fedc8c4074bbeace6d5597bfc34beb3502315d
+Merge: 78f6184 88d4970
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 21 05:22:36 2018 +0800
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 78f618446e9f25f67cff3b2ce2935d44b6e1ccf2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 21 05:18:57 2018 +0800
+
+    readme
+
+commit 88d4970b0a2d80364f8014992c9829a43d93cac7
+Author: troubadoour <trobador@riseup.net>
+Date:   Sun Aug 19 21:00:13 2018 +0000
+
+    autostart anon-connection-wizard instead of tor-control-panel
+
+commit eef93e59ad7132bf17aad3f40a1a9e7506fc1fd7
+Merge: 558fefd 718fbd0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Aug 18 16:02:57 2018 +0000
+
+    Merge remote-tracking branch 'troubadoour/master'
+
+commit 718fbd0e98c69d9bd4fc090eeca99c6179d7a34b
+Author: troubadoour <trobador@riseup.net>
+Date:   Thu Aug 16 19:54:02 2018 +0000
+
+    update for tor-control-panel:
+    - whonix_setup_wizard.py -> tor-control-panel started it Tor not enabled
+    - whonixsetup_check_for_start -> prevent tor-control-panel from starting automatically
+
+commit 558fefd4fbe9649daa7683a491ca75f3c899ed9f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Aug 9 16:10:35 2018 +0000
+
+    bumped changelog version
+
 commit 93ad14a3a940df7b5118fc1073cf871188b3b10f
 Merge: f209901 301b6cf
 Author: Patrick Schleizer <adrelanos@riseup.net>
