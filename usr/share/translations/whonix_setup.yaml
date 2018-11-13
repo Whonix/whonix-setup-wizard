@@ -31,9 +31,13 @@ whonixsetup:
             but it is not as convenient. If you want, you can start a graphical desktop environment
             by toggling how much RAM is available to Whonix-Gateway.</p><p>Documentation about this feature can be found in
             <a href=https://www.whonix.org/wiki/Desktop>https://www.whonix.org/wiki/Desktop</a>.</p>
-            <p>If you want to change the keyboard layout from the default "us" to something else&#58;
+            <p>If you want to <u>change the keyboard layout</u> from the default "us" to something else&#58;</p>
+            <p><b>KDE&#58;</b>
             <blockquote>Start menu button -> Applications -> Settings -> System Settings -> input devices -> layout ->
             add yours and remove default one -> apply -> Done.</blockquote></p>
+            <p><b>XFCE&#58;</b>
+            <blockquote>Applications -> Settings -> Keyboard -> Layout -> disable "use system defaults" -> add your layout at the bottom -> remove the old layout -> close</blockquote></p>
+
 
 not_root:
     icon: Critical
