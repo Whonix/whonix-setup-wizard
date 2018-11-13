@@ -1,3 +1,21 @@
+commit 7fa64df04025d304fa97458a23f730bcc8aedbd8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Nov 13 14:08:12 2018 +0000
+
+    add instructions how to change keyboard layout in XFCE
+
+commit 7ea2f9d8ed9550cb50922a7dc56e8a334a2d155e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Nov 13 13:59:14 2018 +0000
+
+    add instructions on how to change keyboard layout
+
+commit 0b009d38072b8a3d51f68cd254ac33e93c98217b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Aug 27 17:07:49 2018 +0000
+
+    bumped changelog version
+
 commit 26fedc8c4074bbeace6d5597bfc34beb3502315d
 Merge: 78f6184 88d4970
 Author: Patrick Schleizer <adrelanos@riseup.net>
