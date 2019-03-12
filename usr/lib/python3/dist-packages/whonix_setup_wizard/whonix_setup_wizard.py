@@ -47,9 +47,6 @@ class Common:
     else:
         print("Whonix-Setup-Wizard cannot decide environment: marker file in /usr/share/anon-ws-base-files/workstation is missing.")
 
-## TODO
-    environment = 'gateway'
-
     if not os.path.exists('/var/cache/whonix-setup-wizard/status-files'):
         os.mkdir('/var/cache/whonix-setup-wizard/status-files')
 
