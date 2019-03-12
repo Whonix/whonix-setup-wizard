@@ -5,12 +5,12 @@ whonixsetup:
             <blockquote>Start Menu -> System Settings -> Locale</blockquote>
              <p>You can always change keyboard layout again by going to&#58; </p>
             <blockquote>Start Menu -> System Settings -> Input Devices </blockquote>
-            <p>Click "Finish" to start the deskop environment.</p>
+            <p>Click "Finish" to start the desktop environment.</p>
 
         kcmshell_not_found:
             <p>The program for setting language and keyboard options ("/usr/bin/kcmshell4") was not found.
             Please check that it exists in your system.</p>
-            <p>Click "Finish" to start the deskop environment.</p>
+            <p>Click "Finish" to start the desktop environment.</p>
 
         disclaimer_1:
             <p><b>ENG. Important Information About Whonix Part 1/2<br></br>
