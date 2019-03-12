@@ -32,7 +32,7 @@ whonixsetup:
             Whonix is a technological means to anonymity, but staying anonymous is not just a technological problem.
             No tool is enough to keep you safe. Anonymity is a complex problem without an easy solution, and security is only as strong as
             its weakest link, often the user. The more you know, the safer you can be.</p>
-            <p>Whonix is a compilation of software packages, each under its own license.</p>
+            <p>Whonix is a compilation of software packages, each under its own copyright and license. The exact license terms for each program are described in the individual files in /usr/share/doc/*/copyright.</p>
             <p>The compilation is made available under the terms of the GNU General Public License as published by the Free Software Foundation,
             either version 3 of the License, or (at your option) any later version.</p>
             <p>The distribution terms for each program are described in/usr/share/doc/*/copyright.</p>
