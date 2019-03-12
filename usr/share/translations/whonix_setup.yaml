@@ -13,36 +13,36 @@ whonixsetup:
             <p>Click "Finish" to start the desktop environment.</p>
 
         disclaimer_1:
-            <p><b>ENG. Important Information About Whonix Part 1/2</b></p>
-            <p>ENG. Please do NOT continue unless you understand everything!</p>
-            <p>ENG. Welcome to Whonix!</p>
-            <p>ENG. This is not the usual blah blah blah but fact.</p>
-            <p>ENG. Whonix is experimental software. Do not rely on it for strong anonymity.</p>
-            <p>ENG. Whonix is created by volunteers in their spare time.</p>
-            <p>ENG. Whonix was created by self-taught hobbyists in their spare time, without the backing of any particular formal certification or training.</p>
-            <p>ENG. Although Whonix attempts to be as usable as possible, there are many ways in which it fails.</p>
-            <p>ENG. Whonix is in English. Do not use Whonix without excellent knowledge of the English language. Misunderstandings have consequences.</p>
-            <p>ENG. Whonix is based on other software, including GNU/Linux, Debian, and virtualization.
+            <p><b>Important Information About Whonix Part 1/2</b></p>
+            <p>Please do NOT continue unless you understand everything!</p>
+            <p>Welcome to Whonix!</p>
+            <p>This is not the usual blah blah blah but fact.</p>
+            <p>Whonix is experimental software. Do not rely on it for strong anonymity.</p>
+            <p>Whonix is created by volunteers in their spare time.</p>
+            <p>Whonix was created by self-taught hobbyists in their spare time, without the backing of any particular formal certification or training.</p>
+            <p>Although Whonix attempts to be as usable as possible, there are many ways in which it fails.</p>
+            <p>Whonix is in English. Do not use Whonix without excellent knowledge of the English language. Misunderstandings have consequences.</p>
+            <p>Whonix is based on other software, including GNU/Linux, Debian, and virtualization.
             Do not rely on Whonix without working knowledge of these technologies.</p>
-            <p>ENG. Please do NOT continue unless you understand everything!</p>
+            <p>Please do NOT continue unless you understand everything!</p>
 
         disclaimer_2:
-            <p><b>ENG. Important Information About Whonix Part 2/2</b></p>
-            <p>ENG. The documentation available on Whonix.org is a crash course in anonymity, privacy, and security on the Internet.</p>
+            <p><b>Important Information About Whonix Part 2/2</b></p>
+            <p>The documentation available on Whonix.org is a crash course in anonymity, privacy, and security on the Internet.</p>
             Whonix is a technological means to anonymity, but staying anonymous is not just a technological problem.
             No tool is enough to keep you safe. Anonymity is a complex problem without an easy solution, and security is only as strong as
             its weakest link, often the user. The more you know, the safer you can be.</p>
-            <p>ENG. Whonix is a compilation of software packages, each under its own license.</p>
-            <p>ENG. The compilation is made available under the terms of the GNU General Public License as published by the Free Software Foundation,
+            <p>Whonix is a compilation of software packages, each under its own license.</p>
+            <p>The compilation is made available under the terms of the GNU General Public License as published by the Free Software Foundation,
             either version 3 of the License, or (at your option) any later version.</p>
-            <p>ENG. The distribution terms for each program are described in/usr/share/doc/*/copyright.</p>
-            <p>ENG. The programs included with Whonix are Free Software.</p>
-            <p>ENG. Whonix is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY, without even the implied warranty of
+            <p>The distribution terms for each program are described in/usr/share/doc/*/copyright.</p>
+            <p>The programs included with Whonix are Free Software.</p>
+            <p>Whonix is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY, without even the implied warranty of
             MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE, to the extent permitted by applicable law. See the GNU General Public License
             for more details.</p>
-            <p>ENG. Whonix is free of charge.</p>
-            <p>ENG. Whonix is a derivative of Debian GNU/Linux.</p>
-            <p>ENG. Whonix is produced independently of, with no guarantee from, The Tor Project.</p>
+            <p>Whonix is free of charge.</p>
+            <p>Whonix is a derivative of Debian GNU/Linux.</p>
+            <p>Whonix is produced independently of, with no guarantee from, The Tor Project.</p>
 
         accept: Understood / Verstanden
         reject: Not understood / Nicht verstanden
