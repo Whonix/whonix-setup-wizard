@@ -463,8 +463,7 @@ class WhonixSetupWizard(QtWidgets.QWizard):
                     if self.disclaimer_1.no_button.isChecked():
                         self.hide()
 
-## TODO
-                        command = '/sbin/powerof'
+                        command = '/sbin/poweroff'
                         call(command, shell=True)
                         sys.exit()
 
@@ -472,8 +471,7 @@ class WhonixSetupWizard(QtWidgets.QWizard):
                     if self.disclaimer_2.no_button.isChecked():
                         self.hide()
 
-## TODO
-                        command = '/sbin/powerof'
+                        command = '/sbin/poweroff'
                         call(command, shell=True)
                         sys.exit()
 
