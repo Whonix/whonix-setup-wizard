@@ -114,57 +114,6 @@ class DisclaimerPage2(QtWidgets.QWizardPage):
         return self.steps.index('finish_page')
 
 
-class ConnectionPage(QtWidgets.QWizardPage):
-    def __init__(self):
-        super(ConnectionPage, self).__init__()
-
-        translation = _translations(Common.translations_path, 'whonixsetup')
-        self._ = translation.gettext
-
-        self.Common = Common()
-        self.steps = self.Common.wizard_steps
-        self.env = self.Common.environment
-
-        self.text = QtWidgets.QTextBrowser(self)
-        self.layout = QtWidgets.QGridLayout()
-
-        self.layout = QtWidgets.QVBoxLayout()
-
-        self.pushButton_acw = QtWidgets.QPushButton(self)
-        self.pushButton_acw.setChecked(True)
-
-        self.pushButton_acw.setSizePolicy(
-            QtWidgets.QSizePolicy.Preferred,
-            QtWidgets.QSizePolicy.Expanding
-        )
-
-        self.layout.addWidget(self.text)
-        self.layout.addWidget(self.pushButton_acw, 5)
-
-        self.setupUi()
-
-    def setupUi(self):
-        self.text.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-
-        self.font_big = QtGui.QFont()
-        self.font_big.setPointSize(20)
-        self.font_big.setBold(True)
-        self.font_big.setWeight(70)
-
-        self.pushButton_acw.setEnabled(True)
-        self.pushButton_acw.setText('Launch Anon Connection Wizard')
-        self.pushButton_acw.setFont(self.font_big)
-        self.pushButton_acw.clicked.connect(self.acw)
-
-        self.setLayout(self.layout)
-
-    def acw(self):
-        from anon_connection_wizard import anon_connection_wizard
-        anon_connection_wizard.main()
-        self.pushButton_acw.setText('Relaunch Anon Connection Wizard')
-
-
 class FinishPage(QtWidgets.QWizardPage):
     def __init__(self):
         super(FinishPage, self).__init__()
@@ -337,7 +286,6 @@ def main():
    if Common.environment == 'gateway':
       '''
       anon_connection_wizard is only installed in whonix-gw.
-      ConnectionPage is only called in whonix-gw, too.
       Therefore, it is reasonable to move the import here to prevent
       missing dependency that happen when import anon_connection_wizard in whonix-ws.
       '''
