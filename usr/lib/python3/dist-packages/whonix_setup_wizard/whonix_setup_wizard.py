@@ -17,17 +17,6 @@ from guimessages.guimessage import gui_message
 
 import shutil
 
-def parse_command_line_parameter():
-    '''
-    The wizard might be run from terminal.
-    '''
-    import argparse
-    parser = argparse.ArgumentParser()
-
-    parser.add_argument('option', choices=['setup', 'repository'])
-    args, unknown_args = parser.parse_known_args()
-
-    return args.option
 
 class Common:
     '''
@@ -36,8 +25,6 @@ class Common:
     translations_path ='/usr/share/translations/whonix_setup.yaml'
     is_complete = False
     wizard_steps = []
-
-    argument = parse_command_line_parameter()
 
     ## Determine environment
     if os.path.isfile('/usr/share/anon-gw-base-files/gateway'):
@@ -53,33 +40,14 @@ class Common:
     show_disclaimer = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer.done') and
                        not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer.skip'))
 
-    run_whonixcheck_only = (argument == 'setup' and environment == 'workstation' and not show_disclaimer)
+    run_whonixcheck_only = (environment == 'workstation' and not show_disclaimer)
     print(run_whonixcheck_only)
 
-    ## For legacy syntax compatibility.
-    if argument == 'repository':
-        whonix_repository_wizard = shutil.which("whonix-repository-wizard")
-        if whonix_repository_wizard == None:
-            print('ERROR: whonix_repository_wizard not found! Exiting.')
-            sys.exit(1)
-        ## Already running under kdesudo as tested in main().
-        command = '{}'.format(whonix_repository_wizard)
-        call(command, shell=True)
-        # run whonixcheck only when setup or repository option is selected.
-        # note that the case for setup will be handled at the end, not here.
-        command = '/usr/lib/whonixsetup_/ft_m_end'
-        call(command, shell=True)
-        sys.exit()
+    if(show_disclaimer):
+        wizard_steps.append('disclaimer_1')
+        wizard_steps.append('disclaimer_2')
 
-    elif argument == 'setup':
-        if(show_disclaimer):
-            wizard_steps.append('disclaimer_1')
-            wizard_steps.append('disclaimer_2')
-
-        wizard_steps.append('finish_page')
-
-    else:
-        print("Unexpected command line argument: {}".format(argument))
+    wizard_steps.append('finish_page')
 
 
 class DisclaimerPage1(QtWidgets.QWizardPage):
@@ -196,16 +164,11 @@ class ConnectionPage(QtWidgets.QWizardPage):
 
         self.setLayout(self.layout)
 
-        # We disable the next button until anon_connection_wizard is run successfully
-        # TODO: this is not implemented
-        #QtWidgets.QWizard.NextButton.setEnabled(True)
-
     def acw(self):
         from anon_connection_wizard import anon_connection_wizard
         anon_connection_wizard.main()
         self.pushButton_acw.setText('Relaunch Anon Connection Wizard')
 
-            #QtWidgets.QWizard.NextButton.setEnabled(True)
 
 class FinishPage(QtWidgets.QWizardPage):
     def __init__(self):
@@ -239,20 +202,19 @@ class WhonixSetupWizard(QtWidgets.QWizard):
         self.steps = Common.wizard_steps
         self.env = Common.environment
 
-        if Common.argument == 'setup':
-            if Common.show_disclaimer:
-                self.disclaimer_1 = DisclaimerPage1()
-                self.addPage(self.disclaimer_1)
+        if Common.show_disclaimer:
+               self.disclaimer_1 = DisclaimerPage1()
+               self.addPage(self.disclaimer_1)
 
-                self.disclaimer_2 = DisclaimerPage2()
-                self.addPage(self.disclaimer_2)
+               self.disclaimer_2 = DisclaimerPage2()
+               self.addPage(self.disclaimer_2)
 
-            if Common.run_whonixcheck_only:
-                self.finish_page = FinishPage()
-                self.addPage(self.finish_page)
-            else:
-                self.finish_page = FinishPage()
-                self.addPage(self.finish_page)
+        if Common.run_whonixcheck_only:
+               self.finish_page = FinishPage()
+               self.addPage(self.finish_page)
+        else:
+               self.finish_page = FinishPage()
+               self.addPage(self.finish_page)
 
         self.setupUi()
 
@@ -265,8 +227,7 @@ class WhonixSetupWizard(QtWidgets.QWizard):
         if available_height < self.disclaimer_height:
             self.disclaimer_height = available_height
 
-        if Common.argument == 'setup':
-            self.resize(760, self.disclaimer_height)
+        self.resize(760, self.disclaimer_height)
 
         # We use QTextBrowser with a white background.
         # Set a default (transparent) background.
@@ -283,13 +244,12 @@ class WhonixSetupWizard(QtWidgets.QWizard):
         self.setPalette(palette)
 
         try:
-            self.finish_page.icon.setPixmap(QtGui.QPixmap( \
-                '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
+            self.finish_page.icon.setPixmap(QtGui.QPixmap('/usr/share/icons/oxygen/48x48/status/task-complete.png'))
             self.finish_page.text.setText(self._('finish_page'))
             Common.is_complete = True
 
             if not Common.run_whonixcheck_only:
-                if Common.argument == 'setup' and Common.show_disclaimer:
+                if Common.show_disclaimer:
                     self.disclaimer_1.text.setText(self._('disclaimer_1'))
                     self.disclaimer_1.yes_button.setText(self._('accept'))
                     self.disclaimer_1.no_button.setText(self._('reject'))
@@ -305,15 +265,6 @@ class WhonixSetupWizard(QtWidgets.QWizard):
 
         self.button(QtWidgets.QWizard.BackButton).clicked.connect(self.back_button_clicked)
         self.button(QtWidgets.QWizard.NextButton).clicked.connect(self.next_button_clicked)
-
-        # Temporary workaround.
-        # The pluggable transports are not implemented yet, but we want to
-        # be able to display the tooltips for censored and firewall. For this,
-        # the options must be enabled, but the slot will disable the Next
-        # button if either is checked.
-        if Common.argument == 'setup':
-            if self.env == 'gateway':
-                pass
 
         if not Common.show_disclaimer:
             self.resize(580, 390)
@@ -338,51 +289,50 @@ class WhonixSetupWizard(QtWidgets.QWizard):
         self.move(frame_gm.topLeft())
 
     def next_button_clicked(self):
-        """ Next button slot.
-        The commands cannot be implemented in the wizard's nextId() function,
-        as it is polled by the event handler on the creation of the page.
-        Depending on the checkbox states, the commands would be run when the
-        page is loaded.
-        Those button_clicked functions are called once, when the user clicks
-        the corresponding button.
-        Options (like button states, window size changes...) are set here.
-        """
+      """ Next button slot.
+      The commands cannot be implemented in the wizard's nextId() function,
+      as it is polled by the event handler on the creation of the page.
+      Depending on the checkbox states, the commands would be run when the
+      page is loaded.
+      Those button_clicked functions are called once, when the user clicks
+      the corresponding button.
+      Options (like button states, window size changes...) are set here.
+      """
 
-        if Common.argument == 'setup':
-            if self.currentId() == self.steps.index('finish_page'):
+      if self.currentId() == self.steps.index('finish_page'):
 
-                # for whonixcheck.
-                Common.is_complete = True
+            # for whonixcheck.
+            Common.is_complete = True
 
-                if Common.show_disclaimer:
-                    # Disclaimer page 1 not understood -> leave
-                    if self.disclaimer_1.no_button.isChecked():
-                        self.hide()
+            if Common.show_disclaimer:
+               # Disclaimer page 1 not understood -> leave
+               if self.disclaimer_1.no_button.isChecked():
+                  self.hide()
 ## TODO
-                        command = '/sbin/poweroff1'
-                        call(command, shell=True)
-                        sys.exit()
+                  command = '/sbin/poweroff1'
+                  call(command, shell=True)
+                  sys.exit()
 
-                    # Disclaimer page 2 not understood -> leave
-                    if self.disclaimer_2.no_button.isChecked():
-                        self.hide()
+               # Disclaimer page 2 not understood -> leave
+               if self.disclaimer_2.no_button.isChecked():
+                  self.hide()
 ## TODO
-                        command = '/sbin/poweroff2'
-                        call(command, shell=True)
-                        sys.exit()
+                  command = '/sbin/poweroff2'
+                  call(command, shell=True)
+                  sys.exit()
 
-                    f = open('/var/cache/whonix-setup-wizard/status-files/disclaimer.done', 'w')
-                    f.close()
+               f = open('/var/cache/whonix-setup-wizard/status-files/disclaimer.done', 'w')
+               f.close()
 
-                if self.env == 'workstation':
-                    self.finish_page.icon.setPixmap(QtGui.QPixmap( \
-                    '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
-                    self.finish_page.text.setText(self._('finish_page'))
+            if self.env == 'workstation':
+               self.finish_page.icon.setPixmap(QtGui.QPixmap( \
+               '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
+               self.finish_page.text.setText(self._('finish_page'))
 
     def back_button_clicked(self):
         Common.is_complete = False
 
-        if Common.argument == 'setup' and Common.show_disclaimer:
+        if Common.show_disclaimer:
             if self.currentId() == self.steps.index('disclaimer_2'):
                 # Back to disclaimer size.
                 self.resize(760, self.disclaimer_height)
@@ -406,16 +356,15 @@ def main():
          call(command, shell=True)
          sys.exit()
 
-    if Common.argument == 'setup':
-      if Common.environment == 'gateway':
-         '''
-         anon_connection_wizard is only installed in whonix-gw.
-         ConnectionPage is only called in whonix-gw, too.
-         Therefore, it is reasonable to move the import here to prevent
-         missing dependency that happen when import anon_connection_wizard in whonix-ws.
-         '''
-         from anon_connection_wizard import anon_connection_wizard
-         anon_connection_wizard = anon_connection_wizard.main()
+    if Common.environment == 'gateway':
+      '''
+      anon_connection_wizard is only installed in whonix-gw.
+      ConnectionPage is only called in whonix-gw, too.
+      Therefore, it is reasonable to move the import here to prevent
+      missing dependency that happen when import anon_connection_wizard in whonix-ws.
+      '''
+      from anon_connection_wizard import anon_connection_wizard
+      anon_connection_wizard = anon_connection_wizard.main()
 
       if not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done'):
          f = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
