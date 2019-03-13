@@ -462,18 +462,21 @@ class WhonixSetupWizard(QtWidgets.QWizard):
                     # Disclaimer page 1 not understood -> leave
                     if self.disclaimer_1.no_button.isChecked():
                         self.hide()
-
-                        command = '/sbin/poweroff'
+## TODO
+                        command = '/sbin/poweroff1'
                         call(command, shell=True)
                         sys.exit()
 
                     # Disclaimer page 2 not understood -> leave
                     if self.disclaimer_2.no_button.isChecked():
                         self.hide()
-
-                        command = '/sbin/poweroff'
+## TODO
+                        command = '/sbin/poweroff2'
                         call(command, shell=True)
                         sys.exit()
+
+                    f = open('/var/cache/whonix-setup-wizard/status-files/disclaimer.done', 'w')
+                    f.close()
 
                 if self.env == 'workstation':
                     self.finish_page.icon.setPixmap(QtGui.QPixmap( \
@@ -537,8 +540,10 @@ def main():
        wizard = WhonixSetupWizard()
 
     if Common.show_disclaimer:
-      f = open('/var/cache/whonix-setup-wizard/status-files/disclaimer.done', 'w')
-      f.close()
+      if not os.path.isfile('/var/cache/whonix-setup-wizard/status-files/disclaimer.done'):
+         command = '/sbin/poweroff3'
+         call(command, shell=True)
+         sys.exit()
 
     if Common.argument == 'setup':
       if Common.environment == 'gateway':
