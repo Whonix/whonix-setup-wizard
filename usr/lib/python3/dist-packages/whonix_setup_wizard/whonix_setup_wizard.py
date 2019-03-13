@@ -23,7 +23,6 @@ class Common:
     Variables and constants used through all the classes
     '''
     translations_path ='/usr/share/translations/whonix_setup.yaml'
-    is_complete = False
     wizard_steps = []
 
     ## Determine environment
@@ -246,7 +245,6 @@ class WhonixSetupWizard(QtWidgets.QWizard):
         try:
             self.finish_page.icon.setPixmap(QtGui.QPixmap('/usr/share/icons/oxygen/48x48/status/task-complete.png'))
             self.finish_page.text.setText(self._('finish_page'))
-            Common.is_complete = True
 
             if not Common.run_whonixcheck_only:
                 if Common.show_disclaimer:
@@ -300,10 +298,6 @@ class WhonixSetupWizard(QtWidgets.QWizard):
       """
 
       if self.currentId() == self.steps.index('finish_page'):
-
-            # for whonixcheck.
-            Common.is_complete = True
-
             if Common.show_disclaimer:
                # Disclaimer page 1 not understood -> leave
                if self.disclaimer_1.no_button.isChecked():
@@ -330,8 +324,6 @@ class WhonixSetupWizard(QtWidgets.QWizard):
                self.finish_page.text.setText(self._('finish_page'))
 
     def back_button_clicked(self):
-        Common.is_complete = False
-
         if Common.show_disclaimer:
             if self.currentId() == self.steps.index('disclaimer_2'):
                 # Back to disclaimer size.
@@ -340,7 +332,6 @@ class WhonixSetupWizard(QtWidgets.QWizard):
 
 
 def main():
-    #import sys
     app = QtWidgets.QApplication(sys.argv)
 
     # when there is no page need showing, we simply do not start GUI to
