@@ -223,7 +223,8 @@ class WhonixSetupWizard(QtWidgets.QWizard):
         self.move(frame_gm.topLeft())
 
     def next_button_clicked(self):
-      """ Next button slot.
+      """
+      Next button slot.
       The commands cannot be implemented in the wizard's nextId() function,
       as it is polled by the event handler on the creation of the page.
       Depending on the checkbox states, the commands would be run when the
