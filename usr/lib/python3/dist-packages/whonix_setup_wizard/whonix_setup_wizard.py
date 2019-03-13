@@ -38,9 +38,6 @@ class Common:
     show_disclaimer = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer.done') and
                        not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer.skip'))
 
-    run_whonixcheck_only = (environment == 'workstation' and not show_disclaimer)
-    print(run_whonixcheck_only)
-
     if(show_disclaimer):
         wizard_steps.append('disclaimer_1')
         wizard_steps.append('disclaimer_2')
@@ -207,12 +204,8 @@ class WhonixSetupWizard(QtWidgets.QWizard):
                self.disclaimer_2 = DisclaimerPage2()
                self.addPage(self.disclaimer_2)
 
-        if Common.run_whonixcheck_only:
-               self.finish_page = FinishPage()
-               self.addPage(self.finish_page)
-        else:
-               self.finish_page = FinishPage()
-               self.addPage(self.finish_page)
+        self.finish_page = FinishPage()
+        self.addPage(self.finish_page)
 
         self.setupUi()
 
@@ -244,15 +237,14 @@ class WhonixSetupWizard(QtWidgets.QWizard):
       self.finish_page.icon.setPixmap(QtGui.QPixmap('/usr/share/icons/oxygen/48x48/status/task-complete.png'))
       self.finish_page.text.setText(self._('finish_page'))
 
-      if not Common.run_whonixcheck_only:
-         if Common.show_disclaimer:
-            self.disclaimer_1.text.setText(self._('disclaimer_1'))
-            self.disclaimer_1.yes_button.setText(self._('accept'))
-            self.disclaimer_1.no_button.setText(self._('reject'))
+      if Common.show_disclaimer:
+         self.disclaimer_1.text.setText(self._('disclaimer_1'))
+         self.disclaimer_1.yes_button.setText(self._('accept'))
+         self.disclaimer_1.no_button.setText(self._('reject'))
 
-            self.disclaimer_2.text.setText(self._('disclaimer_2'))
-            self.disclaimer_2.yes_button.setText(self._('accept'))
-            self.disclaimer_2.no_button.setText(self._('reject'))
+         self.disclaimer_2.text.setText(self._('disclaimer_2'))
+         self.disclaimer_2.yes_button.setText(self._('accept'))
+         self.disclaimer_2.no_button.setText(self._('reject'))
 
       self.button(QtWidgets.QWizard.CancelButton).setVisible(False)
 
@@ -327,22 +319,22 @@ class WhonixSetupWizard(QtWidgets.QWizard):
 
 
 def main():
-    app = QtWidgets.QApplication(sys.argv)
+   app = QtWidgets.QApplication(sys.argv)
 
-    # when there is no page need showing, we simply do not start GUI to
-    # avoid an empty page
-    if len(Common.wizard_steps) == 0:
-       print('INFO: No page needs showing.')
-    else:
-       wizard = WhonixSetupWizard()
+   # when there is no page need showing, we simply do not start GUI to
+   # avoid an empty page
+   if len(Common.wizard_steps) == 0:
+      print('INFO: No page needs showing.')
+   else:
+      wizard = WhonixSetupWizard()
 
-    if Common.show_disclaimer:
+   if Common.show_disclaimer:
       if not os.path.isfile('/var/cache/whonix-setup-wizard/status-files/disclaimer.done'):
          command = '/sbin/poweroff3'
          call(command, shell=True)
          sys.exit()
 
-    if Common.environment == 'gateway':
+   if Common.environment == 'gateway':
       '''
       anon_connection_wizard is only installed in whonix-gw.
       ConnectionPage is only called in whonix-gw, too.
@@ -352,12 +344,12 @@ def main():
       from anon_connection_wizard import anon_connection_wizard
       anon_connection_wizard = anon_connection_wizard.main()
 
-      if not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done'):
-         f = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
-         f.close()
+   if not os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done'):
+      f = open('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done', 'w')
+      f.close()
 
-      command = '/usr/lib/whonixsetup_/ft_m_end'
-      call(command, shell=True)
+   command = '/usr/lib/whonixsetup_/ft_m_end'
+   call(command, shell=True)
 
 
 if __name__ == "__main__":
