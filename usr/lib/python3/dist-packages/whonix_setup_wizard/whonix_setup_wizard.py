@@ -240,16 +240,14 @@ class WhonixSetupWizard(QtWidgets.QWizard):
                # Disclaimer page 1 not understood -> leave
                if self.disclaimer_1.no_button.isChecked():
                   self.hide()
-## TODO
-                  command = '/sbin/poweroff1'
+                  command = '/sbin/poweroff'
                   call(command, shell=True)
                   sys.exit()
 
                # Disclaimer page 2 not understood -> leave
                if self.disclaimer_2.no_button.isChecked():
                   self.hide()
-## TODO
-                  command = '/sbin/poweroff2'
+                  command = '/sbin/poweroff'
                   call(command, shell=True)
                   sys.exit()
 
@@ -281,7 +279,7 @@ def main():
 
    if Common.show_disclaimer:
       if not os.path.isfile('/var/cache/whonix-setup-wizard/status-files/disclaimer.done'):
-         command = '/sbin/poweroff3'
+         command = '/sbin/poweroff'
          call(command, shell=True)
          sys.exit()
 
