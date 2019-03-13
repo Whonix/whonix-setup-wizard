@@ -55,6 +55,7 @@ class Common:
 
     run_whonixcheck_only = (argument == 'setup' and environment == 'workstation'
                             and not show_disclaimer)
+    print(run_whonixcheck_only)
 
     ## For legacy syntax compatibility.
     if argument == 'repository':
