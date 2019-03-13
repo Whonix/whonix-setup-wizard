@@ -24,7 +24,7 @@ def parse_command_line_parameter():
     import argparse
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('option', choices=['setup', 'repository', 'locale_settings'])
+    parser.add_argument('option', choices=['setup', 'repository'])
     args, unknown_args = parser.parse_known_args()
 
     return args.option
@@ -78,102 +78,8 @@ class Common:
 
         wizard_steps.append('finish_page')
 
-    elif argument == 'locale_settings':
-        wizard_steps = ['locale_settings',
-                        'locale_settings_finish']
     else:
         print("Unexpected command line argument: {}".format(argument))
-
-class LocaleSettings(QtWidgets.QWizardPage):
-    def __init__(self):
-        super(LocaleSettings, self).__init__()
-
-        self.text = QtWidgets.QLabel(self)
-
-        self.group = QtWidgets.QGroupBox(self)
-
-        self.default_button = QtWidgets.QRadioButton(self.group)
-        self.other_button = QtWidgets.QRadioButton(self.group)
-
-        self.lang_checkbox = QtWidgets.QCheckBox(self.group)
-        self.im_checkbox = QtWidgets.QCheckBox(self.group)
-
-        self.layout = QtWidgets.QVBoxLayout(self)
-
-        self.setup_ui()
-
-    def setup_ui(self):
-        self.text.setMaximumSize(QtCore.QSize(400, 24))
-        self.text.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-        self.text.setText('Whonix installation language.')
-
-        self.group.setMinimumSize(0, 112)
-
-        self.default_button.setGeometry(QtCore.QRect(20, 16, 483, 21))
-        self.default_button.setText('Default (English (US)')
-        self.default_button.setChecked(True)
-
-        self.other_button.setGeometry(QtCore.QRect(20, 36, 483, 21))
-        self.other_button.setText('Other')
-        self.other_button.toggled.connect(self.other_button_toggled)
-
-        self.lang_checkbox.setEnabled(False)
-        self.lang_checkbox.setChecked(True)
-        self.lang_checkbox.setGeometry(QtCore.QRect(40, 58, 483, 21))
-        self.lang_checkbox.setText('Change country and language')
-        self.lang_checkbox.toggled.connect(self.lang_checkbox_toggled)
-
-        self.im_checkbox.setEnabled(False)
-        self.im_checkbox.setChecked(True)
-        self.im_checkbox.setGeometry(QtCore.QRect(40, 78, 483, 21))
-        self.im_checkbox.setText('Choose Input Method')
-        self.im_checkbox.toggled.connect(self.im_checkbox_toggled)
-
-        self.layout.addWidget(self.text)
-        self.layout.addWidget(self.group)
-
-        self.setLayout(self.layout)
-
-    def other_button_toggled(self, state):
-        if state:
-            self.lang_checkbox.setEnabled(True)
-            self.im_checkbox.setEnabled(True)
-
-        else:
-            self.lang_checkbox.setEnabled(False)
-            self.im_checkbox.setEnabled(False)
-
-    def lang_checkbox_toggled(self, state):
-        if (not self.lang_checkbox.isChecked() and
-            not self.im_checkbox.isChecked()):
-            self.lang_checkbox.setChecked(True)
-            self.im_checkbox.setChecked(True)
-            self.default_button.setChecked(True)
-            self.other_button.setChecked(False)
-
-    def im_checkbox_toggled(self, state):
-        if (not self.lang_checkbox.isChecked() and
-            not self.im_checkbox.isChecked()):
-            self.lang_checkbox.setChecked(True)
-            self.im_checkbox.setChecked(True)
-            self.default_button.setChecked(True)
-            self.other_button.setChecked(False)
-
-
-class LocaleSettingsFinish(QtWidgets.QWizardPage):
-    def __init__(self):
-        super(LocaleSettingsFinish, self).__init__()
-
-        self.text = QtWidgets.QTextBrowser(self)
-        self.layout = QtWidgets.QVBoxLayout()
-
-        self.setup_ui()
-
-    def setup_ui(self):
-        self.text.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.layout.addWidget(self.text)
-
-        self.setLayout(self.layout)
 
 
 class DisclaimerPage1(QtWidgets.QWizardPage):
@@ -333,14 +239,6 @@ class WhonixSetupWizard(QtWidgets.QWizard):
         self.steps = Common.wizard_steps
         self.env = Common.environment
 
-        for step in self.steps:
-            if step == 'locale_settings':
-                self.locale_settings = LocaleSettings()
-                self.addPage(self.locale_settings)
-            elif step == 'locale_settings_finish':
-                self.locale_settings_finish = LocaleSettingsFinish()
-                self.addPage(self.locale_settings_finish)
-
         if Common.argument == 'setup':
             if Common.show_disclaimer:
                 self.disclaimer_1 = DisclaimerPage1()
@@ -369,8 +267,6 @@ class WhonixSetupWizard(QtWidgets.QWizard):
 
         if Common.argument == 'setup':
             self.resize(760, self.disclaimer_height)
-        elif Common.argument == 'locale_settings':
-            self.resize(440, 168)
 
         # We use QTextBrowser with a white background.
         # Set a default (transparent) background.
@@ -419,7 +315,7 @@ class WhonixSetupWizard(QtWidgets.QWizard):
             if self.env == 'gateway':
                 pass
 
-        if not Common.show_disclaimer and not Common.argument == 'locale_settings':
+        if not Common.show_disclaimer:
             self.resize(580, 390)
 
         self.exec_()
@@ -483,25 +379,6 @@ class WhonixSetupWizard(QtWidgets.QWizard):
                     '/usr/share/icons/oxygen/48x48/status/task-complete.png'))
                     self.finish_page.text.setText(self._('finish_page'))
 
-        if Common.argument == 'locale_settings':
-            if self.currentId() == self.steps.index('locale_settings_finish'):
-
-                if self.locale_settings.other_button.isChecked():
-                    kcmshell = shutil.which("kcmshell4")
-                    ibus =  shutil.which("ibus-setup")
-
-                    if self.locale_settings.lang_checkbox.isChecked():
-                        command = command = '{} language'.format(kcmshell)
-                        call(command, shell=True)
-
-                    if self.locale_settings.im_checkbox.isChecked():
-                        command = command = '{}'.format(ibus)
-                        call(command, shell=True)
-
-                    self.button(QtWidgets.QWizard.BackButton).setEnabled(False)
-
-                self.locale_settings_finish.text.setText(self._('locale_finish'))
-
     def back_button_clicked(self):
         Common.is_complete = False
 
@@ -515,22 +392,6 @@ class WhonixSetupWizard(QtWidgets.QWizard):
 def main():
     #import sys
     app = QtWidgets.QApplication(sys.argv)
-
-    # locale settings are implemented for KDE desktop only.
-    # skip if other desktop.
-    if sys.argv[1] == 'locale_settings':
-        kcmshell = shutil.which("kcmshell4")
-        if kcmshell == None:
-            print('kcmshell4 not found. Exiting')
-            sys.exit()
-
-    # root check.
-    # locale_settings has to be run as user.
-    if sys.argv[1] != 'locale_settings':
-        if os.getuid() != 0:
-            print('ERROR: This must be run as root!\nUse "kdesudo".')
-            not_root = gui_message(Common.translations_path, 'not_root')
-            sys.exit(1)
 
     # when there is no page need showing, we simply do not start GUI to
     # avoid an empty page
