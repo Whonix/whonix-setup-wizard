@@ -218,56 +218,52 @@ class WhonixSetupWizard(QtWidgets.QWizard):
         self.setupUi()
 
     def setupUi(self):
-        self.setWindowIcon(QtGui.QIcon("/usr/share/icons/anon-icon-pack/whonix.ico"))
-        self.setWindowTitle('Whonix Setup Wizard')
+      self.setWindowIcon(QtGui.QIcon("/usr/share/icons/anon-icon-pack/whonix.ico"))
+      self.setWindowTitle('Whonix Setup Wizard')
 
-        available_height = QtWidgets.QDesktopWidget().availableGeometry().height() - 60
-        self.disclaimer_height = 750
-        if available_height < self.disclaimer_height:
-            self.disclaimer_height = available_height
+      available_height = QtWidgets.QDesktopWidget().availableGeometry().height() - 60
+      self.disclaimer_height = 750
+      if available_height < self.disclaimer_height:
+         self.disclaimer_height = available_height
 
-        self.resize(760, self.disclaimer_height)
+      self.resize(760, self.disclaimer_height)
 
-        # We use QTextBrowser with a white background.
-        # Set a default (transparent) background.
-        palette = QtGui.QPalette()
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 0))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 0))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
-        brush = QtGui.QBrush(QtGui.QColor(244, 244, 244))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
-        self.setPalette(palette)
+      # We use QTextBrowser with a white background.
+      # Set a default (transparent) background.
+      palette = QtGui.QPalette()
+      brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 0))
+      brush.setStyle(QtCore.Qt.SolidPattern)
+      palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+      brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 0))
+      brush.setStyle(QtCore.Qt.SolidPattern)
+      palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+      brush = QtGui.QBrush(QtGui.QColor(244, 244, 244))
+      brush.setStyle(QtCore.Qt.SolidPattern)
+      palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+      self.setPalette(palette)
 
-        try:
-            self.finish_page.icon.setPixmap(QtGui.QPixmap('/usr/share/icons/oxygen/48x48/status/task-complete.png'))
-            self.finish_page.text.setText(self._('finish_page'))
+      self.finish_page.icon.setPixmap(QtGui.QPixmap('/usr/share/icons/oxygen/48x48/status/task-complete.png'))
+      self.finish_page.text.setText(self._('finish_page'))
 
-            if not Common.run_whonixcheck_only:
-                if Common.show_disclaimer:
-                    self.disclaimer_1.text.setText(self._('disclaimer_1'))
-                    self.disclaimer_1.yes_button.setText(self._('accept'))
-                    self.disclaimer_1.no_button.setText(self._('reject'))
+      if not Common.run_whonixcheck_only:
+         if Common.show_disclaimer:
+            self.disclaimer_1.text.setText(self._('disclaimer_1'))
+            self.disclaimer_1.yes_button.setText(self._('accept'))
+            self.disclaimer_1.no_button.setText(self._('reject'))
 
-                    self.disclaimer_2.text.setText(self._('disclaimer_2'))
-                    self.disclaimer_2.yes_button.setText(self._('accept'))
-                    self.disclaimer_2.no_button.setText(self._('reject'))
+            self.disclaimer_2.text.setText(self._('disclaimer_2'))
+            self.disclaimer_2.yes_button.setText(self._('accept'))
+            self.disclaimer_2.no_button.setText(self._('reject'))
 
-        except (yaml.scanner.ScannerError, yaml.parser.ParserError):
-            pass
+      self.button(QtWidgets.QWizard.CancelButton).setVisible(False)
 
-        self.button(QtWidgets.QWizard.CancelButton).setVisible(False)
+      self.button(QtWidgets.QWizard.BackButton).clicked.connect(self.back_button_clicked)
+      self.button(QtWidgets.QWizard.NextButton).clicked.connect(self.next_button_clicked)
 
-        self.button(QtWidgets.QWizard.BackButton).clicked.connect(self.back_button_clicked)
-        self.button(QtWidgets.QWizard.NextButton).clicked.connect(self.next_button_clicked)
+      if not Common.show_disclaimer:
+         self.resize(580, 390)
 
-        if not Common.show_disclaimer:
-            self.resize(580, 390)
-
-        self.exec_()
+      self.exec_()
 
     # called by button toggled signal.
     def set_next_button_state(self, state):
