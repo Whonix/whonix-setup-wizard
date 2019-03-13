@@ -69,8 +69,8 @@ class Common:
         # note that the case for setup will be handled at the end, not here.
         command = '/usr/lib/whonixsetup_/ft_m_end'
         call(command, shell=True)
-
         sys.exit()
+
     elif argument == 'setup':
         if(show_disclaimer):
             wizard_steps.append('disclaimer_1')
