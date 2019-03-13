@@ -1,3 +1,99 @@
+commit 3f652233eb5d54ca34e8e721387e4cef24b63cd8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Mar 13 21:12:07 2019 +0000
+
+    fix
+
+commit fe57ed40400f4b0a2b17115fa4829110715b201b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Mar 13 20:48:05 2019 +0000
+
+    cleanup
+
+commit 2f1421433ce824a8d75465b20692477da0c09965
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Mar 13 20:45:13 2019 +0000
+
+    minor
+
+commit bfb00901f780e936de10c9390e65986a1be28788
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Mar 13 20:44:47 2019 +0000
+
+    minor
+
+commit 920a516720822fc09dccd57233ff4af53d29d17e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Mar 13 20:37:16 2019 +0000
+
+    cleanup, remove connection page
+
+commit 6a689b78dbc5c40a62f2c2589bdce94fb3f59c2b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Mar 13 20:34:22 2019 +0000
+
+    simplification; fix
+
+commit d32c3f17c33207c9a3fe14fd0fb92d5357719cc0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Mar 13 20:30:25 2019 +0000
+
+    cleanup
+
+commit 01a57a297d026c4f1cfbecef68404ca49a33bbdd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Mar 13 20:30:08 2019 +0000
+
+    cleanup
+
+commit 3dce38a3904d341ad084dc5ed33d9c50b1256048
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Mar 13 20:28:04 2019 +0000
+
+    cleanup
+
+commit a01062e95232b5c1080c380b36691070fc6f83a7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Mar 13 20:26:53 2019 +0000
+
+    remove repository option for simplicity, cleanup
+
+commit cabdfcda7249a50a77f89d44f3705c238b52d1a2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Mar 13 20:17:45 2019 +0000
+
+    minor
+
+commit 74a60e82f7d87627d21f9b62beed406af72f45fd
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Mar 13 20:16:09 2019 +0000
+
+    minor
+
+commit 836dac9460a3fc11b9ad8b2d4936f0fb2ca3e2e9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Mar 13 20:15:09 2019 +0000
+
+    minor
+
+commit a16f93cc39204bb9776c96ea19f8669025b64469
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Mar 13 20:14:28 2019 +0000
+
+    code simplification, removed unfinished locale setting
+
+commit 819bb1f5191ca447d7202c46d995655e0e764911
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Mar 13 20:10:57 2019 +0000
+
+    shutdown when closing disclaimer screen
+
+commit 88e9efbf14a0af6ae46b2b7273bbaf5742205ae7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 12 11:50:40 2019 +0000
+
+    bumped changelog version
+
 commit 22d7ba03323dbc05259ebe2f93ba7e243cd10bd5
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Mar 12 11:06:35 2019 +0000
