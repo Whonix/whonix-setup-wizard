@@ -25,7 +25,6 @@ class Common:
     translations_path ='/usr/share/translations/whonix_setup.yaml'
     wizard_steps = []
 
-    ## Determine environment
     if os.path.isfile('/usr/share/anon-gw-base-files/gateway'):
         environment = 'gateway'
     elif os.path.isfile('/usr/share/anon-ws-base-files/workstation'):
