@@ -213,7 +213,8 @@ class WhonixSetupWizard(QtWidgets.QWizard):
             self.button(QtWidgets.QWizard.NextButton).setEnabled(True)
 
     def center(self):
-        """ After the window is resized, its origin point becomes the
+        """
+        After the window is resized, its origin point becomes the
         previous window top left corner.
         Re-center the window on the screen.
         """
