@@ -1,17 +1,5 @@
 whonixsetup:
     en:
-        locale_finish:
-            <p>You can always change country/language again by going to&#58; </p>
-            <blockquote>Start Menu -> System Settings -> Locale</blockquote>
-             <p>You can always change keyboard layout again by going to&#58; </p>
-            <blockquote>Start Menu -> System Settings -> Input Devices </blockquote>
-            <p>Click "Finish" to start the desktop environment.</p>
-
-        kcmshell_not_found:
-            <p>The program for setting language and keyboard options ("/usr/bin/kcmshell4") was not found.
-            Please check that it exists in your system.</p>
-            <p>Click "Finish" to start the desktop environment.</p>
-
         disclaimer_1:
             <p><b>Important Information About Whonix Part 1/2</b></p>
             <p>Please do NOT continue unless you understand everything!</p>
@@ -65,10 +53,6 @@ whonixsetup:
 
         accept: Understood / Verstanden
         reject: Not understood / Nicht verstanden
-
-        connection_text:
-            <p>Click "Launch Anon Connection Wizard" to configure the Tor connection settings</p>
-            <p>After using Anon Connection Wizard, you can either go to the next page by clicking "Next", or reconfigure the network setting by clicking "Relaunch Anon Connection Wizard"</p>
 
         finish_page:
             <p>Whonix Setup is completed.</p>
