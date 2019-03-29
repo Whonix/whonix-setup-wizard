@@ -1,3 +1,33 @@
+commit d6e34243217793a4734d19278493f0596fad78a2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Mar 29 09:08:23 2019 +0000
+
+    fix path
+
+commit 7b65b0ea1bf81f38bcb99d2d456471913aef7ba4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Mar 29 09:05:10 2019 +0000
+
+    https://www.whonix.org/wiki/Dev/Licensing
+
+commit 1d1e0ad5775b6139ccc89322d2d6fabb6d6e2a27
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Mar 29 09:03:22 2019 +0000
+
+    https://www.whonix.org/wiki/Dev/Licensing
+
+commit 75190e12fb82838db4f1a66030729b0b5bb8f11e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Mar 18 08:21:42 2019 -0400
+
+    fix, do not start Whonix Setup Wizard in Qubes-Whonix-Workstation by default
+
+commit 72246b540d99f2f40aa57c6adc4e973ac1a89b76
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Mar 13 21:14:53 2019 +0000
+
+    bumped changelog version
+
 commit 3f652233eb5d54ca34e8e721387e4cef24b63cd8
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Mar 13 21:12:07 2019 +0000
