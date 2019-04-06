@@ -16,5 +16,5 @@ if whonix_setup_wizard == None:
 command = 'xhost +local:root'
 call(command, shell = True)
 
-command = 'gksudo {} setup'.format(whonix_setup_wizard)
+command = 'sudo --set-home {} setup'.format(whonix_setup_wizard)
 call(command, shell=True)
