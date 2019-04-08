@@ -1,3 +1,21 @@
+commit 352bb23bd7596dc8afd5aeaeaeea60c2e346f0b0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Apr 8 12:46:22 2019 +0000
+
+    sudo
+
+commit d7e293321e8e270d1426fcce3e516dbec93a6402
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Apr 8 06:31:34 2019 -0400
+
+    allow running without parameter too
+
+commit d608c1810055ad6ee3f4bc39c898859d1fe97977
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Apr 6 12:26:36 2019 +0000
+
+    bumped changelog version
+
 commit 8187791bded4f933ca07ca519fc3ff6eadb78881
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Apr 6 11:25:43 2019 +0000
