@@ -1,3 +1,15 @@
+commit 40df64ae3296048912803397eace10a4838d9973
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Apr 10 15:31:39 2019 -0400
+
+    remove KDE
+
+commit 628373448ecbae0c3113ef20bdc92b56af5e1970
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Apr 8 13:09:41 2019 +0000
+
+    bumped changelog version
+
 commit 352bb23bd7596dc8afd5aeaeaeea60c2e346f0b0
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Apr 8 12:46:22 2019 +0000
