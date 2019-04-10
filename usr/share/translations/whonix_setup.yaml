@@ -72,9 +72,6 @@ whonixsetup:
             <br />
             If you want to <u>change the keyboard layout</u> from the default "us" to something else&#58;<br />
             <br />
-            <b>KDE&#58;</b>
-            <blockquote>Start menu button -> Applications -> Settings -> System Settings -> input devices -> layout ->
-            add yours and remove default one -> apply -> Done.</blockquote>
             <b>XFCE&#58;</b>
             <blockquote>Applications -> Settings -> Keyboard -> Layout -> disable "use system defaults" -> add your layout at the bottom -> remove the old layout -> close</blockquote></p>
 
