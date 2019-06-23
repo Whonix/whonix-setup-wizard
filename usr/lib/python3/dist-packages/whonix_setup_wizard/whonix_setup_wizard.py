@@ -42,7 +42,11 @@ class Common:
         wizard_steps.append('disclaimer_1')
         wizard_steps.append('disclaimer_2')
 
-    wizard_steps.append('finish_page')
+    show_finish_page = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/finish_page.done') and
+                       not os.path.exists('/var/cache/whonix-setup-wizard/status-files/finish_page.skip'))
+
+    if(show_finish_page):
+        wizard_steps.append('finish_page')
 
 
 class DisclaimerPage1(QtWidgets.QWizardPage):
