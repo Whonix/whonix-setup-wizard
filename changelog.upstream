@@ -1,3 +1,17 @@
+commit b1c75701aef3961055c46152a00807f62f5edf6a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jun 23 08:15:15 2019 -0400
+
+    implement /var/cache/whonix-setup-wizard/status-files/finish_page.skip
+    
+    implement /var/cache/whonix-setup-wizard/status-files/finish_page.done
+
+commit 957572a63a638ab33d204ad63b03fb4e26007790
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jun 8 11:45:01 2019 +0000
+
+    bumped changelog version
+
 commit e340b05b925e23a66905c320e3cc56cabcad50f2
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Jun 8 00:05:39 2019 -0400
