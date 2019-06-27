@@ -2,6 +2,8 @@
 ## See the file COPYING for copying conditions.
 
 [Desktop Entry]
+Name=Whonix Setup Wizard
+Comment=First Boot Setup Graphical User Interface
 Type=Application
 Terminal=false
 Exec=/usr/lib/whonix-setup-wizard/whonixsetup_check_for_start
