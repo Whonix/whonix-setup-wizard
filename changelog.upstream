@@ -1,3 +1,15 @@
+commit 34fa406effa986e63a6e2771d671e1cdb09da6a0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 14 03:15:09 2019 -0400
+
+    move to /usr/share/whonix-setup-wizard/status-files
+
+commit 8d2e4a9a371ef478c12257b70fa51e447fbcfeee
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jun 30 07:18:54 2019 -0400
+
+    bumped changelog version
+
 commit ddba4ad46e9966f346bcbc00dd8973f24b2efdd8
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Jun 29 13:45:42 2019 +0000
