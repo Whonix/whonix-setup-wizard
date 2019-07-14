@@ -19,15 +19,15 @@ if os.path.exists('/var/run/qubes/this-is-templatevm'):
    print('/var/run/qubes/this-is-templatevm exists. Exiting.')
    sys.exit()
 
-if os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.skip'):
-   print('/var/cache/whonix-setup-wizard/status-files/whonixsetup.skip exists. Exiting.')
+if os.path.exists('/usr/share/whonix-setup-wizard/status-files/whonixsetup.skip'):
+   print('/usr/share/whonix-setup-wizard/status-files/whonixsetup.skip exists. Exiting.')
    sys.exit()
 
 if os.path.exists('/usr/share/anon-ws-base-files/workstation'):
-   if os.path.exists('/var/cache/whonix-setup-wizard/status-files/first_use_check.skip'):
+   if os.path.exists('/usr/share/whonix-setup-wizard/status-files/first_use_check.skip'):
       ## Qubes-Whonix only.
       ## Do not start Whonix Setup Wizard in Qubes-Whonix-Workstation by default.
-      print('workstation detected and /var/cache/whonix-setup-wizard/status-files/first_use_check.skip exists. Exiting.')
+      print('workstation detected and /usr/share/whonix-setup-wizard/status-files/first_use_check.skip exists. Exiting.')
       sys.exit()
 
 if os.path.exists('/usr/share/anon-gw-base-files/gateway'):

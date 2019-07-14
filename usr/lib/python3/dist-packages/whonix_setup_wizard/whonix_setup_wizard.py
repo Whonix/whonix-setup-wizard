@@ -38,14 +38,14 @@ class Common:
         os.mkdir('/var/cache/whonix-setup-wizard/status-files')
 
     show_disclaimer = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer.done') and
-                       not os.path.exists('/var/cache/whonix-setup-wizard/status-files/disclaimer.skip'))
+                       not os.path.exists('/usr/share/whonix-setup-wizard/status-files/disclaimer.skip'))
 
     if(show_disclaimer):
         wizard_steps.append('disclaimer_1')
         wizard_steps.append('disclaimer_2')
 
     show_finish_page = (not os.path.exists('/var/cache/whonix-setup-wizard/status-files/finish_page.done') and
-                       not os.path.exists('/var/cache/whonix-setup-wizard/status-files/finish_page.skip'))
+                       not os.path.exists('/usr/share/whonix-setup-wizard/status-files/finish_page.skip'))
 
     if(show_finish_page):
         wizard_steps.append('finish_page')
