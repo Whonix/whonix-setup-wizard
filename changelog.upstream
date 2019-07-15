@@ -1,3 +1,25 @@
+commit 27bee46892dcb76812ec4bf9748900adcc3db9ba
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 15 11:57:31 2019 -0400
+
+    debugging
+    
+    https://github.com/tasket/Qubes-VM-hardening/issues/29#issuecomment-511172887
+
+commit 085fb20ee9b7f441cf84ae6235ce9df26a44ccd7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jul 15 11:56:37 2019 -0400
+
+    debugging
+    
+    https://github.com/tasket/Qubes-VM-hardening/issues/29#issuecomment-511172887
+
+commit 91f68ff541044f0c1912e09e81b3c03a0ec62713
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jul 14 07:25:07 2019 +0000
+
+    bumped changelog version
+
 commit 34fa406effa986e63a6e2771d671e1cdb09da6a0
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Jul 14 03:15:09 2019 -0400
