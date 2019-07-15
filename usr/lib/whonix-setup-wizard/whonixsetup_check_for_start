@@ -16,18 +16,18 @@ def whonix_setup_wizard_start():
 
 
 if os.path.exists('/var/run/qubes/this-is-templatevm'):
-   print('/var/run/qubes/this-is-templatevm exists. Exiting.')
+   print('/usr/lib/whonix-setup-wizard/whonixsetup_check_for_start: /var/run/qubes/this-is-templatevm exists. Exiting.')
    sys.exit()
 
 if os.path.exists('/usr/share/whonix-setup-wizard/status-files/whonixsetup.skip'):
-   print('/usr/share/whonix-setup-wizard/status-files/whonixsetup.skip exists. Exiting.')
+   print('/usr/lib/whonix-setup-wizard/whonixsetup_check_for_start: /usr/share/whonix-setup-wizard/status-files/whonixsetup.skip exists. Exiting.')
    sys.exit()
 
 if os.path.exists('/usr/share/anon-ws-base-files/workstation'):
    if os.path.exists('/usr/share/whonix-setup-wizard/status-files/first_use_check.skip'):
       ## Qubes-Whonix only.
       ## Do not start Whonix Setup Wizard in Qubes-Whonix-Workstation by default.
-      print('workstation detected and /usr/share/whonix-setup-wizard/status-files/first_use_check.skip exists. Exiting.')
+      print('/usr/lib/whonix-setup-wizard/whonixsetup_check_for_start: workstation detected and /usr/share/whonix-setup-wizard/status-files/first_use_check.skip exists. Exiting.')
       sys.exit()
 
 if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
@@ -46,7 +46,7 @@ if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
     #command = 'systemctl --no-pager status tor@default'
     #tor_status_code = call(command, shell=True)
     #if tor_status_code != 0:
-       #print('Starting whonix-setup-wizard because Tor systemd unit is not running. \
+       #print('/usr/lib/whonix-setup-wizard/whonixsetup_check_for_start: Starting whonix-setup-wizard because Tor systemd unit is not running. \
 #This could be because of a Tor configuration issue.')
        #whonix_setup_wizard_start()
        #sys.exit()
@@ -60,7 +60,7 @@ if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
     tor_status = tor_status.tor_status()
 
     if tor_status == 'tor_enabled':
-       print('Tor already enabled. Exiting.')
+       print('/usr/lib/whonix-setup-wizard/whonixsetup_check_for_start: Tor already enabled. Exiting.')
        sys.exit()
 
     print(tor_status)
@@ -72,7 +72,7 @@ elif os.path.exists('/usr/share/anon-ws-base-files/workstation'):
 
     if (os.path.exists('/var/cache/whonix-setup-wizard/status-files/whonixsetup.done') or
                                os.path.exists('/var/lib/whonix/do_once/whonixsetup.done')):
-       print('whonix-setup-wizard done file exists. Exiting.')
+       print('/usr/lib/whonix-setup-wizard/whonixsetup_check_for_start: whonix-setup-wizard done file exists. Exiting.')
        sys.exit()
 
     whonix_setup_wizard_start()
@@ -80,5 +80,5 @@ elif os.path.exists('/usr/share/anon-ws-base-files/workstation'):
 
 else:
 
-    print('Neither Whonix-Gateway nor Whonix-Workstation detected. Exiting.')
+    print('/usr/lib/whonix-setup-wizard/whonixsetup_check_for_start: Neither Whonix-Gateway nor Whonix-Workstation detected. Exiting.')
     sys.exit(1)
