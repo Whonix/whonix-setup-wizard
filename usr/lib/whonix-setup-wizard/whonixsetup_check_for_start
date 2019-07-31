@@ -15,8 +15,8 @@ def whonix_setup_wizard_start():
    call(command, shell=True)
 
 
-if os.path.exists('/var/run/qubes/this-is-templatevm'):
-   print('/usr/lib/whonix-setup-wizard/whonixsetup_check_for_start: /var/run/qubes/this-is-templatevm exists. Exiting.')
+if os.path.exists('/run/qubes/this-is-templatevm'):
+   print('/usr/lib/whonix-setup-wizard/whonixsetup_check_for_start: /run/qubes/this-is-templatevm exists. Exiting.')
    sys.exit()
 
 if os.path.exists('/usr/share/whonix-setup-wizard/status-files/whonixsetup.skip'):
@@ -37,7 +37,7 @@ if os.path.exists('/usr/share/anon-gw-base-files/gateway'):
     ## TODO: Don't depend on qubes-whonix package / 'alert' script by qubes-whonix package.
     ##       Abolish 'alert' script. Merge into whonixcheck and/or anon-connection-wizard.
     ##       https://phabricator.whonix.org/T656
-    if os.path.exists('/var/run/qubes-service/whonix-tor-disable'):
+    if os.path.exists('/run/qubes-service/whonix-tor-disable'):
         command = '/usr/lib/qubes-whonix/alert tor-disabled /usr/lib/qubes-whonix/messages.yaml'
         call(command, shell = True)
         sys.exit()
