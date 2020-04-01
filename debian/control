@@ -5,7 +5,7 @@ Source: whonix-setup-wizard
 Section: misc
 Priority: optional
 Maintainer: Patrick Schleizer <adrelanos@riseup.net>
-Build-Depends: debhelper (>= 12), ronn, python3
+Build-Depends: debhelper (>= 12), python3
 Homepage: https://www.whonix.org/
 Vcs-Browser: https://github.com/troubadoour/whonix-setup-wizard
 Vcs-Git: https://github.com/troubadoour/whonix-setup-wizard.git
