@@ -1,3 +1,15 @@
+commit 3cfc1684e59e6791bb0ead391035429fde015173
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jun 3 10:26:14 2020 -0400
+
+    python3-guimessages -> helper-scripts
+
+commit b7a2cc479433cd1889b03ed754e26fb020e1448c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 16 08:54:47 2020 -0400
+
+    bumped changelog version
+
 commit f70a5109e49afdd4bd1562a03481f8d3540b17db
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Apr 15 14:05:43 2020 -0400
