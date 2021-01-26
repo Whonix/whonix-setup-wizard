@@ -10,7 +10,7 @@ user can decide whether to use Whonix's Repository and if yes, choose which
 one.
 ## How to install `whonix-setup-wizard` using apt-get ##
 
-1\. Download [Whonix's Signing Key]().
+1\. Download Whonix's Signing Key.
 
 ```
 wget https://www.whonix.org/patrick.asc
