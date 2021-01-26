@@ -60,7 +60,7 @@ whonixsetup:
 
         finish_page:
             <p>Whonix Setup is completed.</p>
-            <p>Click "Finish" to run whonixcheck.</p>
+            <p>Click "Finish" to run systemcheck.</p>
 
         first_use_notice:
             <p>Welcome to Whonix-Gateway!<br />
